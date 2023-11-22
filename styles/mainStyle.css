@@ -1,0 +1,258 @@
+body {
+  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* justify-content: center; */
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+header {
+  background-color: #b2b3b5;
+  height: 71px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px 0 30px;
+  margin-top: 0;
+}
+#headerLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#navOpenBtn {
+  width: 27.82px;
+  height: 34px;
+  margin-right: 20px;
+}
+#mainLogo {
+  width: 140px;
+  height: 54px;
+}
+#headerRight {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#userID {
+  font-size: 36px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+#logoutBtn {
+  position: relative;
+  width: 103px;
+  height: 45px;
+  border-radius: 30px;
+  background-color: #3e84e1;
+  font-size: 15px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0 0 13px;
+}
+#logoutIcon {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  margin-left: 59px;
+}
+main {
+  width: 100%;
+  height: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#calenderContainer {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+}
+#timeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+#selectYear {
+  display: flex;
+  flex-direction: row;
+}
+#thisYear {
+  font-size: 30px;
+}
+.month {
+  font-size: 20px;
+  padding: 0 20px 0 20px;
+  cursor: pointer;
+}
+table {
+  margin: 10px 0 0 0;
+  border-collapse: collapse;
+}
+th,
+td {
+  width: 150px;
+  height: 100px;
+  text-align: left;
+  border: 1px solid #b2b2b2;
+  /* vertical-align: top; 위 */
+  /* vertical-align: bottom; 아래 */
+  /* vertical-align: middle; 가운데 */
+}
+#navBar {
+  position: fixed;
+  top: 71;
+  left: 0;
+  background-color: #b2b3b5;
+  width: 213px;
+  height: 700px;
+  box-sizing: border-box;
+  padding: 50px 10px 10px 30px;
+}
+#teamName {
+  font-size: 30px;
+  font-weight: bold;
+}
+.positionTitle {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+}
+.memberName {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: 193px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 0 10px 0px;
+  border-radius: 10px;
+}
+.memberName:hover {
+  background-color: #82b1f0;
+}
+#teamMembers {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+#dailyScheduleModal {
+  position: absolute;
+  background-color: #d9d9d9;
+  width: 720px;
+  height: 500px;
+}
+#dailyScheduleHeader {
+  width: 100%;
+  height: 90px;
+  background-color: #3e84e1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  position: relative;
+}
+#closeScheduleModalBtn {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 13px;
+  right: 23px;
+}
+#closeModalBtnImg {
+  width: 20px;
+  height: 20px;
+}
+#newScheduleContainer {
+  background-color: white;
+  width: 100%;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#scheduleTimeSelect {
+  width: 138px;
+  height: 30px;
+  margin: 10px 0 10px 20px;
+  border: none;
+  font-size: 15px;
+}
+#scheduleInputBox {
+  border: none;
+  width: 440px;
+  padding: 20px 0 20px 20px;
+  font-size: 25px;
+}
+#scheduleInputBox:focus {
+  outline: none;
+}
+#addScheduleBtn {
+  width: 100px;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  background-color: #b7b7b7;
+}
+#scheduleListContainer {
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+}
+#schedule {
+  background-color: #dfeaf8;
+  width: 100%;
+  height: 102px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+#scheduleName {
+  font-size: 25px;
+  padding-left: 20px;
+}
+#scheduleExtraFunctions {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 15px 10px 10px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+}
+.scheduleExtraBtn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
+.scheduleExtraBtnImg {
+  width: 30px;
+  height: 30px;
+}
