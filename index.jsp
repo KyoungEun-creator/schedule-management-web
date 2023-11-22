@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
             <div class="inputLabel">비밀번호</div>
             <input class="inputBox" type="password" maxlength="20" required>
             <img id="visiblePW" class="visibility" src="../week9/imgs/visibility.svg">
-            <img id="nonVisiblePW" class="visibility active" src="../imgs/visibility_off.svg">
+            <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             
             <!-- 로그인 버튼 -->
@@ -32,4 +32,3 @@
         </div>
     </form>
 </body>
-</html>

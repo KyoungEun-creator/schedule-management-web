@@ -19,6 +19,7 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 #mainLogo {
   width: 496px;
@@ -34,7 +35,8 @@ button {
   justify-content: center;
   align-items: center;
   border-radius: 29px;
-  padding: 30px 0 30px 0;
+  padding: 60px 0 60px 0;
+  margin: 0;
 }
 .inputContainer {
   width: 450px;
@@ -103,7 +105,7 @@ button {
   box-sizing: border-box;
   margin: 10px 0 10px 0;
 }
-.active {
+.hidden {
   display: none;
 }
 #extraFunctions {

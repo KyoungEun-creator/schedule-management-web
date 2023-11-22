@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
                 <div class="possible">사용 가능한 아이디입니다.</div>
-                <div class="impossible active">사용 불가능한 아이디입니다.</div>
+                <div class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input class="inputBox" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required>
             <button id="duplicateIDCheckBtn">중복확인</button>
@@ -23,7 +23,7 @@
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" type="password" maxlength="20" required>
             <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
-            <img id="nonVisiblePW" class="visibility active" src="../imgs/visibility_off.svg">
+            <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             <div id="inputAlarmLabel">
                 <div class="inputLabel">비밀번호 재입력</div>
@@ -31,7 +31,7 @@
             </div>
             <input id="pwInputBox" class="inputBox" type="password" maxlength="20" required>
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
-            <img id="nonVisibleSecondPW" class="visibility active" src="../imgs/visibility_off.svg">
+            <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
