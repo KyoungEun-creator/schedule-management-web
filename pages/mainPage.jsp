@@ -11,14 +11,14 @@
 <body>
     <header>
         <div id="headerLeft">
-            <img id="navOpenBtn" src="../imgs/bars-solid.svg" onclick="toggleNavBar()">
+            <img id="navOpenBtn" src="../imgs/bars-solid.svg" onclick="toggleNavBarEvent()">
             <a href="mainPage.jsp">
                 <img id="mainLogo" src="../imgs/stageus_logo_white.png">
             </a>
 
         </div>
         <div id="headerRight">
-            <a href="../pages/myPofilePage.jsp" id="userID">홍길동 님</a>
+            <a href="../pages/myProfilePage.jsp" id="userID">홍길동 님</a>
             <form>
                 <button id="logoutBtn" type="submit"> 
                     로그아웃
@@ -53,7 +53,7 @@
             </div>
             <table>
                 <tr>
-                    <td onclick="openScheduleModal()" style="cursor:pointer">1</td>
+                    <td onclick="openScheduleModalEvent()" style="cursor:pointer">1</td>
                     <td>2</td>
                     <td>3</td>
                     <td>4</td>
@@ -119,7 +119,7 @@
         <!-- 스케줄 modal -->
         <div id="dailyScheduleModal" style="display:none">
             <div id="dailyScheduleHeader">
-                <button id="closeScheduleModalBtn" onclick="closeScheduleModal()">
+                <button id="closeScheduleModalBtn" onclick="closeScheduleModalEvent()">
                     <img id="closeModalBtnImg" src="../imgs/close.png">
                 </button>
                 일정관리

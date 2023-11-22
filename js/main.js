@@ -1,21 +1,22 @@
-// #nav-open-btn click event
-function toggleNavBar() {
-    var navBar = document.getElementById('navBar');
+var navBar = document.getElementById("navBar");
+var dailyScheduleModal = document.getElementById("dailyScheduleModal");
 
-    if (navBar.style.display === 'none') {
-        navBar.style.display = 'block';
-    } else if (navBar.style.display === 'block') {
-        navBar.style.display = 'none';
+
+// navOpenBtn 클릭 이벤트
+function toggleNavBarEvent() {
+    if (navBar.style.display === "none") {
+        navBar.style.display = "block";
+    } else if (navBar.style.display === "block") {
+        navBar.style.display = "none";
     }
 }
 
-// 
-var dailyScheduleModal = document.getElementById('dailyScheduleModal');
-function closeScheduleModal() {
-    dailyScheduleModal.style.display = 'none';
+// closeScheduleModalBtn 클릭 이벤트
+function closeScheduleModalEvent() {
+    dailyScheduleModal.style.display = "none";
 }
 
-//
-function openScheduleModal() {
-    dailyScheduleModal.style.display = 'block';
+// 날짜 클릭 이벤트
+function openScheduleModalEvent() {
+    dailyScheduleModal.style.display = "block";
 }

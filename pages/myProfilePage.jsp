@@ -46,12 +46,33 @@
             <input class="inputBox" type="tel" value="01012341234" maxlength="11" disabled>
 
             <div id="extraFunctions">
-                <button id="">탈퇴하기</button>
-                <button id="">수정하기</button>
+                <button id="deleteAccountBtn" onclick="openDeleteAccountModalEvent(e)">탈퇴하기</button>
+                <button id="editAccountBtn">수정하기</button>
             </div>
         </div>
     </form>
+
+    <!-- 탈퇴(계정삭제) 확인 modal -->
+    <div id="deleteAccountModal" style="display:none">
+        <div id="deleteAccountLabel">탈퇴 하시겠습니까?</div>
+        <form id="decideBtnContainer">
+            <button id="yesDeleteAccountBtn" class="decideBtn" type="submit">탈퇴</button>
+            <button id="noDeleteAccountBtn" class="decideBtn" onclick="reloadMyProfilePageEvent()">취소</button></a>
+        </form>
+    </div>
+
     <script>
+        var deleteAccountModal = document.getElementById("deleteAccountModal");
+       
+        // deleteAccountBtn 클릭 이벤트
+        function openDeleteAccountModalEvent() {
+            deleteAccountModal.style.display = "block";
+        }
+
+        function reloadMyProfilePageEvent() {
+            location.reload();
+            deleteAccountModal.style.display = "none";
+        }
 
     </script>
 </body>
