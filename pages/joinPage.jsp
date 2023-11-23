@@ -65,5 +65,6 @@
             </div>
         </div>
     </form>
+
+    <script src="../js/pwVisibility.js"></script>
 </body>
-</html>

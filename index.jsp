@@ -16,9 +16,9 @@
             <input class="inputBox" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required> 
 
             <div class="inputLabel">비밀번호</div>
-            <input class="inputBox" type="password" maxlength="20" required>
+            <input id="pwInputBox" class="inputBox" type="password" maxlength="20" required>
             <img id="visiblePW" class="visibility" src="../week9/imgs/visibility.svg">
-            <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
+            <img id="nonVisiblePW" class="visibility hidden" src="../week9/imgs/visibility_off.svg">
 
             
             <!-- 로그인 버튼 -->
@@ -31,4 +31,6 @@
             </div>
         </div>
     </form>
+
+    <script src="../week9/js/pwVisibility.js"></script>
 </body>

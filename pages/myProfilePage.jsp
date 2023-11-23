@@ -75,4 +75,5 @@
         }
 
     </script>
+    <script src="../js/pwVisibility.js"></script>
 </body>
