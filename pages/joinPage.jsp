@@ -14,8 +14,8 @@
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
-                <div class="possible">사용 가능한 아이디입니다.</div>
-                <div class="impossible hidden">사용 불가능한 아이디입니다.</div>
+                <div id="possibleIDMessage" class="possible">사용 가능한 아이디입니다.</div>
+                <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input class="inputBox" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required>
             <button id="duplicateIDCheckBtn">중복확인</button>
@@ -27,7 +27,7 @@
 
             <div id="inputAlarmLabel">
                 <div class="inputLabel">비밀번호 재입력</div>
-                <div class="impossible">비밀번호가 일치하지 않습니다.</div>
+                <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
             <input id="pwSecondInputBox" class="inputBox" type="password" maxlength="20" required>
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">

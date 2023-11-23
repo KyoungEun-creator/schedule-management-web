@@ -40,10 +40,28 @@ function closeSecondPWEvent() {
     }
 }
 
-visiblePW.addEventListener('click', openPWEvent);
-nonVisiblePW.addEventListener('click', closePWEvent);
+visiblePW.addEventListener("click", openPWEvent);
+nonVisiblePW.addEventListener("click", closePWEvent);
 
-visibleSecondPW.addEventListener('click', openSecondPWEvent);
-nonVisibleSecondPW.addEventListener('click', closeSecondPWEvent);
+visibleSecondPW.addEventListener("click", openSecondPWEvent);
+nonVisibleSecondPW.addEventListener("click", closeSecondPWEvent);
 
 
+// ---------- 비밀번호 재확인 기능 ----------
+
+// pwInputBox과 pwSecondInputBox에 입력받은 값이 서로 다르면 impossiblePWMessage 보임, 같을 때 안 보임
+function checkPasswordMatchEvent() {
+    var password = pwInputBox.value;
+    var secondPassword = pwSecondInputBox.value;
+    var impossiblePWMessage = document.getElementById("impossiblePWMessage");
+
+    if (password != secondPassword) {
+        impossiblePWMessage.classList.remove(HIDDEN_CLASSNAME);
+        // pwSecondInputBox 더이상 입력 못하게 막기 필요한가?
+    } else {
+        impossiblePWMessage.classList.add(HIDDEN_CLASSNAME);
+        pwSecondInputBox.setAttribute("disabled", "disabled");
+    }
+}
+
+pwSecondInputBox.addEventListener("input", checkPasswordMatchEvent);
