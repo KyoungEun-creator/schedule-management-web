@@ -75,5 +75,5 @@
         }
 
     </script>
-    <script src="../js/pwVisibility.js"></script>
+    <script src="../js/pwEvent.js"></script>
 </body>

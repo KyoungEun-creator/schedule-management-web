@@ -21,7 +21,7 @@
             <button id="duplicateIDCheckBtn">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" type="password" maxlength="20" required>
+            <input id="pwInputBox" class="inputBox" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20" required>
             <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
@@ -29,7 +29,7 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" type="password" maxlength="20" required>
+            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" required>
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
@@ -55,7 +55,7 @@
             </div>
 
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" type="tel" maxlength="11" required>
+            <input class="inputBox" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
 
             <!-- 회원가입 버튼 -->
             <input id="enterBtn" value="회원가입" type="submit">
@@ -66,5 +66,6 @@
         </div>
     </form>
 
-    <script src="../js/pwVisibility.js"></script>
+    <script src="../js/pwEvent.js"></script>
+    <!-- 회원가입 예외처리 하고 form.submit 전송하는 거 고치기 -->
 </body>

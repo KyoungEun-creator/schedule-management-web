@@ -45,6 +45,7 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 #userID {
   font-size: 36px;
@@ -103,19 +104,24 @@ main {
   padding: 0 20px 0 20px;
   cursor: pointer;
 }
+.month:hover {
+  text-decoration: underline;
+  text-decoration-color: #3e84e1;
+  text-underline-position: under;
+}
 table {
   margin: 10px 0 0 0;
   border-collapse: collapse;
+  /* 테이블에 고정 사이즈 주고 자식태그 가로폭에 퍼센트로 */
 }
 th,
 td {
   width: 150px;
   height: 100px;
+  /* 고정으로 박아놓지 마 */
+  /* fles-basis */
   text-align: left;
   border: 1px solid #b2b2b2;
-  /* vertical-align: top; 위 */
-  /* vertical-align: bottom; 아래 */
-  /* vertical-align: middle; 가운데 */
 }
 #navBar {
   position: fixed;
