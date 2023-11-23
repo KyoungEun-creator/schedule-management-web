@@ -29,7 +29,7 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div class="impossible">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwInputBox" class="inputBox" type="password" maxlength="20" required>
+            <input id="pwSecondInputBox" class="inputBox" type="password" maxlength="20" required>
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
