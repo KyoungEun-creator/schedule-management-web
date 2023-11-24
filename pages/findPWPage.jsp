@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/indexStyle.css">
+    <link rel="stylesheet" href="../styles/commonStyle.css">
+    <link rel="stylesheet" href="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
     <title>비밀번호 찾기</title>
 </head>

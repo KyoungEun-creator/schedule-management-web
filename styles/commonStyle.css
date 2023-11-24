@@ -1,0 +1,22 @@
+body {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+form {
+  margin: 0;
+}

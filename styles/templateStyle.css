@@ -1,0 +1,24 @@
+:root {
+  --main-color: #3e84e1;
+}
+#enterBtn {
+  color: white;
+  background-color: var(--main-color);
+  font-size: 30px;
+  font-weight: 800;
+  width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  margin: 20px 0 20px 0;
+  cursor: pointer;
+}
+.possible {
+  color: var(--main-color);
+}
+.impossible {
+  color: #ff0000;
+}
+.hidden {
+  display: none;
+}
