@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../styles/commonStyle.css">
     <link rel="stylesheet" href="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
-    <title>회원가입</title>
+    <title>내 정보 수정하기</title>
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
@@ -59,15 +59,10 @@
             <div class="inputLabel">전화번호</div>
             <input class="inputBox" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
 
-            <!-- 회원가입 버튼 -->
-            <input id="enterBtn" value="회원가입" type="submit">
-
-            <div id="extraFunctions">
-                <a href="../index.jsp">로그인하러 가기</a>
-            </div>
+            <!-- 수정하기 버튼 -->
+            <input id="enterBtn" value="수정하기" type="submit">
         </div>
     </form>
 
     <script src="../js/pwEvent.js"></script>
-    <!-- 회원가입 예외처리 하고 form.submit 전송하는 거 고치기 -->
 </body>

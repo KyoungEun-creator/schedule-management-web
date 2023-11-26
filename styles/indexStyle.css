@@ -37,9 +37,7 @@ body {
   position: relative;
 }
 .visibility {
-  position: absolute;
   margin: -40px 0 0 410px;
-  cursor: pointer;
 }
 .visibilityProfilePW {
   position: absolute;
@@ -47,6 +45,7 @@ body {
   cursor: pointer;
 }
 #rowInputContainer {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -54,6 +53,12 @@ body {
 .rowInput {
   display: flex;
   flex-direction: column;
+  flex-basis: auto;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.rowInput:last-child {
+  margin-right: 0;
 }
 .selectBox {
   width: 139px;
@@ -66,6 +71,9 @@ body {
   flex-direction: row;
   justify-content: space-between;
   margin: 10px 0 10px 0;
+}
+.extraFunctionBtn {
+  font-size: 15px;
 }
 #deleteAccountModal {
   position: absolute;

@@ -26,6 +26,10 @@ body {
 .inputContainer {
   width: 450px;
 }
+#inputAlarmLabel {
+  display: flex;
+  flex-direction: row;
+}
 .inputLabel {
   font-size: 20px;
   margin-right: 20px;
@@ -36,10 +40,6 @@ body {
   height: 45px;
   margin: 10px 0 10px 0;
   position: relative;
-}
-#inputAlarmLabel {
-  display: flex;
-  flex-direction: row;
 }
 #duplicateIDCheckBtn {
   position: absolute;
@@ -53,25 +53,31 @@ body {
   cursor: pointer;
 }
 .visibility {
-  position: absolute;
   margin: 25px 0 0 -45px;
-  cursor: pointer;
 }
 #rowInputContainer {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 .rowInput {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin-right: 10px;
+}
+.rowInput:last-child {
+  margin-right: 0;
 }
 .selectBox {
-  width: 139px;
   height: 45px;
   box-sizing: border-box;
   margin: 10px 0 10px 0;
 }
+
 #extraFunctions {
   display: flex;
   flex-direction: row;

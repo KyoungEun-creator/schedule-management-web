@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../week9/styles/indexStyle.css">
-    <link rel="stylesheet" href="../styles/commonStyle.css">
+    <link rel="stylesheet" href="../week9/styles/commonStyle.css">
+    <link rel="stylesheet" href="../week9/styles/templateStyle.css">
     <link rel="icon" href="../week9/imgs/stageus.png">
     <title>로그인</title>
 </head>
@@ -14,7 +15,7 @@
     <form id="valueContainer">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
-            <input class="inputBox" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required> 
+            <input class="inputBox" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15" required> 
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" required>
