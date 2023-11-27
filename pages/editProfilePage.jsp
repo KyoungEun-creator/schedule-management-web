@@ -19,11 +19,11 @@
                 <div id="possibleIDMessage" class="possible">사용 가능한 아이디입니다.</div>
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
-            <input class="inputBox" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15" required>
+            <input id="idInputBox" class="inputBox" name="userID" onkeyup="idRegexCheck()" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
             <button id="duplicateIDCheckBtn">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20" required>
+            <input id="pwInputBox" class="inputBox" name="userPW" onkeyup="pwRegexCheck()" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
             <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
@@ -31,14 +31,14 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" required>
+            <input id="pwSecondInputBox" class="inputBox" name="userPWRecheck" onkeyup="pwSecondRegexCheck()" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
                     <div class="inputLabel">이름</div>
-                    <input class="inputBox" type="text" maxlength="10" required>
+                    <input id="nameInputBox" class="inputBox" name="userName" onkeyup="nameRegexCheck()" type="text" maxlength="10">
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">부서</div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
+            <input id="telInputBox" class="inputBox"  name="userTelNum" onkeyup="telRegexCheck()" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 수정하기 버튼 -->
             <input id="enterBtn" value="수정하기" type="submit">
@@ -65,4 +65,53 @@
     </form>
 
     <script src="../js/pwEvent.js"></script>
+    <script>
+        // 정규식 
+        var idRegex = /^[a-zA-Z0-9]+$/;
+        var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
+        var nameRegex = /^[ㄱ-ㅎ가-힣]+$/;
+        var telRegex = /^\d+$/;
+
+        function idRegexCheck () {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            if (!idRegex.test(idInputValue)) {
+                alert("영어와 숫자로만 이루어진 아이디를 입력해주세요.");
+                idInput.value = "";
+            }
+        }
+        function pwRegexCheck () {
+            var pwInput = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+            if (!pwRegex.test(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로만 이루어진 비밀번호를 입력해주세요.");
+                pwInput.value = "";
+            }
+        }
+        function pwSecondRegexCheck () {
+            var pwSecondInput = document.getElementById("pwSecondInputBox");
+            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
+            if (!pwRegex.test(pwSecondInputValue)) {
+                alert("영어, 숫자, 특수기호로만 이루어진 비밀번호를 입력해주세요.")
+                pwSecondInputValue = null;
+                pwSecondInput.value = "";
+            }
+        }
+        function nameRegexCheck () {
+            var nameInput = document.getElementById("nameInputBox");
+            var nameInputValue = document.getElementById("nameInputBox").value;
+            if (!nameRegex.test(nameInputValue)) {
+                alert("한국어 본명을 입력해주세요.");
+                nameInput.value = "";
+            }
+        } 
+        function telRegexCheck () {
+            var telInput = document.getElementById("telInputBox");
+            var telInputValue = document.getElementById("telInputBox").value;
+            if (!telRegex.test(telInputValue)) {
+                alert("' - '를 제외한 숫자만 입력해주세요.");
+                telInput.value = "";
+            }
+        }
+    </script>
 </body>

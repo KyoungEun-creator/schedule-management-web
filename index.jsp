@@ -15,10 +15,10 @@
     <form id="valueContainer">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
-            <input class="inputBox" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15" required> 
+            <input id="idInputBox" class="inputBox" name="userID" onkeyup="idRegexCheck()" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15"> 
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" required>
+            <input id="pwInputBox" class="inputBox"  name="userPW" onkeyup="pwRegexCheck()" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
             <img id="visiblePW" class="visibility" src="../week9/imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibility hidden" src="../week9/imgs/visibility_off.svg">
 
@@ -41,6 +41,26 @@
     계정부분 백엔드 연결
     -->
     <script>
-        alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
+        //alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
+        // 정규식 
+        var idRegex = /^[a-zA-Z0-9]+$/;
+        var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
+
+        function idRegexCheck () {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            if (!idRegex.test(idInputValue)) {
+                alert("영어와 숫자로만 이루어진 아이디를 입력해주세요.");
+                idInput.value = "";
+            }
+        }
+        function pwRegexCheck () {
+            var pwInput = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+            if (!pwRegex.test(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로만 이루어진 비밀번호를 입력해주세요.");
+                pwInput.value = "";
+            }
+        }
     </script>
 </body>

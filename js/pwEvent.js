@@ -49,7 +49,7 @@ nonVisibleSecondPW.addEventListener("click", closeSecondPWEvent);
 
 // ---------- 비밀번호 재확인 기능 ----------
 
-// pwInputBox과 pwSecondInputBox에 입력받은 값이 서로 다르면 impossiblePWMessage 보임, 같을 때 안 보임
+// pwInputBox과 pwSecondInputBox에 입력받은 값이 서로 다르면 impossiblePWMessage 보임, 같으면 안 보이고 더이상 입력 불가능
 function checkPasswordMatchEvent() {
     var password = pwInputBox.value;
     var secondPassword = pwSecondInputBox.value;
@@ -57,9 +57,9 @@ function checkPasswordMatchEvent() {
 
     if (password != secondPassword) {
         impossiblePWMessage.classList.remove(HIDDEN_CLASSNAME);
-        // pwSecondInputBox 더이상 입력 못하게 막기 필요한가?
     } else {
         impossiblePWMessage.classList.add(HIDDEN_CLASSNAME);
+        pwInputBox.setAttribute("disabled", "disabled");
         pwSecondInputBox.setAttribute("disabled", "disabled");
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- 스케줄 modal -->
-    <div id="dailyScheduleModal" style="display:none">
+    <div id="dailyScheduleModal">
         <div id="dailyScheduleHeader">
             <button id="closeScheduleModalBtn" onclick="closeScheduleModalEvent()">
                 <img id="closeModalBtnImg" src="../imgs/close.png">
@@ -25,7 +25,7 @@
         </form>
 
         <!-- createElement되는 부분 -->
-        <div id="scheduleListContainer">
+        <!-- <div id="scheduleListContainer">
             <div id="schedule">
                 <div id="scheduleName">10시 서비스 팀 zoom 회의</div>
                 <div id="scheduleExtraFunctions">
@@ -81,7 +81,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <script>
         // 수정,삭제,추가,닫기
