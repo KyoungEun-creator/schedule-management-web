@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../week9/imgs/stageus_logo_white.png">
-    <form id="valueContainer">
+    <form id="valueContainer" onsubmit="return regexCheck(event)">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
             <input id="idInputBox" class="inputBox" name="userID" onkeyup="idRegexCheck()" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15"> 
@@ -35,32 +35,32 @@
     </form>
 
     <script src="../week9/js/pwEvent.js"></script>
-    <!-- html이 자체적으로 제공하는 type 쓰는 게 아니라 이벤트 함수 하나 거쳐서 예외처리 하고 onchange 이벤트로 예외처리 만족하고 잇는지 계속 체크해. 
-    required 없애고 js로 이벤트 함수로 점처리 하고 form 보내는 거 해보기 
-    createElement로 
-    계정부분 백엔드 연결
-    -->
     <script>
         //alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
         // 정규식 
         var idRegex = /^[a-zA-Z0-9]+$/;
         var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
 
-        function idRegexCheck () {
+        function regexCheck(e) {
+            e.preventDefault();
+            
             var idInput = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
-            if (!idRegex.test(idInputValue)) {
-                alert("영어와 숫자로만 이루어진 아이디를 입력해주세요.");
-                idInput.value = "";
-            }
-        }
-        function pwRegexCheck () {
             var pwInput = document.getElementById("pwInputBox");
             var pwInputValue = document.getElementById("pwInputBox").value;
-            if (!pwRegex.test(pwInputValue)) {
-                alert("영어, 숫자, 특수기호로만 이루어진 비밀번호를 입력해주세요.");
-                pwInput.value = "";
+
+            if (!idRegex.test(idInputValue)) {
+                alert("영어, 숫자로 이루어진 아이디를 입력해주세요.");
+                idInput.value = "";
+                return false;
             }
+            if (!pwRegex.test(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로 이루어진 비밀번호를 입력해주세요.");
+                pwInput.value = "";
+                return false;
+            }
+            // 모든 유효성 검사 통과 시 폼 제출
+            document.getElementById("valueContainer").submit();
         }
     </script>
 </body>
