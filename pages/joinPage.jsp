@@ -19,11 +19,11 @@
                 <div id="possibleIDMessage" class="possible">사용 가능한 아이디입니다.</div>
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
-            <input id="idInputBox" class="inputBox" name="userID" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
+            <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
             <button id="duplicateIDCheckBtn">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" name="userPW" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
+            <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
             <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
@@ -31,33 +31,33 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" name="userPWRecheck" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
+            <input id="pwSecondInputBox" class="inputBox" name="pw_second_value" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
                     <div class="inputLabel">이름</div>
-                    <input id="nameInputBox" class="inputBox" name="userName" type="text" maxlength="10">
+                    <input id="nameInputBox" class="inputBox" name="name_value" type="text" maxlength="10">
                 </div>
                 <div class="rowInput">
-                    <div class="inputLabel">부서</div>
-                    <select class="selectBox"> 
-                        <option>서비스 팀</option>
-                        <option>디자인 팀</option>
+                    <div id="selectDepartment" class="inputLabel">부서</div>
+                    <select class="selectBox" > 
+                        <option name="department" value="service_team">서비스 팀</option>
+                        <option name="department" value="design_team">디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput"> 
-                    <div class="inputLabel">직책</div>
+                    <div id="selectPosition" class="inputLabel">직책</div>
                     <select class="selectBox">
-                        <option>팀장</option>
-                        <option>팀원</option>
+                        <option name="position" value="leader">팀장</option>
+                        <option name="position" value="member">팀원</option>
                     </select>
                 </div>
             </div>
 
             <div class="inputLabel">전화번호</div>
-            <input id="telInputBox" class="inputBox" name="userTelNum" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
+            <input id="telInputBox" class="inputBox" name="tel_value" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 회원가입 버튼 -->
             <input id="enterBtn" value="회원가입" type="submit">
@@ -121,5 +121,13 @@
             // 모든 유효성 검사 통과 시 폼 제출
             document.getElementById("valueContainer").submit();
         }
+    </script>
+    <script>
+        // select에서 유저가 선택한 option 값 가져오기
+        let selectedDepartment = document.getElementById("selectDepartment");
+        selectedDepartment = selectedDepartment.options[select.selectedIndex].value;
+
+        let selectedPosition = document.getElementById("selectPosition");
+        selectedPosition = selectedPosition.options[select.selectedIndex].value;
     </script>
 </body>

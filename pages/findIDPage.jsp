@@ -15,10 +15,10 @@
     <form id="valueContainer">
         <div class="inputContainer">
             <div class="inputLabel" >이름</div>
-            <input class="inputBox" type="text" maxlength="10" required>
+            <input class="inputBox" name="name_value" type="text" maxlength="10" required>
 
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
+            <input class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
             
             <!-- 아이디 찾기 버튼 -->
             <input id="enterBtn" value="아이디 찾기" type="submit">

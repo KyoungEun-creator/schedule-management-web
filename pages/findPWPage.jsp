@@ -15,10 +15,10 @@
     <form id="valueContainer">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
-            <input class="inputBox" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required>
+            <input class="inputBox" name="id_value" type="text" placeholder="최대 10자 내로 입력하세요" maxlength="10" required>
 
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
+            <input class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11" required>
             
             <!-- 비밀번호 찾기 버튼 -->
             <input id="enterBtn" value="비밀번호 찾기" type="submit">

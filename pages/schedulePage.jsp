@@ -19,8 +19,8 @@
             일정관리
         </div>
         <form id="newScheduleContainer">
-            <input id="scheduleTimeSelect" type="time" value="09:00">
-            <input id="scheduleInputBox" type="text" placeholder="할 일을 입력하세요.">
+            <input id="scheduleTimeSelect" name="time_value" type="time" value="09:00">
+            <input id="scheduleInputBox" name="content_value" type="text" placeholder="할 일을 입력하세요.">
             <button id="addScheduleBtn" type="submit">+</button>
         </form>
 
