@@ -50,8 +50,8 @@
                 <div class="rowInput"> 
                     <div class="inputLabel">직책</div>
                     <select class="selectBox">
-                        <option name="position" value="leader">팀장</option>
-                        <option name="position" value="member">팀원</option>
+                        <option name="role" value="leader">팀장</option>
+                        <option name="role" value="member">팀원</option>
                     </select>
                 </div>
             </div>

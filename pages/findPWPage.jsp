@@ -15,10 +15,10 @@
     <form id="valueContainer" onsubmit="return regexCheck(event)">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
-            <input class="inputBox" name="id_value" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15">
+            <input id="idInputBox" class="inputBox" name="id_value" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15">
 
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11">
+            <input id="telInputBox" class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11">
             
             <!-- 비밀번호 찾기 버튼 -->
             <input id="enterBtn" value="비밀번호 찾기" type="submit">

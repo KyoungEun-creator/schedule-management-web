@@ -43,15 +43,15 @@
                 <div class="rowInput">
                     <div id="selectDepartment" class="inputLabel">부서</div>
                     <select class="selectBox" > 
-                        <option name="department" value="service_team">서비스 팀</option>
-                        <option name="department" value="design_team">디자인 팀</option>
+                        <option name="department" value="service">서비스 팀</option>
+                        <option name="department" value="design">디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput"> 
-                    <div id="selectPosition" class="inputLabel">직책</div>
+                    <div id="selectRole" class="inputLabel">직책</div>
                     <select class="selectBox">
-                        <option name="position" value="leader">팀장</option>
-                        <option name="position" value="member">팀원</option>
+                        <option name="role" value="leader">팀장</option>
+                        <option name="role" value="member">팀원</option>
                     </select>
                 </div>
             </div>

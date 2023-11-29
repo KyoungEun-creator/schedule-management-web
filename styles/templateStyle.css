@@ -1,5 +1,6 @@
 :root {
   --main-color: #3e84e1;
+  --color-red: #ff0000;
 }
 #enterBtn {
   color: white;
@@ -17,7 +18,7 @@
   color: var(--main-color);
 }
 .impossible {
-  color: #ff0000;
+  color: var(--color-red);
 }
 .hidden {
   display: none;

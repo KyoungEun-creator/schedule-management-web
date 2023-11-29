@@ -15,32 +15,32 @@
     <form id="valueContainer">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
-            <input class="inputBox" type="text" value="hongkildong" placeholder="최대 15자 내로 입력하세요" maxlength="15" disabled>
+            <input id="idInputBox" class="inputBox" name="id_value" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15" disabled>
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" type="password" value="123456" maxlength="20" disabled>
+            <input id="pwInputBox" class="inputBox" name="pw_value" type="password" maxlength="20" disabled autoComplete="off">
             <img id="visiblePW" class="visibilityProfilePW" src="../imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibilityProfilePW hidden" src="../imgs/visibility_off.svg">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
                     <div class="inputLabel">이름</div>
-                    <input class="inputBox" type="text" value="홍길동" maxlength="10" disabled>
+                    <input id="nameInputBox" class="inputBox" name="name_value" value="" type="text" maxlength="10" disabled>
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">부서</div>
-                    <input class="inputBox" type="text" value="서비스 팀" disabled>
+                    <input id="departmentInputBox" class="inputBox" name="department_value" type="text" disabled>
                 </div>
                 <div class="rowInput"> 
                     <div class="inputLabel">직책</div>
-                    <input class="inputBox" type="text" value="팀장" disabled>
+                    <input id="roleInputBox" class="inputBox" name="role_value" type="text" disabled>
                 </div>
             </div>
             <div class="inputLabel">전화번호</div>
-            <input class="inputBox" type="tel" value="01012341234" length="11" disabled>
+            <input id="telInputBox" class="inputBox" type="tel" name="tel_value" length="11" disabled>
 
             <div id="extraFunctions">
-                <button id="deleteAccountBtn" class="extraFunctionBtn" onclick="openDeleteAccountModalEvent(e)">탈퇴하기</button>
+                <button id="deleteAccountBtn" class="extraFunctionBtn" onclick="deleteAccountEvent()">탈퇴하기</button>
                 <a href="../pages/editProfilePage.jsp" class="extraFunctionBtn">수정하기</a>
             </div>
         </div>
@@ -55,19 +55,38 @@
         </form>
     </div>
 
+    <!-- 유저 정보 입력 -->
+    <script>
+        var userAccount = {
+            id: "jke",
+            password: "1234",
+            name: "조경은",
+            department: "서비스팀",
+            role: "팀장",
+            tel: "01012341234"
+        }
+        function myProfile() {
+            document.getElementById("idInputBox").value = userAccount.id;
+            document.getElementById("pwInputBox").value = userAccount.password;
+            document.getElementById("nameInputBox").value = userAccount.name;
+            document.getElementById("departmentInputBox").value = userAccount.department;
+            document.getElementById("roleInputBox").value = userAccount.role;
+            document.getElementById("telInputBox").value = userAccount.tel;
+        }
+        myProfile();
+    </script>
+
+    <!-- 탈퇴 확인 모달창 -->
     <script>
         var deleteAccountModal = document.getElementById("deleteAccountModal");
-       
-        // deleteAccountBtn 클릭 이벤트
-        function openDeleteAccountModalEvent() {
+        function deleteAccountEvent() {
             deleteAccountModal.style.display = "block";
         }
-
         function reloadMyProfilePageEvent() {
             location.reload();
             deleteAccountModal.style.display = "none";
         }
-
     </script>
+    
     <script src="../js/pwEvent.js"></script>
 </body>
