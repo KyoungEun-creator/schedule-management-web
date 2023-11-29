@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer" onsubmit="return regexCheck(event)">
+    <form id="valueContainer" onsubmit="return regexCheck(event)" action="../actions/joinAction.jsp">
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
@@ -42,16 +42,16 @@
                 </div>
                 <div class="rowInput">
                     <div id="selectDepartment" class="inputLabel">부서</div>
-                    <select class="selectBox" > 
-                        <option name="department" value="service">서비스 팀</option>
-                        <option name="department" value="design">디자인 팀</option>
+                    <select class="selectBox"> 
+                        <option name="department_value" value="service">서비스 팀</option>
+                        <option name="department_value" value="design">디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput"> 
                     <div id="selectRole" class="inputLabel">직책</div>
                     <select class="selectBox">
-                        <option name="role" value="leader">팀장</option>
-                        <option name="role" value="member">팀원</option>
+                        <option name="role_value" value="leader">팀장</option>
+                        <option name="role_value" value="member">팀원</option>
                     </select>
                 </div>
             </div>

@@ -29,43 +29,40 @@
         </div>
     </header>
 
-    <form>
-        <main id="mainContainer">
-            <div id="calenderContainer">
-                <div id="timeContainer">
-                    <div id="selectYear">
-                        <button type="button" id="prevYear" class="changeYearBtn" onclick="prevYearEvent()">◀︎</button>
-                        <span id="thisYear"></span>
-                        <button type="button" id="nextYear" class="changeYearBtn" onclick="nextYearEvent()">▶︎</button>
-                    </div>
-                    <div id="selectMonth"></div>
-                </div>
-                <main id="mainCalendar"></main>
+    <main id="mainContainer">
+        <div id="timeContainer">
+            <div id="selectYear">
+                <button type="button" id="prevYear" class="changeYearBtn" onclick="prevYearEvent()">◀︎</button>
+                <span id="thisYear"></span>
+                <button type="button" id="nextYear" class="changeYearBtn" onclick="nextYearEvent()">▶︎</button>
             </div>
-        </main>
-
-        <!-- 팀장 전용 팀원 선택 navigation bar -->
-        <div id="navBar" style="display:none">
-            <div id="teamName">서비스 팀</div>
-            <div class="positionTitle">팀장</div>
-            <button class="memberName">홍길동</button>
-            <div class="positionTitle">팀원</div>
-            <div id="teamMembers">
-                <button class="memberName">강동원</button>
-                <button class="memberName">공지철</button>
-                <button class="memberName">김우빈</button>
-                <button class="memberName">박서준</button>
-                <button class="memberName">서강준</button>
-                <button class="memberName">손석구</button>
-                <button class="memberName">이동욱</button>
-                <button class="memberName">조인성</button>
-                <button class="memberName">차은우</button>
-                <button class="memberName">최우식</button>
-                <button class="memberName">최재림</button>
-                <button class="memberName">현빈</button>
-            </div>
+            <div id="selectMonth"></div>
         </div>
-    </form>
+        <div id="mainCalendar"></div>
+    </main>
+
+    <!-- 팀장 전용 팀원 선택 navigation bar -->
+    <div id="navBar" style="display:none">
+        <div id="teamName">서비스 팀</div>
+        <div class="positionTitle">팀장</div>
+        <button class="memberName">홍길동</button>
+        <div class="positionTitle">팀원</div>
+        <div id="teamMembers">
+            <button class="memberName">강동원</button>
+            <button class="memberName">공지철</button>
+            <button class="memberName">김우빈</button>
+            <button class="memberName">박서준</button>
+            <button class="memberName">서강준</button>
+            <button class="memberName">손석구</button>
+            <button class="memberName">이동욱</button>
+            <button class="memberName">조인성</button>
+            <button class="memberName">차은우</button>
+            <button class="memberName">최우식</button>
+            <button class="memberName">최재림</button>
+            <button class="memberName">현빈</button>
+        </div>
+    </div>
+
 
     <!-- navOpenBtn 클릭 이벤트 -->
     <script>
@@ -87,8 +84,9 @@
         var currentDate = dt.getDate();
         var thisYear = document.getElementById("thisYear");
         var selectMonth = document.getElementById("selectMonth");
+        var clickedMonth; 
 
-        thisYear.innerText = `${currentYear}년`;
+        thisYear.innerText = currentYear + "년";
 
         var dateOfSchedule = {
             year: "2023",
@@ -98,14 +96,24 @@
             content: "외주 2차 미팅"
         }
 
+        // 달력 초기화
+        function clearCalendar() {
+            var mainCalendar = document.getElementById("mainCalendar");
+            mainCalendar.innerHTML = "";
+        }
+
         // 년도 변경 버튼 클릭 이벤트
         function prevYearEvent() {
-            currentYear = Number(currentYear) - 1;
-            thisYear.innerText = `${currentYear}년`;
+            clearCalendar();
+            currentYear = currentYear - 1;
+            thisYear.innerText = currentYear + "년";
+            calendar();
         }
         function nextYearEvent() {
-            currentYear = Number(currentYear) + 1;
-            thisYear.innerText = `${currentYear}년`;
+            clearCalendar();
+            currentYear = currentYear + 1;
+            thisYear.innerText = currentYear + "년";
+            calendar();
         }
 
         // 월 버튼 만들기
@@ -116,25 +124,54 @@
             for (var i = 0; i < numberOfMonths; i++) {
                 var nameOfMonths = document.createElement("button");
                 nameOfMonths.className = "month";
-                nameOfMonths.innerHTML = `${i + 1}월`;
+                monthValues = i+1;
+                nameOfMonths.innerHTML = monthValues + "월";
+
+                nameOfMonths.addEventListener("click", function() {
+                    clickedMonth = parseInt(this.innerHTML); 
+                    console.log(this.innerHTML);
+                    currentMonth = clickedMonth;
+                    clearCalendar();
+                    calendar();
+                    highlightClickedMonth(); //클릭한 월버튼 표시
+                })
                 selectMonth.appendChild(nameOfMonths);
+            }
+        }
+
+        // 클릭한 월버튼 표시
+        function highlightClickedMonth() {
+            var months = document.getElementsByClassName("month");
+
+            for (var i = 0; i < months.length; i ++) {
+                months[i].classList.remove("selectedMonth");
+            }
+
+            for (var i = 0; i < months.length; i ++) {
+                if (parseInt(months[i].innerHTML) === clickedMonth) {
+                    months[i].classList.add("selectedMonth");
+                    break;
+                }
             }
         }
 
         // 달력 만들기 
         function calendar() {
             var mainCalendar = document.getElementById("mainCalendar");
-            var datesOfMonth = dt(currentYear, currentMonth, 0).getDate();
+            var datesOfMonth = new Date(currentYear, currentMonth, 0).getDate();
 
             for (var i=0; i<datesOfMonth; i++) {
                 var dateBox = document.createElement("div");
                 dateBox.className = "dateBox";
                 var dateNum = document.createElement("span");
                 dateNum.className = "dateNum";
-                dateNum.innerHTML = i;
+                dateNum.innerHTML = i+1;
+                var scheduleNum = document.createElement("span");
+                scheduleNum.className = "dateNum";
 
-                mainCalendar.appendChild(dateBox);
                 dateBox.appendChild(dateNum);
+                dateBox.appendChild(scheduleNum);
+                mainCalendar.appendChild(dateBox);
             }
 
         }

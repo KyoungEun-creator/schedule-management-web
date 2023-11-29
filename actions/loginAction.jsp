@@ -12,27 +12,25 @@
     String idValue = request.getParameter("id_value");
     String pwValue = request.getParameter("pw_value");
 
-    String dbURL = "jdbc:mysql://localhost/stageus";
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     String sql = "SELECT * FROM account WHERE id = ? AND password = ?";
-    PreparedStatement query = connect.prepareStatement(sql);
+    PreparedStatement query = conncect.prepareStatement(sql);
     query.setString(1, idValue);
     query.setString(2, pwValue);
 
-    ResultSet result = query.executeQuery();    // 테이블을 읽어와
+    ResultSet accountResult = query.executeQuery();    
 
-    // result.next();      // 가져온 테이블의 한 줄을 읽는다
-
-    if (result.next()) {                        // 테이블을 읽을 수 있다면(==존재한다는 뜻임)
+    if (accountResult.next()) {                        // 테이블을 읽을 수 있다면(==존재한다는 뜻임)
         session.setAttribute("idx", result.getString(1));
         session.setAttribute("id", result.getString(2));
         session.setAttribute("password", result.getString(3));
         session.setAttribute("name", result.getString(4));
         session.setAttribute("department", result.getString(5));
-        session.setAttribute("position", result.getString(6));
+        session.setAttribute("role", result.getString(6));
         session.setAttribute("phoneNumber", result.getString(7));
         response.sendRedirect("../pages/mainPage.jsp");
     }
@@ -42,7 +40,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인하기</title>
+    <title>로그인</title>
 </head>
 <body>
     <script>
