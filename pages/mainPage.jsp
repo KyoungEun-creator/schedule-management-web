@@ -29,7 +29,7 @@
         </div>
     </header>
 
-    <main id="mainContainer">
+    <main>
         <div id="timeContainer">
             <div id="selectYear">
                 <button type="button" id="prevYear" class="changeYearBtn" onclick="prevYearEvent()">◀︎</button>
@@ -38,7 +38,9 @@
             </div>
             <div id="selectMonth"></div>
         </div>
-        <div id="mainCalendar"></div>
+        <div id="mainCalendar">
+
+        </div>
     </main>
 
     <!-- 팀장 전용 팀원 선택 navigation bar -->
@@ -78,6 +80,7 @@
     </script>
 
     <script>
+
         var dt = new Date();
         var currentYear = dt.getFullYear();
         var currentMonth = dt.getMonth()+1;
@@ -86,15 +89,7 @@
         var selectMonth = document.getElementById("selectMonth");
         var clickedMonth; 
 
-        thisYear.innerText = currentYear + "년";
-
-        var dateOfSchedule = {
-            year: "2023",
-            month: "11",
-            date: "16",
-            time: "10:00",
-            content: "외주 2차 미팅"
-        }
+        thisYear.innerHTML = currentYear + "년";   
 
         // 달력 초기화
         function clearCalendar() {
@@ -107,13 +102,13 @@
             clearCalendar();
             currentYear = currentYear - 1;
             thisYear.innerText = currentYear + "년";
-            calendar();
+            createCalendar();
         }
         function nextYearEvent() {
             clearCalendar();
             currentYear = currentYear + 1;
             thisYear.innerText = currentYear + "년";
-            calendar();
+            createCalendar();
         }
 
         // 월 버튼 만들기
@@ -132,7 +127,7 @@
                     console.log(this.innerHTML);
                     currentMonth = clickedMonth;
                     clearCalendar();
-                    calendar();
+                    createCalendar();
                     highlightClickedMonth(); //클릭한 월버튼 표시
                 })
                 selectMonth.appendChild(nameOfMonths);
@@ -156,31 +151,56 @@
         }
 
         // 달력 만들기 
-        function calendar() {
+        function createCalendar() {
             var mainCalendar = document.getElementById("mainCalendar");
             var datesOfMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-            for (var i=0; i<datesOfMonth; i++) {
-                var dateBox = document.createElement("div");
-                dateBox.className = "dateBox";
-                var dateNum = document.createElement("span");
-                dateNum.className = "dateNum";
-                dateNum.innerHTML = i+1;
-                var scheduleNum = document.createElement("span");
-                scheduleNum.className = "dateNum";
-
-                dateBox.appendChild(dateNum);
-                dateBox.appendChild(scheduleNum);
-                mainCalendar.appendChild(dateBox);
+            for (var i=1; i<datesOfMonth; i+=7) {
+                mainCalendar.appendChild(createWeek(i, datesOfMonth))
             }
 
+            // mainCalendar.appendChild(createWeek(1, datesOfMonth))
+            // mainCalendar.appendChild(createWeek(8, datesOfMonth))
+            // mainCalendar.appendChild(createWeek(15, datesOfMonth))
+            // mainCalendar.appendChild(createWeek(22, datesOfMonth))
+            // mainCalendar.appendChild(createWeek(29, datesOfMonth))
+        }
+        
+        // 주 만들기
+        function createWeek(startDate, max) {
+
+            var weekBox = document.createElement("div");   // 한 줄의 주를 의미하는 div
+            weekBox.className = "weekBox"
+
+            for (var index = 0; index < 7; index ++) {
+
+                if (startDate + index <= max) {
+                    var dateBox = document.createElement("div");        // 한 칸의 일을 의미하는 div
+                    dateBox.className = "dateBox";
+
+                    var dateNum = document.createElement("span");       // 날짜 의미
+                    dateNum.className = "dateNum";
+                    dateNum.innerHTML = startDate + index;
+                    dateBox.appendChild(dateNum);
+
+                    var scheduleNum = document.createElement("span");   // 스케줄 개수 의미
+                    scheduleNum.className = "dateNum";
+                    dateBox.appendChild(scheduleNum);
+
+                    weekBox.appendChild(dateBox);
+                } else {
+                    break;
+                }
+            }
+            return weekBox;
         }
 
+
+
+
+
         monthBtn();
-        calendar();
-
-        
-
+        createCalendar();
 
     </script>
 
