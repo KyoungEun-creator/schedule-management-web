@@ -47,7 +47,7 @@
     </form>
 
     <!-- 탈퇴(계정삭제) 확인 modal -->
-    <div id="deleteAccountModal" style="display:none">
+    <div id="deleteAccountModal" class="hidden">
         <div id="deleteAccountLabel">탈퇴 하시겠습니까?</div>
         <form id="decideBtnContainer">
             <button id="yesDeleteAccountBtn" class="decideBtn" type="submit">탈퇴</button>

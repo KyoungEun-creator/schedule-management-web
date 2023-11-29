@@ -67,7 +67,7 @@ header {
 }
 main {
   width: 80%;
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,7 +150,7 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.navBar {
+#navBar {
   position: fixed;
   top: 71;
   left: 0;
@@ -255,10 +255,19 @@ main {
 }
 #scheduleListContainer {
   width: 100%;
-  height: 400px;
+  height: 325px;
   overflow: auto;
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
 }
-#schedule {
+#scheduleColumn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+}
+.scheduleRow {
   background-color: #dfeaf8;
   width: 100%;
   height: 102px;
@@ -266,12 +275,16 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid #b7b7b7;
 }
-#scheduleName {
+.scheduleRow:hover {
+  background-color: var(--hover-color);
+}
+.scheduleName {
   font-size: 25px;
   padding-left: 20px;
 }
-#scheduleExtraFunctions {
+.scheduleExtraFunctions {
   width: 100px;
   height: 100%;
   display: flex;

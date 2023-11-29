@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/mainStyle.css">
     <link rel="stylesheet" href="../styles/commonStyle.css">
+    <link rel="stylesheet" href="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
     <title>일정 상세보기</title>
 </head>
@@ -44,7 +45,7 @@
     </main>
 
     <!-- 팀장 전용 팀원 선택 navigation bar -->
-    <div id="navBar" style="display:none">
+    <div id="navBar" class="hidden">
         <div id="teamName">서비스 팀</div>
         <div class="positionTitle">팀장</div>
         <button class="memberName">홍길동</button>
@@ -71,16 +72,15 @@
         var navBar = document.getElementById("navBar");
 
         function toggleNavBarEvent() {
-            if (navBar.style.display === "none") {
-                navBar.style.display = "block";
-            } else if (navBar.style.display === "block") {
-                navBar.style.display = "none";
+            if (navBar.classList.contains("hidden")) {
+                navBar.classList.remove("hidden");
+            } else {
+                navBar.classList.add("hidden");
             }
         }
     </script>
 
     <script>
-
         var dt = new Date();
         var currentYear = dt.getFullYear();
         var currentMonth = dt.getMonth() + 1;
@@ -180,7 +180,7 @@
             for (var index = 0; index < 7; index ++) {
 
                 if (startDate + index <= max) {
-                    // 한 칸의 일을 의미하는 div
+                    // 한 칸의 일자을 의미하는 div
                     var dateBox = document.createElement("div");        
                     dateBox.className = "dateBox";
 
@@ -196,6 +196,11 @@
                     dateBox.appendChild(scheduleNum);
 
                     weekBox.appendChild(dateBox);
+
+                    // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
+                    dateBox.addEventListener("click", function () {
+                        window.open("../pages/schedulePage.jsp", "_blank", "width=900,height=600,scrollbars=yes");
+                    })
                 } else {
                     break;
                 }
@@ -207,10 +212,4 @@
         createCalendar();
 
     </script>
-
-            <!-- // 날짜 클릭 이벤트 발생 시 일정상세보기 schedulePage.jsp 열림
-            function openScheduleModalEvent() {
-                dailyScheduleModal.style.display = "block";
-            } -->
 </body>
-</html>
