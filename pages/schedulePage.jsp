@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/mainStyle.css">
     <link rel="stylesheet" href="../styles/commonStyle.css">
+    <link rel="stylesheet" hreff="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
     <title>일정 상세보기</title>
 </head>
