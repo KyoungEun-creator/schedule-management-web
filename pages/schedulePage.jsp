@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/mainStyle.css">
     <link rel="stylesheet" href="../styles/commonStyle.css">
-    <link rel="stylesheet" hreff="../styles/templateStyle.css">
+    <link rel="stylesheet" href="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
     <title>일정 상세보기</title>
 </head>
@@ -109,6 +109,8 @@
             scheduleDeleteBtnImg.className = "scheduleExtraBtnImg";
             scheduleDeleteBtnImg.src = "../imgs/delete.png";
             scheduleDeleteBtn.appendChild(scheduleDeleteBtnImg);
+
+            scheduleInputBox.value = "";
 
             // 삭제버튼
             scheduleDeleteBtn.addEventListener("click", function(){

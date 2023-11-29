@@ -25,4 +25,6 @@ form {
 }
 input {
   padding: 0 10px 0 10px;
+  /* background-color: transparent; */
+  cursor: pointer;
 }

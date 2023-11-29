@@ -72,10 +72,14 @@ body {
   justify-content: space-between;
   margin: 10px 0 10px 0;
 }
+#openDeleteAccountModalBtn {
+  background-color: transparent;
+  border: none;
+}
 .extraFunctionBtn {
   font-size: 15px;
 }
-#deleteAccountModal {
+.deleteAccountModal {
   position: absolute;
   background-color: black;
   width: 506px;
