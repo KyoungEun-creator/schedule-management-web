@@ -20,7 +20,7 @@
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
-            <button id="duplicateIDCheckBtn">중복확인</button>
+            <button id="duplicateIDCheckBtn" onclick="checkIdDuplicateEvent()">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
@@ -69,10 +69,31 @@
     </form>
 
     <script src="../js/pwEvent.js"></script>
-    <!-- 회원가입 예외처리 하고 form.submit 전송하는 거 고치기 -->
     <script>
+        // 아이디 중복체크 버튼 클릭 시 input 더이상 입력 불가해지는 이벤트
+        function checkIdDuplicateEvent () {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = idInput.value;
+            var idRegex = /^[a-zA-Z0-9]+$/;
+
+            if (!idInputValue) {
+                alert("아이디를 입력해주세요.");
+                return;
+            }
+            
+            // 정규식에 부합하지 않는다면
+            if (!idRegex.test(idInputValue)) {
+                alert("영어, 숫자로 이루어진 아이디를 입력해주세요.");
+                idInput.value = "";
+                return false;
+            }
+
+            // 정규식에 부합한다면 
+            // 백엔드 아이디 중복 확인 로직을 실행하고
+            idInput.disabled = true;
+        }
+
         // 정규식 
-        var idRegex = /^[a-zA-Z0-9]+$/;
         var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
         var nameRegex = /^[ㄱ-ㅎ가-힣]+$/;
         var telRegex = /^\d+$/;
@@ -80,22 +101,15 @@
         function regexCheck(e) {
             e.preventDefault();
 
-            var idInput = document.getElementById("idInputBox");
-            var idInputValue = document.getElementById("idInputBox").value;
             var pwInput = document.getElementById("pwInputBox");
-            var pwInputValue = document.getElementById("pwInputBox").value;
+            var pwInputValue = pwInput.value;
             var pwSecondInput = document.getElementById("pwSecondInputBox");
-            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
+            var pwSecondInputValue = pwSecondInput.value;
             var nameInput = document.getElementById("nameInputBox");
-            var nameInputValue = document.getElementById("nameInputBox").value;
+            var nameInputValue = nameInput.value;
             var telInput = document.getElementById("telInputBox");
-            var telInputValue = document.getElementById("telInputBox").value;
+            var telInputValue = telInput.value;
 
-            if (!idRegex.test(idInputValue)) {
-                alert("영어, 숫자로 이루어진 아이디를 입력해주세요.");
-                idInput.value = "";
-                return false;
-            }
             if (!pwRegex.test(pwInputValue)) {
                 alert("영어, 숫자, 특수기호로 이루어진 비밀번호를 입력해주세요.");
                 pwInput.value = "";

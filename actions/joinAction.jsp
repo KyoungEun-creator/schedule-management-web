@@ -26,7 +26,7 @@
     query.setString(1, idValue);
     query.setString(2, pwValue);
     query.setString(3, nameValue);
-    query.setString(4, departmentlValue);
+    query.setString(4, departmentValue);
     query.setString(5, roleValue);
     query.setString(6, telValue);
 
