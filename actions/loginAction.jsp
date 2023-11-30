@@ -18,13 +18,13 @@
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     String sql = "SELECT * FROM account WHERE id = ? AND password = ?";
-    PreparedStatement query = conncect.prepareStatement(sql);
+    PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, idValue);
     query.setString(2, pwValue);
 
-    ResultSet accountResult = query.executeQuery();    
+    ResultSet result = query.executeQuery();    
 
-    if (accountResult.next()) {                        // 테이블을 읽을 수 있다면(==존재한다는 뜻임)
+    if (result.next()) {
         session.setAttribute("idx", result.getString(1));
         session.setAttribute("id", result.getString(2));
         session.setAttribute("password", result.getString(3));
@@ -46,10 +46,6 @@
     <script>
         // 회원정보를 찾지 못할 경우
         alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
-
-        console.log(<%=idValue%>)
-        console.log(<%=pwValue%>)
-
         location.href="../index.jsp";
     </script>
 </body>

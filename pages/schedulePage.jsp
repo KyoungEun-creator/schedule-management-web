@@ -68,9 +68,9 @@
 
         function addScheduleEvent() {
             createSchedule()
-            // // 예외처리
+            // 예외처리
 
-            // // form태그 동작
+            // form태그 동작
             // document.getElementById("newScheduleContainer").submit()
         }
         
