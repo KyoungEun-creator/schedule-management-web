@@ -19,11 +19,11 @@
                 <div id="possibleIDMessage" class="possible">사용 가능한 아이디입니다.</div>
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
-            <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
+            <input id="idInputBox" class="inputBox" name="id_changed_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
             <button id="duplicateIDCheckBtn" onclick="checkIdDuplicateEvent()">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
-            <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
+            <input id="pwInputBox" class="inputBox" name="pw_changed_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
             <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
             <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
@@ -31,14 +31,14 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" name="id_second_value" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
+            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
                     <div class="inputLabel">이름</div>
-                    <input id="nameInputBox" class="inputBox" name="name_value" type="text" maxlength="10">
+                    <input id="nameInputBox" class="inputBox" name="name_changed_value" type="text" maxlength="10">
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">부서</div>

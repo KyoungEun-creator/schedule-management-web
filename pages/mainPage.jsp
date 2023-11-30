@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
+<%
+    // 로그인 정보 세션에 넣어놓음
+    String idx = (String)session.getAttribute("idx");
+    String id = (String)session.getAttribute("id");
+    String name = (String)session.getAttribute("name");
+    String department = (String)session.getAttribute("department");
+    String role = (String)session.getAttribute("role");
+%>
+
+<%@ page import="java.sql.DriverManager" %>     <!-- 데이터베이스 탐색 라이브러리 -->
+<%@ page import="java.sql.Connection" %>        <!-- 데이터베이스 연결 라이브러리 -->
+<%@ page import="java.sql.PreparedStatement" %> <!-- 데이터베이스 SQL 전송 라이브러리 -->
+<%@ page import="java.sql.ResultSet" %>          <!-- 데이터베이스에서 값 받아오기 라이브러리 -->
+<%@ page import="java.util.ArrayList" %>         <!-- 리스트 라이브러리 -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,15 +28,16 @@
 <body>
     <header>
         <div id="headerLeft">
-            <img id="navOpenBtn" src="../imgs/bars-solid.svg" onclick="toggleNavBarEvent()">
+            <img id="navOpenBtn" class="hidden" src="../imgs/bars-solid.svg" onclick="toggleNavBarEvent()">
             <a href="mainPage.jsp">
                 <img id="mainLogo" src="../imgs/stageus_logo_white.png">
             </a>
 
         </div>
         <div id="headerRight">
-            <a href="../pages/myProfilePage.jsp" id="userID">홍길동 님</a>
-            <form>
+            <!-- 로그인한 회원 본명 + '님' 출력 -->
+            <a href="../pages/myProfilePage.jsp" id="userID"></a>
+            <form action="../actions/logoutAction.jsp">
                 <button id="logoutBtn" type="submit"> 
                     로그아웃
                     <img id="logoutIcon" src="../imgs/logout.png">
@@ -48,9 +64,9 @@
     <div id="navBar" class="hidden">
         <div id="teamName">서비스 팀</div>
         <div class="positionTitle">팀장</div>
-        <button class="memberName">홍길동</button>
+        <button id="teamLeader" class="memberName">홍길동</button>
         <div class="positionTitle">팀원</div>
-        <div id="teamMembers">
+        <div id="teamMembersList">
             <button class="memberName">강동원</button>
             <button class="memberName">공지철</button>
             <button class="memberName">김우빈</button>
@@ -65,7 +81,6 @@
             <button class="memberName">현빈</button>
         </div>
     </div>
-
 
     <!-- navOpenBtn 클릭 이벤트 -->
     <script>
@@ -210,6 +225,36 @@
 
         monthBtn();
         createCalendar();
+
+    </script>
+
+    <script>
+        var accountIdx = <%=idx%>;
+        var accountId = "<%=id%>";
+        var accountName = "<%=name%>";
+        var accountDepartment = "<%=department%>";
+        var accountRole = "<%=role%>";
+
+        // 로그인 돼있으면
+        if (accountIdx) {  
+            document.getElementById("userID").innerHTML = accountName+' 님';
+        } 
+        else {
+            location.reload="../index.jsp"
+        }
+
+        // 직급에 따른 nav bar 반영 여부
+        if (accountRole === '1') {
+            document.getElementById("navOpenBtn").classList.remove("hidden");
+        }
+
+        // nav bar 내부 데이터 반영
+        document.getElementById("teamName").innerHTML = accountDepartment;
+        document.getElementById("teamLeader").innerHTML = accountName;
+
+        var teamMembersList = document.getElementById("teamMembersList");
+        var teamMemberBtn = document.createElement("button");
+        // 부서가 accountDepartment와 동일하고 직급이 '2'인 사람들의 정보 가져오기
 
     </script>
 </body>

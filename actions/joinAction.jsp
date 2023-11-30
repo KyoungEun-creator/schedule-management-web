@@ -16,8 +16,23 @@
     String roleValue = request.getParameter("role_value");
     String telValue = request.getParameter("tel_value");
 
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/schedule_program", "JKE", "1234");
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
+    String dbID = "JKE";
+    String dbPW = "1234";
+    Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
+
+    // 아이디 중복 체크 
+    String checkIdDuplicateSQL = "SELECT * FROM account WHERE id = ?";
+    PreparedStatement checkIdDuplicateQuery = connect.prepareStatement(checkIdDuplicateSQL);
+    checkIdDuplicateQuery.setString(1, idValue);
+    ResultSet searchResult = searchQuery.executeQuery(); // 이미 존재하는 아이디 회원정보의 행
+
+    Boolean isDuplicate = false;    
+    if (searchResult.next()) {      // 이미 해당 아이디가 존재한다면 아래에서 alert문 출력
+        isDuplicate = true;
+    } else {
+        isDuplicate = false;
+    }
 
     String sql = "INSERT INTO account (id, password, name, department, role, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -41,9 +56,20 @@
     <title>회원가입</title>
 </head>
 <body>
-    
-    <script>
-        alert("회원가입을 축하합니다");
-        location.href = "../pages/mainPage.jsp"
-    </script>
+<script>
+    // 아이디 중복 체크
+    var isDuplicate = <%=isDuplicate%>;
+    console.log(isDuplicate);
+
+    if (isDuplicate) {      
+        alert("이미 존재하는 아이디입니다.");
+        location.href = "../pages/joinPage.jsp";
+        document.getElementById("impossibleIDMessage").classList.remove("hidden");
+    } else {
+        alert("사용 가능한 아이디입니다.");
+        location.href = "../pages/joinPage.jsp";
+        document.getElementById("possibleIDMessage").classList.remove("hidden");
+    }
+
+</script>
 </body>

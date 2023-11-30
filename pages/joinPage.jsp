@@ -16,7 +16,7 @@
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
-                <div id="possibleIDMessage" class="possible">사용 가능한 아이디입니다.</div>
+                <div id="possibleIDMessage" class="possible hidden">사용 가능한 아이디입니다.</div>
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
