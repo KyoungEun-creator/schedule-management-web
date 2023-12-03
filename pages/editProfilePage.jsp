@@ -24,16 +24,16 @@
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_changed_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
-            <img id="visiblePW" class="visibility" src="../imgs/visibility.svg">
-            <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg">
+            <img id="visiblePW" class="visibility" src="../imgs/visibility.svg" onclick="toggleVisiblityPW()">
+            <img id="nonVisiblePW" class="visibility hidden" src="../imgs/visibility_off.svg" onclick="toggleVisiblityPW()">
 
             <div id="inputAlarmLabel">
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20">
-            <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg">
-            <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg">
+            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" oninput="makePWSame()">
+            <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg" onclick="toggleSecondVisiblityPW()">
+            <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg" onclick="toggleSecondVisiblityPW()">
 
             <div id="rowInputContainer">
                 <div class="rowInput">
@@ -65,6 +65,30 @@
     </form>
 
     <script src="../js/pwEvent.js"></script>
+    <script>
+        function toggleVisiblityPW() {
+            var visiblePW = document.getElementById("visiblePW");
+            var nonVisiblePW = document.getElementById("nonVisiblePW");
+            var pwInputBox = document.getElementById("pwInputBox");
+            
+            togglePWEvent(visiblePW, nonVisiblePW, pwInputBox);
+        }
+        function toggleSecondVisiblityPW() {
+            var visibleSecondPW = document.getElementById("visibleSecondPW");
+            var nonVisibleSecondPW = document.getElementById("nonVisibleSecondPW");
+            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
+            
+            toggleSecondPWEvent(visibleSecondPW, nonVisibleSecondPW, pwSecondInputBox);
+        }
+        function makePWSame() {
+            var password = pwInputBox.value;
+            var secondPassword = pwSecondInputBox.value;
+            var impossiblePWMessage = document.getElementById("impossiblePWMessage");
+
+            checkPWMatchEvent(password, secondPassword, impossiblePWMessage);
+        }
+    </script>
+
     <script src="../js/regexTest.js"></script>
     <script>
         function validateForm () {

@@ -19,8 +19,8 @@
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
-            <img id="visiblePW" class="visibility" src="./imgs/visibility.svg">
-            <img id="nonVisiblePW" class="visibility hidden" src="./imgs/visibility_off.svg">
+            <img id="visiblePW" class="visibility" src="./imgs/visibility.svg" onclick="toggleVisiblityPW()">
+            <img id="nonVisiblePW" class="visibility hidden" src="./imgs/visibility_off.svg" onclick="toggleVisiblityPW()">
 
             
             <!-- 로그인 버튼 -->
@@ -35,6 +35,16 @@
     </form>
 
     <script src="./js/pwEvent.js"></script>
+    <script>
+        function toggleVisiblityPW() {
+            var visiblePW = document.getElementById("visiblePW");
+            var nonVisiblePW = document.getElementById("nonVisiblePW");
+            var pwInputBox = document.getElementById("pwInputBox");
+
+            togglePWEvent(visiblePW, nonVisiblePW, pwInputBox);
+        }
+    </script>
+
     <script src="./js/regexTest.js"></script>
     <script>
         function validateForm() {
