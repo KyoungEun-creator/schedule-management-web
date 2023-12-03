@@ -6,21 +6,25 @@
 <%@ page import="java.sql.PreparedStatement" %> <!-- 데이터베이스 SQL 전송 라이브러리 -->
 <%@ page import="java.sql.ResultSet" %>          <!-- 데이터베이스에서 값 받아오기 라이브러리 -->
 
-
 <%
     request.setCharacterEncoding("utf-8");
 
     String nameValue = request.getParameter("name_value");
     String telValue = request.getParameter("tel_value");
 
+    // 정규식에 관한 예외처리 필요
+
     Class.forName("com.mysql.jdbc.Driver");
-    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/stageus", "JKE", "1234");
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
+    String dbID = "JKE";
+    String dbPW = "1234";
+    Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     String sql = "SELECT id FROM account WHERE name = ? AND phone_number = ?";
     
     PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, nameValue);
-    query.setString(2, phoneNumberValue);
+    query.setString(2, telValue);
 
     ResultSet result = query.executeQuery();
 

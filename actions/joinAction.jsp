@@ -28,25 +28,27 @@
     ResultSet searchResult = searchQuery.executeQuery(); // 이미 존재하는 아이디 회원정보의 행
 
     Boolean isDuplicate = false;    
-    if (searchResult.next()) {      // 이미 해당 아이디가 존재한다면 아래에서 alert문 출력
+    if (searchResult.next()) {      // 이미 해당 아이디가 존재한다면 아래에서 alert문 출력, 그리고 insert 하면 안 되지
         isDuplicate = true;
     } else {
         isDuplicate = false;
+
+        String sql = "INSERT INTO account (id, password, name, department, role, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement query = connect.prepareStatement(sql);
+    
+        query.setString(1, idValue);
+        query.setString(2, pwValue);
+        query.setString(3, nameValue);
+        query.setString(4, departmentValue);
+        query.setString(5, roleValue);
+        query.setString(6, telValue);
+    
+        // query 전송
+        query.executeUpdate();
     }
 
-    String sql = "INSERT INTO account (id, password, name, department, role, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
 
-    PreparedStatement query = connect.prepareStatement(sql);
-
-    query.setString(1, idValue);
-    query.setString(2, pwValue);
-    query.setString(3, nameValue);
-    query.setString(4, departmentValue);
-    query.setString(5, roleValue);
-    query.setString(6, telValue);
-
-    // query 전송
-    query.executeUpdate();
 %>
 
 <head>

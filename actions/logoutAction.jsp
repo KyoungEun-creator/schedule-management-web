@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
+<!-- 세션에 있는 거 지우기만 하면 되니까 필요없음 -->
 <%
     String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
@@ -9,7 +10,7 @@
     session.invalidate();
     response.sendRedirect("../index.jsp");
 %>
-
+<!-- 필요없음 -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

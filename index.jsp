@@ -35,31 +35,5 @@
     </form>
 
     <script src="./js/pwEvent.js"></script>
-    <script>
-        // 정규식 
-        var idRegex = /^[a-zA-Z0-9]+$/;
-        var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
-
-        function regexCheck(e) {
-            e.preventDefault();
-            
-            var idInput = document.getElementById("idInputBox");
-            var idInputValue = document.getElementById("idInputBox").value;
-            var pwInput = document.getElementById("pwInputBox");
-            var pwInputValue = document.getElementById("pwInputBox").value;
-
-            if (!idRegex.test(idInputValue)) {
-                alert("영어, 숫자로 이루어진 아이디를 입력해주세요.");
-                idInput.value = "";
-                return false;
-            }
-            if (!pwRegex.test(pwInputValue)) {
-                alert("영어, 숫자, 특수기호로 이루어진 비밀번호를 입력해주세요.");
-                pwInput.value = "";
-                return false;
-            }
-            // 모든 유효성 검사 통과 시 폼 제출
-            document.getElementById("valueContainer").submit();
-        }
-    </script>
+    <script src="./js/regexTest.js"></script>
 </body>

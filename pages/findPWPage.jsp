@@ -25,33 +25,5 @@
         </div>
     </form>
 
-    <script>
-        // 정규식 
-        var idRegex = /^[a-zA-Z0-9]+$/;
-        var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
-        var nameRegex = /^[ㄱ-ㅎ가-힣]+$/;
-        var telRegex = /^\d+$/;
-
-        function regexCheck(e) {
-            e.preventDefault();
-
-            var idInput = document.getElementById("idInputBox");
-            var idInputValue = document.getElementById("idInputBox").value;
-            var telInput = document.getElementById("telInputBox");
-            var telInputValue = document.getElementById("telInputBox").value;
-
-            if (!idRegex.test(idInputValue)) {
-                alert("영어, 숫자로 이루어진 아이디를 입력해주세요.");
-                idInput.value = "";
-                return false;
-            if (!telRegex.test(telInputValue)) {
-                alert("' - '를 제외한 숫자만 입력해주세요.");
-                telInput.value = "";
-                return false;
-            }
-            // 모든 유효성 검사 통과 시 폼 제출
-            document.getElementById("valueContainer").submit();
-        }
-    }
-    </script>
+    <script src="../js/regexTest.js"></script>
 </body>

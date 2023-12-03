@@ -87,8 +87,6 @@
         function exitDeleteAccountModalEvent() {
             deleteAccountModal.classList.add("hidden");
         }
-
     </script>
-    
     <script src="../js/pwEvent.js"></script>
 </body>

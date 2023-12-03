@@ -21,36 +21,10 @@
             <input id="telInputBox" class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11">
             
             <!-- 아이디 찾기 버튼 -->
-            <input id="enterBtn" value="아이디 찾기" type="submit">
+            <input id="enterBtn" value="아이디 찾기" type="submit"> 
+            <!-- 버튼으로 바꾸고  -->
         </div>
     </form>
-    <script>
-        // 정규식 
-        var idRegex = /^[a-zA-Z0-9]+$/;
-        var pwRegex = /^[a-zA-Z0-9*!~^]+$/;
-        var nameRegex = /^[ㄱ-ㅎ가-힣]+$/;
-        var telRegex = /^\d+$/;
-
-        function regexCheck(e) {
-            e.preventDefault();
-
-            var nameInput = document.getElementById("nameInputBox");
-            var nameInputValue = document.getElementById("nameInputBox").value;
-            var telInput = document.getElementById("telInputBox");
-            var telInputValue = document.getElementById("telInputBox").value;
-
-            if (!nameRegex.test(nameInputValue)) {
-                alert("한국어 본명을 입력해주세요.");
-                nameInput.value = "";
-                return false;
-            }
-            if (!telRegex.test(telInputValue)) {
-                alert("' - '를 제외한 숫자만 입력해주세요.");
-                telInput.value = "";
-                return false;
-            }
-            // 모든 유효성 검사 통과 시 폼 제출
-            document.getElementById("valueContainer").submit();
-        }
-    </script>
+    
+    <script src="../js/regexTest.js"></script>
 </body>

@@ -22,7 +22,7 @@
     String phoneNumberChangedValue = request.getParameter("phoneNumber_changed_value");
 
     Class.forName("com.mysql.jdbc.Driver");
-    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/stageus","JKE","1234");
+    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/schedule_program","JKE","1234");
 
     // 아이디는 중복이면 안 되기 때문에, 중복을 체크하는 부분
     String searchSQL = "SELECT * FROM account WHERE id=?";

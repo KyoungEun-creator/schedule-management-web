@@ -183,7 +183,7 @@ main {
 .memberName:hover {
   background-color: var(--hover-color);
 }
-#teamMembers {
+#teamMembersList {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

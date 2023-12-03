@@ -11,24 +11,18 @@
     request.setCharacterEncoding("utf-8");
 
     String idValue = request.getParameter("id_value");
-    String nameValue = request.getParameter("name_value");
-    String emailValue = request.getParameter("email_value");
-    String birthdayValue = request.getParameter("birthday_value");
-    String phoneNumberValue = request.getParameter("phoneNumber_value");
+    String telValue = request.getParameter("tel_value");
 
     Class.forName("com.mysql.jdbc.Driver");
-    String dbURL = "jdbc:mysql://localhost/stageus";
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    String sql = "SELECT password FROM account WHERE id = ? AND name = ? AND email = ? AND birthday = ? AND phone_number = ?";
+    String sql = "SELECT password FROM account WHERE id = ? AND phone_number = ?";
     PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, idValue);
-    query.setString(2, nameValue);
-    query.setString(3, emailValue);
-    query.setString(4, birthdayValue);
-    query.setString(5, phoneNumberValue);
+    query.setString(2, telValue);
     
     ResultSet result = query.executeQuery();
 
