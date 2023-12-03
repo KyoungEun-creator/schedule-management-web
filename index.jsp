@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="./imgs/stageus_logo_white.png">
-    <form id="valueContainer" onsubmit="return regexCheck(event)" action="./actions/loginAction.jsp">
+    <form id="valueContainer" action="./actions/loginAction.jsp">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
             <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15"> 
@@ -24,7 +24,7 @@
 
             
             <!-- 로그인 버튼 -->
-            <input id="enterBtn" value="로그인" type="submit">
+            <input id="enterBtn" value="로그인" type="button" onclick="validateForm()">
 
             <div id="extraFunctions">
                 <a href="./pages/joinPage.jsp">계정이 없으세요? 회원가입</a>
@@ -36,4 +36,21 @@
 
     <script src="./js/pwEvent.js"></script>
     <script src="./js/regexTest.js"></script>
+    <script>
+        function validateForm() {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            var pwInput = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+
+            if (idInputValue==="" || pwInputValue==="") {
+                alert("값을 모두 입력해주세요")
+            }
+            else {
+                testIDRegex(idInput, idInputValue);
+                testPWRegex(pwInput, pwInputValue);
+                document.getElementById("valueContainer").submit();
+            }
+        }
+    </script>
 </body>

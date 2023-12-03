@@ -178,7 +178,7 @@
             for (var i = 1; i < datesOfMonth+1; i += 7) {
                 mainCalendar.appendChild(createWeek(i, datesOfMonth));
             }
-
+            
             // mainCalendar.appendChild(createWeek(1, datesOfMonth))
             // mainCalendar.appendChild(createWeek(8, datesOfMonth))
             // mainCalendar.appendChild(createWeek(15, datesOfMonth))
@@ -225,7 +225,6 @@
 
         monthBtn();
         createCalendar();
-
     </script>
 
     <script>

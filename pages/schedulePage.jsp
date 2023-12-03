@@ -32,35 +32,6 @@
         </main>
     </div>
     <script>
-        var dateOfSchedule1 = {
-            year: "2023",
-            month: "11",
-            date: "16",
-            time: "10:00",
-            content: "외주 2차 미팅"
-        }
-        var dateOfSchedule2 = {
-            year: "2023",
-            month: "12",
-            date: "1",
-            time: "15:00",
-            content: "2024 프로젝트 계획 발표회 참석"
-        }
-        var dateOfSchedule3 = {
-            year: "2022",
-            month: "12",
-            date: "30",
-            time: "14:00",
-            content: "크리스마스 시즌 한정 UI 회의"
-        }
-        var dateOfSchedule4 = {
-            year: "2024",
-            month: "10",
-            date: "28",
-            time: "22:00",
-            content: "할로윈 시즌 굿즈 예약 판매 시작"
-        }
-        
         var scheduleColumn = document.getElementById("scheduleColumn");
         var scheduleTimeSelect = document.getElementById("scheduleTimeSelect");
         var scheduleInputBox = document.getElementById("scheduleInputBox");

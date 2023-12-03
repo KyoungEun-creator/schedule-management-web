@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer" onsubmit="return regexCheck(event)">
+    <form id="valueContainer">
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
@@ -60,12 +60,38 @@
             <input id="telInputBox" class="inputBox" name="tel_value" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 수정하기 버튼 -->
-            <input id="enterBtn" value="수정하기" type="submit">
+            <input id="enterBtn" value="수정하기" type="button" onclick="validateForm()">
         </div>
     </form>
 
     <script src="../js/pwEvent.js"></script>
     <script src="../js/regexTest.js"></script>
+    <script>
+        function validateForm () {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            var pwInput = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+            var pwSecondInput = document.getElementById("pwSecondInputBox");
+            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
+            var nameInput = document.getElementById("nameInputBox");
+            var nameInputValue = document.getElementById("nameInputBox").value;
+            var telInput = document.getElementById("telInputBox");
+            var telInputValue = document.getElementById("telInputBox").value;
+
+            if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
+                alert("값을 모두 입력해주세요")
+            }
+            else {
+                testIDRegex(idInput, idInputValue);
+                testPWRegex(pwInput, pwInputValue);
+                testSecondPWRegex(pwInput, pwInputValue, pwSecondInput, pwSecondInputValue);
+                testNameRegex(nameInput, nameInputValue);
+                testTelRegex(telInput, telInputValue);
+                document.getElementById("valueContainer").submit();
+            }
+        }
+    </script>
     <script>
         // 아이디 중복체크 버튼 클릭 시 input 더이상 입력 불가해지는 이벤트
         function checkIdDuplicateEvent () {

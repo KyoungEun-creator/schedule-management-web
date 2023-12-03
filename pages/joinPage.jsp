@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer" onsubmit="return regexCheck(event)" action="../actions/joinAction.jsp">
+    <form id="valueContainer" action="../actions/joinAction.jsp">
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
@@ -60,7 +60,7 @@
             <input id="telInputBox" class="inputBox" name="tel_value" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 회원가입 버튼 -->
-            <input id="enterBtn" value="회원가입" type="submit">
+            <input id="enterBtn" value="회원가입" type="button" onclick="validateForm()">
 
             <div id="extraFunctions">
                 <a href="../index.jsp">로그인하러 가기</a>
@@ -71,21 +71,39 @@
     <script src="../js/pwEvent.js"></script>
     <script src="../js/regexTest.js"></script>
     <script>
+        function validateForm () {
+            var idInput = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            var pwInput = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+            var pwSecondInput = document.getElementById("pwSecondInputBox");
+            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
+            var nameInput = document.getElementById("nameInputBox");
+            var nameInputValue = document.getElementById("nameInputBox").value;
+            var telInput = document.getElementById("telInputBox");
+            var telInputValue = document.getElementById("telInputBox").value;
+
+            if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
+                alert("값을 모두 입력해주세요")
+            }
+            else {
+                testIDRegex(idInput, idInputValue);
+                testPWRegex(pwInput, pwInputValue);
+                testSecondPWRegex(pwInput, pwInputValue, pwSecondInput, pwSecondInputValue);
+                testNameRegex(nameInput, nameInputValue);
+                testTelRegex(telInput, telInputValue);
+                document.getElementById("valueContainer").submit();
+            }
+        }
+    </script>
+    <script>
         // 아이디 중복체크 버튼 클릭 시 input 더이상 입력 불가해지는 이벤트
         function checkIdDuplicateEvent () {
             var idInput = document.getElementById("idInputBox");
 
             // 정규식에 부합한다면 
             // 백엔드 아이디 중복 확인 로직을 실행하고
-            idInput.disabled = true;
+            // idInput.disabled = true;
         }
-    </script>
-    <script>
-        // select에서 유저가 선택한 option 값 가져오기
-        let selectedDepartment = document.getElementById("selectDepartment");
-        selectedDepartment = selectedDepartment.options[select.selectedIndex].value;
-
-        let selectedPosition = document.getElementById("selectPosition");
-        selectedPosition = selectedPosition.options[select.selectedIndex].value;
     </script>
 </body>
