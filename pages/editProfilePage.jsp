@@ -20,7 +20,7 @@
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input id="idInputBox" class="inputBox" name="id_changed_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
-            <button id="duplicateIDCheckBtn" onclick="checkIdDuplicateEvent()">중복확인</button>
+            <button id="duplicateIDCheckBtn" onclick="checkDuplicateIDEvent()">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_changed_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
@@ -118,7 +118,7 @@
     </script>
     <script>
         // 아이디 중복체크 버튼 클릭 시 input 더이상 입력 불가해지는 이벤트
-        function checkIdDuplicateEvent () {
+        function checkDuplicateIDEvent () {
             var idInput = document.getElementById("idInputBox");
 
             // 정규식에 부합한다면 

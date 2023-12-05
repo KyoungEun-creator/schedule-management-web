@@ -12,7 +12,8 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer" action="../actions/joinAction.jsp">
+    <form id="valueContainer">
+        <!-- action="../actions/joinAction.jsp" -->
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
@@ -20,7 +21,7 @@
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
-            <button id="duplicateIDCheckBtn" onclick="checkIdDuplicateEvent()">중복확인</button>
+            <button id="duplicateIDCheckBtn" onclick="checkDuplicateIDEvent()">중복확인</button>
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
@@ -92,42 +93,65 @@
             checkPWMatchEvent(password, secondPassword, impossiblePWMessage);
         }
     </script>
-
     <script src="../js/regexTest.js"></script>
     <script>
         function validateForm () {
-            var idInput = document.getElementById("idInputBox");
+            var idInputBox = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
-            var pwInput = document.getElementById("pwInputBox");
+            var pwInputBox = document.getElementById("pwInputBox");
             var pwInputValue = document.getElementById("pwInputBox").value;
-            var pwSecondInput = document.getElementById("pwSecondInputBox");
+            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
             var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
-            var nameInput = document.getElementById("nameInputBox");
+            var nameInputBox = document.getElementById("nameInputBox");
             var nameInputValue = document.getElementById("nameInputBox").value;
-            var telInput = document.getElementById("telInputBox");
+            var telInputBox = document.getElementById("telInputBox");
             var telInputValue = document.getElementById("telInputBox").value;
 
             if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
                 alert("값을 모두 입력해주세요")
             }
             else {
-                testIDRegex(idInput, idInputValue);
-                testPWRegex(pwInput, pwInputValue);
-                testSecondPWRegex(pwInput, pwInputValue, pwSecondInput, pwSecondInputValue);
-                testNameRegex(nameInput, nameInputValue);
-                testTelRegex(telInput, telInputValue);
+                testIDRegex(idInputBox, idInputValue);
+                testPWRegex(pwInputBox, pwInputValue);
+                testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondInputValue);
+                testNameRegex(nameInputBox, nameInputValue);
+                testTelRegex(telInputBox, telInputValue);
                 document.getElementById("valueContainer").submit();
             }
         }
     </script>
     <script>
-        // 아이디 중복체크 버튼 클릭 시 input 더이상 입력 불가해지는 이벤트
-        function checkIdDuplicateEvent () {
-            var idInput = document.getElementById("idInputBox");
+        // 아이디 중복 체크
+        function checkDuplicateIDEvent () {
+            var idInputBox = document.getElementById("idInputBox")
+            var idInputValue = document.getElementById("idInputBox").value;
 
-            // 정규식에 부합한다면 
-            // 백엔드 아이디 중복 확인 로직을 실행하고
-            // idInput.disabled = true;
+            // 부모 창에서 자식 창의 값(중복 여부)을 받을 변수
+            var idDuplicateCheck; 
+
+            // 자식 창을 열고 값 받아오기
+            function openChildWindow() {
+                var childWindow = window.open("../actions/checkDuplicateIDAction.jsp?id_value=" + idInputValue, "_blank", "width=900,height=600, scrollbars=yes");
+
+                // 자식 창에서 값을 받아올 때 실행되는 함수
+                childWindow.onunload = function () {
+                    var possibleIDMessage = document.getElementById("possibleIDMessage");
+                    var impossibleIDMessage = document.getElementById("impossibleIDMessage");
+
+                    isDuplicateCheck = window.opener.idDuplicateCheck;
+                    console.log(idDuplicateCheck);
+                    
+                    if (idDuplicateCheck) {
+                        // 중복된 아이디인 경우
+                        impossibleIDMessage.classList.remove("hidden");
+                    } else {
+                        // 중복되지 않은 아이디인 경우
+                        idInputBox.disabled = true;
+                        possibleIDMessage.classList.remove("hidden");
+                    }
+                };
+            }
+            openChildWindow();
         }
     </script>
 </body>

@@ -38,8 +38,8 @@
             <!-- 로그인한 회원 본명 + '님' 출력 -->
             <a href="../pages/myProfilePage.jsp" id="userID"></a>
             <form action="../actions/logoutAction.jsp">
-                <button id="logoutBtn" type="submit"> 
-                    로그아웃
+                <button id="logoutBtn" type="submit">
+                    로그아웃 
                     <img id="logoutIcon" src="../imgs/logout.png">
                 </button>
             </form>
@@ -214,7 +214,7 @@
 
                     // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
                     dateBox.addEventListener("click", function () {
-                        window.open("../pages/schedulePage.jsp", "_blank", "width=900,height=600,scrollbars=yes");
+                        window.open("../pages/schedulePage.jsp", "_blank", "width=900,height=600, scrollbars=yes");
                     })
                 } else {
                     break;
