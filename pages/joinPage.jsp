@@ -60,7 +60,7 @@
             <input id="telInputBox" class="inputBox" name="tel_value" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 회원가입 버튼 -->
-            <input id="enterBtn" value="회원가입" type="button" onclick="validateForm()">
+            <input id="enterBtn" value="회원가입" type="button" onclick="joinEvent()">
 
             <div id="extraFunctions">
                 <a href="../index.jsp">로그인하러 가기</a>
@@ -94,7 +94,9 @@
     </script>
     <script src="../js/regexTest.js"></script>
     <script>
-        function validateForm () {
+
+        // NOTE: 왜 이름을 그렇게 지음 ???
+        function joinEvent () {
             var idInputBox = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
             var pwInputBox = document.getElementById("pwInputBox");
@@ -109,13 +111,24 @@
             if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
                 alert("값을 모두 입력해주세요")
             }
-            else {
-                testIDRegex(idInputBox, idInputValue);
-                testPWRegex(pwInputBox, pwInputValue);
-                testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondInputValue);
-                testNameRegex(nameInputBox, nameInputValue);
-                testTelRegex(telInputBox, telInputValue);
 
+            // NOTE : 아래 내용을 이 양식에 맞게 변경해서 기입해야 함
+            else if (testIDRegex(idInputBox, idInputValue)) {
+                // NOTE : 위 예외처리가 false가 나왔을 때, 이 페이지에서 뭘 해줄지를 아래애 명세
+            }
+            else if (testPWRegex(pwInputBox, pwInputValue)) {
+                // NOTE : 위 예외처리가 false가 나왔을 때, 이 페이지에서 뭘 해줄지를 아래애 명세
+            }
+            else if (testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondInputValue)) {
+
+            }
+            else if (testNameRegex(nameInputBox, nameInputValue)) {
+
+            }
+            else if (testTelRegex(telInputBox, telInputValue)) {
+
+            }
+            else {
                 console.log(idInputValue, pwInputValue, nameInputValue, telInputValue)
                 document.getElementById("valueContainer").submit();
             }
@@ -127,33 +140,37 @@
         // 부모 창에서 자식 창의 값(중복 여부)을 받을 변수
         var idDuplicateCheck; 
 
-        function checkDuplicateIDEvent () {
-            var idInputBox = document.getElementById("idInputBox")
+        // 자식 창을 열고 값 받아오기
+        function checkDuplicateIDEvent() {
             var idInputValue = document.getElementById("idInputBox").value;
+            var childWindow = window.open("../actions/checkDuplicateIDAction.jsp?id_value=" + idInputValue, "_blank", "width=900,height=600, scrollbars=yes");
 
-            // 자식 창을 열고 값 받아오기
-            function openChildWindow() {
-                var childWindow = window.open("../actions/checkDuplicateIDAction.jsp?id_value=" + idInputValue, "_blank", "width=900,height=600, scrollbars=yes");
+            // 자식 창에서 값을 받아올 때 실행되는 함수
+            childWindow.onunload = function () {
+                var idInputBox = document.getElementById("idInputBox")
+                var possibleIDMessage = document.getElementById("possibleIDMessage");
+                var impossibleIDMessage = document.getElementById("impossibleIDMessage");
 
-                // 자식 창에서 값을 받아올 때 실행되는 함수
-                childWindow.onunload = function () {
-                    var possibleIDMessage = document.getElementById("possibleIDMessage");
-                    var impossibleIDMessage = document.getElementById("impossibleIDMessage");
-
-                    isDuplicateCheck = window.opener.idDuplicateCheck;
-                    console.log(idDuplicateCheck);
-                    
-                    if (idDuplicateCheck) {
-                        // 중복된 아이디인 경우
-                        impossibleIDMessage.classList.remove("hidden");
-                    } else {
-                        // 중복되지 않은 아이디인 경우
-                        idInputBox.disabled = true;
-                        possibleIDMessage.classList.remove("hidden");
-                    }
-                };
-            }
-            openChildWindow();
+                isDuplicateCheck = childWindow.idDuplicateCheck;
+                console.log(idDuplicateCheck);
+                
+                if (idDuplicateCheck) {
+                    // 중복된 아이디인 경우
+                    possibleIDMessage.classList.add("hidden");
+                    impossibleIDMessage.classList.remove("hidden");
+                    idInputBox.readOnly = false;   // NOTE: Disabled로 속성을 주게되면 수정 못함 + 데이터가 없는 취급
+                } else {
+                    // 중복되지 않은 아이디인 경우
+                    possibleIDMessage.classList.remove("hidden");
+                    impossibleIDMessage.classList.remove("hidden");
+                    idInputBox.readOnly = true;
+                }
+            };
         }
+
+        // function checkDuplicateIDEvent () {
+
+        //     openChildWindow();
+        // }
     </script>
 </body>

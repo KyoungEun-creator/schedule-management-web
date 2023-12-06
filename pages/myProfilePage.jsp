@@ -25,6 +25,11 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
+    // 로그인 안 되어 있으면 열리면 안 됨
+    if (idx == null) { 
+        response.sendRedirect("../index.jsp");
+    }
+
     // 부서 idx로 되어있는 거 name 가져오고자 함
     String depNameSelectSql = "SELECT name FROM department WHERE idx = ?";
     PreparedStatement depNameSelectQuery = connect.prepareStatement(depNameSelectSql);

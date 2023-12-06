@@ -80,4 +80,12 @@
             location.href = "../pages/joinPage.jsp";
         } 
     </script> -->
+    <script>
+        console.log("<%=idValue%>")
+        console.log("<%=pwValue%>")
+        console.log("<%=nameValue%>")
+        console.log("<%=departmentValue%>")
+        console.log("<%=roleValue%>")
+        console.log("<%=telValue%>")
+    </script>
 </body>

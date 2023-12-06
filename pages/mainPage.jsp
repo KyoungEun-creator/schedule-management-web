@@ -2,7 +2,7 @@
 
 <%
     // 로그인 정보 세션에 넣어놓음
-    Integer idx = (Integer)session.getAttribute("idx");
+    String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
     String department = (String)session.getAttribute("department");

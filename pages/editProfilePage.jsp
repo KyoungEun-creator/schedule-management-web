@@ -10,6 +10,25 @@
     String role = (String)session.getAttribute("role");
     String tel = (String)session.getAttribute("tel");
 %>
+<!-- jsp에서 라이브러리 import하는 방법 -->
+<%@ page import="java.sql.DriverManager" %>     <!-- 데이터베이스 탐색 라이브러리 -->
+<%@ page import="java.sql.Connection" %>        <!-- 데이터베이스 연결 라이브러리 -->
+<%@ page import="java.sql.PreparedStatement" %> <!-- 데이터베이스 SQL 전송 라이브러리 -->
+<%@ page import="java.sql.ResultSet" %>          <!-- 데이터베이스에서 값 받아오기 라이브러리 -->
+
+<%
+    request.setCharacterEncoding("utf-8");
+
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
+    String dbID = "JKE";
+    String dbPW = "1234";
+    Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
+
+    // 로그인 안 되어 있으면 열리면 안 됨
+    if (idx == null) { 
+        response.sendRedirect("../index.jsp");
+    }
+%>
 
 <head>
     <meta charset="UTF-8">
