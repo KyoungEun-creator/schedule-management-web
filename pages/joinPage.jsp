@@ -122,12 +122,13 @@
     </script>
     <script>
         // 아이디 중복 체크
+
+        // 부모 창에서 자식 창의 값(중복 여부)을 받을 변수
+        var idDuplicateCheck; 
+
         function checkDuplicateIDEvent () {
             var idInputBox = document.getElementById("idInputBox")
             var idInputValue = document.getElementById("idInputBox").value;
-
-            // 부모 창에서 자식 창의 값(중복 여부)을 받을 변수
-            var idDuplicateCheck; 
 
             // 자식 창을 열고 값 받아오기
             function openChildWindow() {
