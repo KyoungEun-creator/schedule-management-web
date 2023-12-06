@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
 <%
-    request.setCharacterEncoding("utf-8");
-
     // 로그인 정보 세션에 넣어놓음
-    String idx = (String)session.getAttribute("idx");
+    Integer idx = (Integer)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
     String department = (String)session.getAttribute("department");
     String role = (String)session.getAttribute("role");
 
+    // 로그인 시점의 년, 월 정보를 변수로 만들어놓음
     String yearValue = request.getParameter("year");
     String monthValue = request.getParameter("month");
-
 %>
 
 <%@ page import="java.sql.DriverManager" %>     <!-- 데이터베이스 탐색 라이브러리 -->
@@ -29,6 +27,13 @@
     String dbID = "JKE";
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
+
+    // 로그인 안 되어 있으면 열리면 안 됨
+    if (idx == null) { 
+        response.sendRedirect("../index.jsp");
+    }
+
+    // schedule 테이블에서 idx, year, month가 동일한 행의 date만 가져온다
 
 
 %> 
@@ -223,7 +228,7 @@
                     // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
                     dateBox.addEventListener("click", function () {
                         var currentDate = this.textContent;
-                        console.log(currentDate);
+                        // console.log(currentDate);
                         var schedulePageURL = "../pages/schedulePage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth + "&date=" + currentDate;
                         window.open(schedulePageURL, "_blank", "width=900,height=600, scrollbars=yes");
                     })
@@ -250,7 +255,7 @@
             document.getElementById("userID").innerHTML = accountName+' 님';
         } 
         else {
-            location.reload="../index.jsp"
+            location.href="../index.jsp"
         }
 
         // 직급에 따른 nav bar 반영 여부
