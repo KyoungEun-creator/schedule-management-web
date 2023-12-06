@@ -12,8 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer">
-        <!-- action="../actions/joinAction.jsp" -->
+    <form id="valueContainer" action="../actions/joinAction.jsp">
         <div class="inputContainer">
             <div id="inputAlarmLabel">
                 <div class="inputLabel">아이디</div>
@@ -21,7 +20,7 @@
                 <div id="impossibleIDMessage" class="impossible hidden">사용 불가능한 아이디입니다.</div>
             </div>
             <input id="idInputBox" class="inputBox" name="id_value" placeholder="최대 15자 내로 입력하세요" type="text" maxlength="15">
-            <button id="duplicateIDCheckBtn" onclick="checkDuplicateIDEvent()">중복확인</button>
+            <input id="duplicateIDCheckBtn" value="중복확인" type="button" onclick="checkDuplicateIDEvent()">
 
             <div class="inputLabel">비밀번호</div>
             <input id="pwInputBox" class="inputBox" name="pw_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20">
@@ -32,7 +31,7 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" name="pw_second_value" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" oninput="makePWSame()">
+            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" oninput="makePWSame()">
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg" onclick="toggleSecondVisiblityPW()">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg" onclick="toggleSecondVisiblityPW()">
 
@@ -43,16 +42,16 @@
                 </div>
                 <div class="rowInput">
                     <div id="selectDepartment" class="inputLabel">부서</div>
-                    <select class="selectBox"> 
-                        <option name="department_value" value="service">서비스 팀</option>
-                        <option name="department_value" value="design">디자인 팀</option>
+                    <select class="selectBox" name="department_value">
+                        <option value="1">서비스 팀</option>
+                        <option value="2">디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput"> 
                     <div id="selectRole" class="inputLabel">직책</div>
-                    <select class="selectBox">
-                        <option name="role_value" value="leader">팀장</option>
-                        <option name="role_value" value="member">팀원</option>
+                    <select class="selectBox" name="role_value">
+                        <option value="1">팀장</option>
+                        <option value="2">팀원</option>
                     </select>
                 </div>
             </div>
@@ -116,6 +115,8 @@
                 testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondInputValue);
                 testNameRegex(nameInputBox, nameInputValue);
                 testTelRegex(telInputBox, telInputValue);
+
+                console.log(idInputValue, pwInputValue, nameInputValue, telInputValue)
                 document.getElementById("valueContainer").submit();
             }
         }

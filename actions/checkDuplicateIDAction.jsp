@@ -63,5 +63,7 @@
     // 부모창에 아이디 중복 테스트 결과를 보내는 용도
     window.opener.idDuplicateCheck = isDuplicateID;
     console.log(window.opener.idDuplicateCheck);
+
+    window.close();
 </script>
 </body>

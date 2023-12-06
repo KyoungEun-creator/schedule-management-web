@@ -24,15 +24,25 @@
 
     ResultSet result = query.executeQuery();    
 
+    String idx = null;
+    Boolean isLoginSuccess = false;
+
     if (result.next()) {
-        session.setAttribute("idx", result.getString(1));
+
+        idx = result.getString(1);
+
+        session.setAttribute("idx", idx);
         session.setAttribute("id", result.getString(2));
         session.setAttribute("password", result.getString(3));
         session.setAttribute("name", result.getString(4));
         session.setAttribute("department", result.getString(5));
         session.setAttribute("role", result.getString(6));
         session.setAttribute("tel", result.getString(7));
-        response.sendRedirect("../pages/mainPage.jsp");
+
+        isLoginSuccess = true;
+    }
+    else {
+        isLoginSuccess = false;
     }
 %>
 
@@ -44,8 +54,19 @@
 </head>
 <body>
     <script>
-        // 회원정보를 찾지 못할 경우
-        alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
-        window.location.href="../index.jsp";
+        var idx = "<%=idx%>";
+        var dt = new Date();
+        var currentYear = dt.getFullYear();
+        var currentMonth = dt.getMonth() + 1;
+        var isLoginSuccess = <%=isLoginSuccess%>;
+
+        if (isLoginSuccess === true) {
+            location.href = "../pages/mainPage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth;
+        } 
+        else {
+            alert("존재하지 않는 계정입니다.")
+            location.href = "../index.jsp"
+
+        }
     </script>
 </body>

@@ -49,15 +49,15 @@
                 <div class="rowInput">
                     <div class="inputLabel">부서</div>
                     <select class="selectBox" name="department">
-                        <option value="service_team" <%= department.equals("1") ? "selected" : "" %>>서비스 팀</option>
-                        <option value="design_team" <%= department.equals("2") ? "selected" : "" %>>디자인 팀</option>
+                        <option value="1" <%= department.equals("1") ? "selected" : "" %>>서비스 팀</option>
+                        <option value="2" <%= department.equals("2") ? "selected" : "" %>>디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">직책</div>
                     <select class="selectBox" name="role">
-                        <option value="leader" <%= role.equals("1") ? "selected" : "" %>>팀장</option>
-                        <option value="member" <%= role.equals("2") ? "selected" : "" %>>팀원</option>
+                        <option value="1" <%= role.equals("1") ? "selected" : "" %>>팀장</option>
+                        <option value="2" <%= role.equals("2") ? "selected" : "" %>>팀원</option>
                     </select>
                 </div>
             </div>

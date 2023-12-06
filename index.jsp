@@ -54,7 +54,7 @@
             var pwInputValue = document.getElementById("pwInputBox").value;
 
             if (idInputValue==="" || pwInputValue==="") {
-                alert("값을 모두 입력해주세요")
+                alert("값을 모두 입력해주세요");
             }
             else {
                 testIDRegex(idInput, idInputValue);

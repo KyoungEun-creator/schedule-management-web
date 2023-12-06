@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
 <%
+    request.setCharacterEncoding("utf-8");
+
     // 로그인 정보 세션에 넣어놓음
     String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
     String department = (String)session.getAttribute("department");
     String role = (String)session.getAttribute("role");
+
+    String yearValue = request.getParameter("year");
+    String monthValue = request.getParameter("month");
+
 %>
 
 <%@ page import="java.sql.DriverManager" %>     <!-- 데이터베이스 탐색 라이브러리 -->
@@ -14,6 +20,18 @@
 <%@ page import="java.sql.PreparedStatement" %> <!-- 데이터베이스 SQL 전송 라이브러리 -->
 <%@ page import="java.sql.ResultSet" %>          <!-- 데이터베이스에서 값 받아오기 라이브러리 -->
 <%@ page import="java.util.ArrayList" %>         <!-- 리스트 라이브러리 -->
+
+<!-- jsp 코드 -->
+<%
+    request.setCharacterEncoding("utf-8");
+
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
+    String dbID = "JKE";
+    String dbPW = "1234";
+    Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
+
+
+%> 
 
 <head>
     <meta charset="UTF-8">
@@ -38,7 +56,7 @@
             <!-- 로그인한 회원 본명 + '님' 출력 -->
             <a href="../pages/myProfilePage.jsp" id="userID"></a>
             <form action="../actions/logoutAction.jsp">
-                <button id="logoutBtn" type="submit">
+                <button id="logoutBtn">
                     로그아웃 
                     <img id="logoutIcon" src="../imgs/logout.png">
                 </button>
@@ -96,42 +114,33 @@
     </script>
 
     <script>
+        var idx = "<%=idx%>";
+        var currentYear = "<%=yearValue%>"
+        var currentMonth = "<%=monthValue%>"
+
         var dt = new Date();
-        var currentYear = dt.getFullYear();
-        var currentMonth = dt.getMonth() + 1;
         var currentDate = dt.getDate();
         var thisYear = document.getElementById("thisYear");
         var monthContainer = document.getElementById("monthContainer");
+        var months = document.getElementsByClassName("month");
         var clickedMonth; 
 
         thisYear.innerHTML = currentYear + "년";   
 
-        // 달력 초기화
-        function clearCalendar() {
-            var mainCalendar = document.getElementById("mainCalendar");
-            mainCalendar.innerHTML = "";
-        }
-
         // 년도 변경 버튼 클릭 이벤트
         function prevYearEvent() {
-            clearCalendar();
-            currentYear = currentYear - 1;
-            thisYear.innerHTML = currentYear + "년";
-            createCalendar();
+            currentYear = parseInt(currentYear) - 1;
+            location.href = "../pages/mainPage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth;
         }
         function nextYearEvent() {
-            clearCalendar();
-            currentYear = currentYear + 1;
-            thisYear.innerHTML = currentYear + "년";
-            createCalendar();
+            currentYear = parseInt(currentYear) + 1;
+            location.href = "../pages/mainPage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth;
         }
-
-        var months = document.getElementsByClassName("month");
 
         // 월 버튼 만들기
         function monthBtn() {
             var numberOfMonths = 12;
-            var mon = document.getElementById("mon");
+            //var mon = document.getElementById("mon");
 
             for (var i = 0; i < numberOfMonths; i++) {
                 var nameOfMonths = document.createElement("button");
@@ -143,32 +152,31 @@
                 nameOfMonths.addEventListener("click", function() {
                     clickedMonth = parseInt(this.innerHTML); 
                     currentMonth = clickedMonth;
-                    clearCalendar();
-                    createCalendar();
-                    highlightClickedMonth();        
-                });
+                    location.href = "../pages/mainPage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth;
+                  });
                 monthContainer.appendChild(nameOfMonths);
-
-                // 페이지 시작될 때 현재 달 표시되어 있도록
-                if (currentMonth === monthValues) {
-                    months[i].classList.add("selectedMonth");
-                }
             }
         }
 
-        // 클릭한 월버튼 표시
-        function highlightClickedMonth() {
-            for (var i = 0; i < months.length; i ++) {
-                months[i].classList.remove("selectedMonth");
-            }
+        // // 클릭한 월버튼 표시 (페이지 시작될 때 현재 달 표시되어 있음)
+        // if (currentMonth === new Date().getMonth()+1) {
+        //     months[i].classList.add("selectedMonth");
+        // }
+        // function highlightClickedMonth() {
+        //     if (currentMonth === new Date().getMonth()+1) {
+        //         console.log("현재 달입니다")
+        //     }
+        //     for (var i = 0; i < months.length; i ++) {
+        //         months[i].classList.remove("selectedMonth");
+        //     }
 
-            for (var i = 0; i < months.length; i ++) {
-                if (parseInt(months[i].innerHTML) === clickedMonth) {
-                    months[i].classList.add("selectedMonth");
-                    break;
-                }
-            }
-        }
+        //     for (var i = 0; i < months.length; i ++) {
+        //         if (parseInt(months[i].innerHTML) === clickedMonth) {
+        //             months[i].classList.add("selectedMonth");
+        //             //break;
+        //         }
+        //     }
+        // }
 
         // 달력 만들기 
         function createCalendar() {
@@ -199,13 +207,13 @@
                     var dateBox = document.createElement("div");        
                     dateBox.className = "dateBox";
 
-                    // 날짜 의미
+                    // 날짜 
                     var dateNum = document.createElement("span");
                     dateNum.className = "dateNum";
                     dateNum.innerHTML = startDate + index;
                     dateBox.appendChild(dateNum);
 
-                    // 스케줄 개수 의미
+                    // 스케줄 개수
                     var scheduleNum = document.createElement("span");   
                     scheduleNum.className = "dateNum";
                     dateBox.appendChild(scheduleNum);
@@ -214,7 +222,10 @@
 
                     // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
                     dateBox.addEventListener("click", function () {
-                        window.open("../pages/schedulePage.jsp", "_blank", "width=900,height=600, scrollbars=yes");
+                        var currentDate = this.textContent;
+                        console.log(currentDate);
+                        var schedulePageURL = "../pages/schedulePage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth + "&date=" + currentDate;
+                        window.open(schedulePageURL, "_blank", "width=900,height=600, scrollbars=yes");
                     })
                 } else {
                     break;
@@ -228,7 +239,7 @@
     </script>
 
     <script>
-        var accountIdx = <%=idx%>;
+        var accountIdx = "<%=idx%>";
         var accountId = "<%=id%>";
         var accountName = "<%=name%>";
         var accountDepartment = "<%=department%>";

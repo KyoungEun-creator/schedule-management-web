@@ -18,7 +18,7 @@ function testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondI
     if (pwInputValue !== pwSecondInputValue) {
         alert("비밀번호가 일치하지 않습니다.");
         pwInputBox.value = "";
-        pwSecondInput.value = "";
+        pwSecondInputBox.value = "";
         return false;
     }
 }
