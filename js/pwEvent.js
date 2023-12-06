@@ -32,9 +32,5 @@ function checkPWMatchEvent(password, secondPassword, impossiblePWMessage) {
         impossiblePWMessage.classList.remove("hidden");
     } else {
         impossiblePWMessage.classList.add("hidden");
-
-        // NOTE: 애초에 이 기능 자체가 필요가 없음 ( ux적으로 별로임 )
-        // pwInputBox.setAttribute("disabled", "disabled");
-        // pwSecondInputBox.setAttribute("disabled", "disabled");
     }
 }

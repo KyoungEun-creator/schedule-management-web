@@ -94,8 +94,6 @@
     </script>
     <script src="../js/regexTest.js"></script>
     <script>
-
-        // NOTE: 왜 이름을 그렇게 지음 ???
         function joinEvent () {
             var idInputBox = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
@@ -109,24 +107,30 @@
             var telInputValue = document.getElementById("telInputBox").value;
 
             if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
-                alert("값을 모두 입력해주세요")
+                alert("값을 모두 입력해주세요");
             }
-
-            // NOTE : 아래 내용을 이 양식에 맞게 변경해서 기입해야 함
-            else if (testIDRegex(idInputBox, idInputValue)) {
-                // NOTE : 위 예외처리가 false가 나왔을 때, 이 페이지에서 뭘 해줄지를 아래애 명세
+            else if (testIDRegex(idInputValue)) {
+                alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
+                idInputBox.value = "";
+                possibleIDMessage.classList.add("hidden");
+                impossibleIDMessage.classList.remove("hidden");
             }
-            else if (testPWRegex(pwInputBox, pwInputValue)) {
-                // NOTE : 위 예외처리가 false가 나왔을 때, 이 페이지에서 뭘 해줄지를 아래애 명세
+            else if (!testPWRegex(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로 이루어진 3 이상 20 이하 길이의 비밀번호를 입력해주세요.");
+                pwInputBox.value = "";
             }
-            else if (testSecondPWRegex(pwInputBox, pwInputValue, pwSecondInputBox, pwSecondInputValue)) {
-
+            else if (!testSecondPWRegex(pwInputValue, pwSecondInputValue)) {
+                alert("비밀번호가 일치하지 않습니다.");
+                pwInputBox.value = "";
+                pwSecondInputBox.value = "";
             }
-            else if (testNameRegex(nameInputBox, nameInputValue)) {
-
+            else if (!testNameRegex(nameInputValue)) {
+                alert("한국어 본명을 입력해주세요.");
+                nameInputBox.value = "";
             }
-            else if (testTelRegex(telInputBox, telInputValue)) {
-
+            else if (!testTelRegex(telInputValue)) {
+                alert("' - '를 제외한 숫자만 입력해주세요.");
+                telInputBox.value = "";
             }
             else {
                 console.log(idInputValue, pwInputValue, nameInputValue, telInputValue)
@@ -155,22 +159,17 @@
                 console.log(idDuplicateCheck);
                 
                 if (idDuplicateCheck) {
-                    // 중복된 아이디인 경우
+                    // 중복된 아이디인 경우(사용불가)
                     possibleIDMessage.classList.add("hidden");
                     impossibleIDMessage.classList.remove("hidden");
-                    idInputBox.readOnly = false;   // NOTE: Disabled로 속성을 주게되면 수정 못함 + 데이터가 없는 취급
+                    idInputBox.readOnly = false;  
                 } else {
-                    // 중복되지 않은 아이디인 경우
+                    // 중복되지 않은 아이디(사용가능)
                     possibleIDMessage.classList.remove("hidden");
-                    impossibleIDMessage.classList.remove("hidden");
+                    impossibleIDMessage.classList.add("hidden");
                     idInputBox.readOnly = true;
                 }
             };
         }
-
-        // function checkDuplicateIDEvent () {
-
-        //     openChildWindow();
-        // }
     </script>
 </body>

@@ -42,12 +42,21 @@
     Pattern telPattern = Pattern.compile(telRegex);
     Matcher telMatcher = telPattern.matcher(telValue);
     
+    // 아이디 중복 체크 한 번 더
+    // 아이디 중복체크 버튼을 눌렀느냐 안 했냐만 확인하는 방향으로
+
+
     // 정규식 부합 실패
     boolean isFailedRegex = false;
     if (!idMatcher.matches() || !pwMatcher.matches() || !nameMatcher.matches() || !telMatcher.matches()) {
         isFailedRegex = true;
         out.println("<div>입력값이 조건에 부합하지 않습니다.</div>");
     } 
+    // 아이디 중복 (사용불가)
+    else if (isDuplicateID) {
+        out.println("<div>사용 불가능한 아이디 입니다.</div>");
+    }
+    // 위 조건 통과 시 회원가입
     else {
         String joinSql = "INSERT INTO account (id, password, name, department, role, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement joinQuery = connect.prepareStatement(joinSql);
@@ -87,5 +96,7 @@
         console.log("<%=departmentValue%>")
         console.log("<%=roleValue%>")
         console.log("<%=telValue%>")
+
+        location.href = "../index.jsp"
     </script>
 </body>
