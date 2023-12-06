@@ -31,7 +31,7 @@
         session.setAttribute("name", result.getString(4));
         session.setAttribute("department", result.getString(5));
         session.setAttribute("role", result.getString(6));
-        session.setAttribute("phoneNumber", result.getString(7));
+        session.setAttribute("tel", result.getString(7));
         response.sendRedirect("../pages/mainPage.jsp");
     }
 %>
