@@ -109,26 +109,26 @@
             if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
                 alert("값을 모두 입력해주세요");
             }
-            else if (testIDRegex(idInputValue)) {
+            else if (!isIdCorrect(idInputValue)) {
                 alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
                 idInputBox.value = "";
                 possibleIDMessage.classList.add("hidden");
                 impossibleIDMessage.classList.remove("hidden");
             }
-            else if (!testPWRegex(pwInputValue)) {
+            else if (!isPwCorrect(pwInputValue)) {
                 alert("영어, 숫자, 특수기호로 이루어진 3 이상 20 이하 길이의 비밀번호를 입력해주세요.");
                 pwInputBox.value = "";
             }
-            else if (!testSecondPWRegex(pwInputValue, pwSecondInputValue)) {
+            else if (!isSecondPwCorrect(pwInputValue, pwSecondInputValue)) {
                 alert("비밀번호가 일치하지 않습니다.");
                 pwInputBox.value = "";
                 pwSecondInputBox.value = "";
             }
-            else if (!testNameRegex(nameInputValue)) {
+            else if (!isSecondPwCorrect(nameInputValue)) {
                 alert("한국어 본명을 입력해주세요.");
                 nameInputBox.value = "";
             }
-            else if (!testTelRegex(telInputValue)) {
+            else if (!isNameCorrect(telInputValue)) {
                 alert("' - '를 제외한 숫자만 입력해주세요.");
                 telInputBox.value = "";
             }
@@ -141,11 +141,14 @@
     <script>
         // 아이디 중복 체크
 
-        // 부모 창에서 자식 창의 값(중복 여부)을 받을 변수
+        // 부모창에서 자식창의 '아이디 정규식 부합 여부' 결과를 받을 변수
+        var idRegexCheck;
+
+        // 부모 창에서 자식창의 '아이디 중복 여부' 결과를 받을 변수
         var idDuplicateCheck; 
 
-        // 자식 창을 열고 값 받아오기
-        function checkDuplicateIDEvent() {
+        // 자식 창을 열고 값(정규식, 중복 확인 결과) 받아오기
+        function checkDuplicateIDEvent () {
             var idInputValue = document.getElementById("idInputBox").value;
             var childWindow = window.open("../actions/checkDuplicateIDAction.jsp?id_value=" + idInputValue, "_blank", "width=900,height=600, scrollbars=yes");
 
@@ -155,16 +158,18 @@
                 var possibleIDMessage = document.getElementById("possibleIDMessage");
                 var impossibleIDMessage = document.getElementById("impossibleIDMessage");
 
+                isFailedRegex = childWindow.idRegexCheck;
                 isDuplicateCheck = childWindow.idDuplicateCheck;
+                console.log(idRegexCheck);
                 console.log(idDuplicateCheck);
                 
-                if (idDuplicateCheck) {
-                    // 중복된 아이디인 경우(사용불가)
+                if (idRegexCheck || idDuplicateCheck) {
+                    // 정규식 실패이거나 중복된 아이디인 경우 (사용불가)
                     possibleIDMessage.classList.add("hidden");
                     impossibleIDMessage.classList.remove("hidden");
                     idInputBox.readOnly = false;  
                 } else {
-                    // 중복되지 않은 아이디(사용가능)
+                    // 중복되지 않은 아이디 (사용가능)
                     possibleIDMessage.classList.remove("hidden");
                     impossibleIDMessage.classList.add("hidden");
                     idInputBox.readOnly = true;

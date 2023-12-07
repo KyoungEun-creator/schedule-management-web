@@ -26,9 +26,9 @@ function toggleSecondPWEvent(visibleSecondPW, nonVisibleSecondPW, pwSecondInputB
     }
 }
 
-// pwInputBox과 pwSecondInputBox에 입력받은 값 동일 여부 확인
+// pwInputBox과 pwSecondInputBox에 입력받은 값 동일 여부에 따른 안내문구 출력
 function checkPWMatchEvent(password, secondPassword, impossiblePWMessage) {
-    if (password != secondPassword) {
+    if (password !== secondPassword) {
         impossiblePWMessage.classList.remove("hidden");
     } else {
         impossiblePWMessage.classList.add("hidden");

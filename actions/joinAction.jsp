@@ -48,13 +48,15 @@
 
     // 정규식 부합 실패
     boolean isFailedRegex = false;
+    boolean isDuplictateID = false;
+
     if (!idMatcher.matches() || !pwMatcher.matches() || !nameMatcher.matches() || !telMatcher.matches()) {
         isFailedRegex = true;
-        out.println("<div>입력값이 조건에 부합하지 않습니다.</div>");
+        System.out.println("<div>입력값이 조건에 부합하지 않습니다.</div>");
     } 
     // 아이디 중복 (사용불가)
     else if (isDuplicateID) {
-        out.println("<div>사용 불가능한 아이디 입니다.</div>");
+        System.out.println("<div>사용 불가능한 아이디 입니다.</div>");
     }
     // 위 조건 통과 시 회원가입
     else {

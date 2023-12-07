@@ -20,15 +20,22 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    // 아이디 정규식 체크
+    // 아이디 정규식
     String idRegex = "[a-zA-Z0-9]{3,15}$";
-    boolean isFailedRegex = !idValue.matches(idRegex);
+    Pattern idPattern = Pattern.compile(idRegex);
+    Matcher idMatcher = idPattern.matcher(idValue);
+
+    // 아이디 정규식 체크
+    boolean isFailedRegexID = false;
+    if (!idMatcher.matches()) {
+        isFailedRegexID = true;
+    } 
 
     // 아이디 중복 체크
     boolean isDuplicateID = false;
 
     // 정규식 통과했을 경우
-    if (!isFailedRegex) {
+    if (isFailedRegexID) {
         String checkIdDuplicateSQL = "SELECT * FROM account WHERE id = ?";
         PreparedStatement checkIdDuplicateQuery = connect.prepareStatement(checkIdDuplicateSQL);
         checkIdDuplicateQuery.setString(1, idValue);
@@ -49,10 +56,10 @@
 </head>
 <body>
 <script>
-    var isFailedRegex = <%=isFailedRegex%>;
+    var isFailedRegexID = <%=isFailedRegexID%>;
     var isDuplicateID = <%=isDuplicateID%>;
 
-    if (isFailedRegex) {
+    if (isFailedRegexID) {
         alert("옳지 못한 형식의 아이디입니다.");
     } else if (isDuplicateID) {
         alert("중복된 아이디입니다.");
@@ -60,8 +67,12 @@
         alert("옳은 형식의 아이디입니다. 사용 가능합니다.");
     }
 
+    // 부모창에 아이디 정규식 테스트 결과를 보내는 용도
+    window.opener.idRegexCheck = isFailedRegexID;
     // 부모창에 아이디 중복 테스트 결과를 보내는 용도
     window.opener.idDuplicateCheck = isDuplicateID;
+
+    console.log(window.opener.idRegexCheck);
     console.log(window.opener.idDuplicateCheck);
 
     window.close();
