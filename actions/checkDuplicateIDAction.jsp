@@ -63,7 +63,7 @@
         if (isFailedRegexID) {                  // true
             alert("옳지 못한 형식의 아이디입니다.");
         } else if (isDuplicateID) {             // true
-            alert("중복된 아이디입니다.");
+            alert("사용할 수 없는 아이디입니다.");
         } else {
             alert("옳은 형식의 아이디입니다. 사용 가능합니다.");
         }

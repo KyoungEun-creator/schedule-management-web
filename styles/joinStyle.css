@@ -29,6 +29,7 @@ body {
 #inputAlarmLabel {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .inputLabel {
   font-size: 20px;

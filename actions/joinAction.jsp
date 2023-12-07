@@ -15,6 +15,7 @@
 
     String idValue = request.getParameter("id_value");
     String pwValue = request.getParameter("pw_value");
+    String pwSecondValue = request.getParameter("pw_second_value");
     String nameValue = request.getParameter("name_value");
     String departmentValue = request.getParameter("department_value");
     String roleValue = request.getParameter("role_value");
@@ -25,7 +26,9 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    // 정규식 
+    // 정규식 체크
+    boolean isFailedRegex = false;
+
     String idRegex = "[a-zA-Z0-9]{3,15}$";
     Pattern idPattern = Pattern.compile(idRegex);
     Matcher idMatcher = idPattern.matcher(idValue);
@@ -42,21 +45,39 @@
     Pattern telPattern = Pattern.compile(telRegex);
     Matcher telMatcher = telPattern.matcher(telValue);
     
-    // 아이디 중복 체크 한 번 더
-    // 아이디 중복체크 버튼을 눌렀느냐 안 했냐만 확인하는 방향으로
+    // 아이디 중복 체크
+    boolean isDuplicateID = false;
 
+    String checkIdDuplicateSQL = "SELECT * FROM account WHERE id = ?";
+    PreparedStatement checkIdDuplicateQuery = connect.prepareStatement(checkIdDuplicateSQL);
+    checkIdDuplicateQuery.setString(1, idValue);
+    ResultSet searchIdResult = checkIdDuplicateQuery.executeQuery();
 
-    // 정규식 부합 실패
-    boolean isFailedRegex = false;
-    boolean isDuplictateID = false;
+    // 비밀번호 동일 여부 체크
+    boolean isDifferentPW = false;
+
+    // 전화번호 중복 여부 체크
+    boolean isDuplicateTel = false;
+
+    String checkTelDuplicateSQL = "SELECT * FROM account WHERE phone_number = ?";
+    PreparedStatement checkTelDuplicateQuery = connect.prepareStatement(checkTelDuplicateSQL);
+    checkTelDuplicateQuery.setString(1, telValue);
+    ResultSet searchTelResult = checkTelDuplicateQuery.executeQuery();
 
     if (!idMatcher.matches() || !pwMatcher.matches() || !nameMatcher.matches() || !telMatcher.matches()) {
         isFailedRegex = true;
-        System.out.println("<div>입력값이 조건에 부합하지 않습니다.</div>");
     } 
     // 아이디 중복 (사용불가)
-    else if (isDuplicateID) {
-        System.out.println("<div>사용 불가능한 아이디 입니다.</div>");
+    else if (searchIdResult.next()) {
+        isDuplicateID = true;
+    }
+    // 비밀번호 다름 (사용불가)
+    if (pwValue != pwSecondValue) {
+        isDifferentPW = true;
+    }
+    // 전화번호 중복 (사용불가)
+    else if (searchTelResult.next()) {
+        isDuplicateTel = true;
     }
     // 위 조건 통과 시 회원가입
     else {
@@ -81,24 +102,34 @@
     <title>회원가입</title>
 </head>
 <body>
-    <!-- <script>
-        // 정규식 부합 테스트
-        var isFailedRegex = <%=isFailedRegex%>;
-        console.log(isFailedRegex);
-
-        if (isFailedRegex) {      
-            alert("입력값이 조건에 부합하지 않습니다.");
-            location.href = "../pages/joinPage.jsp";
-        } 
-    </script> -->
     <script>
         console.log("<%=idValue%>")
         console.log("<%=pwValue%>")
+        console.log("<%=pwSecondValue%>")
         console.log("<%=nameValue%>")
         console.log("<%=departmentValue%>")
         console.log("<%=roleValue%>")
         console.log("<%=telValue%>")
 
-        location.href = "../index.jsp"
+        var isFailedRegex = <%=isFailedRegex%>;
+        var isDuplicateID = <%=isDuplicateID%>;
+        var isDifferentPW = <%=isDifferentPW%>;
+        var isDuplicateTel = <%=isDuplicateTel%>;
+
+        if (isFailedRegex) {
+            alert("옳지 못한 형식입니다.");
+        }
+        else if (isDuplicateID) {
+            alert("사용할 수 없는 아이디입니다.");
+        } 
+        else if (isDifferentPW) {
+            alert("비밀번호를 재확인해주세요.");
+        }
+        else if (isDuplicateTel) {
+            alert("사용할 수 없는 전화번호입니다.");
+        }
+        else {
+            location.href = "../index.jsp";
+        }
     </script>
 </body>

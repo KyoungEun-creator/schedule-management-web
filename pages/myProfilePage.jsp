@@ -94,7 +94,7 @@
 
             <div id="extraFunctions">
                 <input id="openDeleteAccountModalBtn" class="extraFunctionBtn" type="button" value="탈퇴하기" onclick="openDeleteAccountModalEvent()">
-                <a href="../pages/editProfilePage.jsp" class="extraFunctionBtn">수정하기</a>
+                <a href="../pages/updateProfilePage.jsp" class="extraFunctionBtn">수정하기</a>
             </div>
         </div>
     </form>

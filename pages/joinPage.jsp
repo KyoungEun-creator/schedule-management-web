@@ -31,7 +31,7 @@
                 <div class="inputLabel">비밀번호 재입력</div>
                 <div id="impossiblePWMessage" class="impossible hidden">비밀번호가 일치하지 않습니다.</div>
             </div>
-            <input id="pwSecondInputBox" class="inputBox" type="password" placeholder="최대 20자 내로 입력하세요" maxlength="20" oninput="makePWSame()">
+            <input id="pwSecondInputBox" class="inputBox" name="pw_second_value" placeholder="최대 20자 내로 입력하세요" type="password" maxlength="20" oninput="makePWSame()">
             <img id="visibleSecondPW" class="visibility"  src="../imgs/visibility.svg" onclick="toggleSecondVisiblityPW()">
             <img id="nonVisibleSecondPW" class="visibility hidden" src="../imgs/visibility_off.svg" onclick="toggleSecondVisiblityPW()">
 
@@ -69,83 +69,21 @@
     </form>
 
     <script src="../js/pwEvent.js"></script>
-    <script>
-        function toggleVisiblityPW() {
-            var visiblePW = document.getElementById("visiblePW");
-            var nonVisiblePW = document.getElementById("nonVisiblePW");
-            var pwInputBox = document.getElementById("pwInputBox");
-            
-            togglePWEvent(visiblePW, nonVisiblePW, pwInputBox);
-        }
-        function toggleSecondVisiblityPW() {
-            var visibleSecondPW = document.getElementById("visibleSecondPW");
-            var nonVisibleSecondPW = document.getElementById("nonVisibleSecondPW");
-            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
-            
-            toggleSecondPWEvent(visibleSecondPW, nonVisibleSecondPW, pwSecondInputBox);
-        }
-        function makePWSame() {
-            var password = pwInputBox.value;
-            var secondPassword = pwSecondInputBox.value;
-            var impossiblePWMessage = document.getElementById("impossiblePWMessage");
-
-            checkPWMatchEvent(password, secondPassword, impossiblePWMessage);
-        }
-    </script>
     <script src="../js/regexTest.js"></script>
-    <script>
-        function joinEvent () {
-            var idInputBox = document.getElementById("idInputBox");
-            var idInputValue = document.getElementById("idInputBox").value;
-            var pwInputBox = document.getElementById("pwInputBox");
-            var pwInputValue = document.getElementById("pwInputBox").value;
-            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
-            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
-            var nameInputBox = document.getElementById("nameInputBox");
-            var nameInputValue = document.getElementById("nameInputBox").value;
-            var telInputBox = document.getElementById("telInputBox");
-            var telInputValue = document.getElementById("telInputBox").value;
 
-            if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
-                alert("값을 모두 입력해주세요");
-            }
-            else if (!isIdCorrect(idInputValue)) {
-                alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
-                idInputBox.value = "";
-                possibleIDMessage.classList.add("hidden");
-                impossibleIDMessage.classList.remove("hidden");
-            }
-            else if (!isPwCorrect(pwInputValue)) {
-                alert("영어, 숫자, 특수기호로 이루어진 3 이상 20 이하 길이의 비밀번호를 입력해주세요.");
-                pwInputBox.value = "";
-            }
-            else if (!isSecondPwCorrect(pwInputValue, pwSecondInputValue)) {
-                alert("비밀번호가 일치하지 않습니다.");
-                pwInputBox.value = "";
-                pwSecondInputBox.value = "";
-            }
-            else if (!isNameCorrect(nameInputValue)) {
-                alert("한국어 본명을 입력해주세요.");
-                nameInputBox.value = "";
-            }
-            else if (!isTelCorrect(telInputValue)) {
-                alert("' - '를 제외한 숫자만 입력해주세요.");
-                telInputBox.value = "";
-            }
-            else {
-                console.log(idInputValue, pwInputValue, nameInputValue, telInputValue)
-                document.getElementById("valueContainer").submit();
-            }
-        }
-    </script>
+    
     <script>
-        // 아이디 중복 체크
+
+        // ----------------- 아이디 중복 확인 버튼 ----------------- 
 
         // 부모창에서 자식창의 '아이디 정규식 부합 여부' 결과를 받을 변수 (true: 사용불가 / false: 사용가능)
         var idRegexCheck;
 
         // 부모 창에서 자식창의 '아이디 중복 여부' 결과를 받을 변수 (true: 사용가능 / false: 사용가능)
         var idDuplicateCheck; 
+
+        // 버튼 클릭 여부 확인을 위한 변수   
+        var isClicked = false;
 
         // 자식 창을 열고 값(정규식, 중복 확인 결과) 받아오기
         function checkDuplicateIDEvent () {
@@ -175,7 +113,81 @@
                     impossibleIDMessage.classList.add("hidden");
                     idInputBox.readOnly = true;
                 }
+                isClicked = true;
             };
+        }
+
+        // ----------------- 비밀번호 보임/안보임/다름 ----------------- 
+
+        function toggleVisiblityPW() {
+            var visiblePW = document.getElementById("visiblePW");
+            var nonVisiblePW = document.getElementById("nonVisiblePW");
+            var pwInputBox = document.getElementById("pwInputBox");
+            
+            togglePWEvent(visiblePW, nonVisiblePW, pwInputBox);
+        }
+        function toggleSecondVisiblityPW() {
+            var visibleSecondPW = document.getElementById("visibleSecondPW");
+            var nonVisibleSecondPW = document.getElementById("nonVisibleSecondPW");
+            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
+            
+            toggleSecondPWEvent(visibleSecondPW, nonVisibleSecondPW, pwSecondInputBox);
+        }
+        function makePWSame() {
+            var password = pwInputBox.value;
+            var secondPassword = pwSecondInputBox.value;
+            var impossiblePWMessage = document.getElementById("impossiblePWMessage");
+
+            checkPWMatchEvent(password, secondPassword, impossiblePWMessage);
+        }
+
+        // ----------------- 모두 입력 후 폼전송 직전 예외처리 ----------------- 
+
+        function joinEvent () {
+            var idInputBox = document.getElementById("idInputBox");
+            var idInputValue = document.getElementById("idInputBox").value;
+            var pwInputBox = document.getElementById("pwInputBox");
+            var pwInputValue = document.getElementById("pwInputBox").value;
+            var pwSecondInputBox = document.getElementById("pwSecondInputBox");
+            var pwSecondInputValue = document.getElementById("pwSecondInputBox").value;
+            var nameInputBox = document.getElementById("nameInputBox");
+            var nameInputValue = document.getElementById("nameInputBox").value;
+            var telInputBox = document.getElementById("telInputBox");
+            var telInputValue = document.getElementById("telInputBox").value;
+
+            if (idInputValue === "" || pwInputValue === "" || pwSecondInputValue === "" || nameInputValue === "" || telInputValue === "") {
+                alert("값을 모두 입력해주세요.");
+            }
+            else if (!isClicked) {
+                alert("아이디 중복 확인을 해주세요.")
+            }
+            else if (!isIdCorrect(idInputValue)) {
+                alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
+                idInputBox.value = "";
+                possibleIDMessage.classList.add("hidden");
+                impossibleIDMessage.classList.remove("hidden");
+            }
+            else if (!isPwCorrect(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로 이루어진 3 이상 20 이하 길이의 비밀번호를 입력해주세요.");
+                pwInputBox.value = "";
+            }
+            else if (!isSecondPwCorrect(pwInputValue, pwSecondInputValue)) {
+                alert("비밀번호가 일치하지 않습니다.");
+                pwInputBox.value = "";
+                pwSecondInputBox.value = "";
+            }
+            else if (!isNameCorrect(nameInputValue)) {
+                alert("한국어 본명을 입력해주세요.");
+                nameInputBox.value = "";
+            }
+            else if (!isTelCorrect(telInputValue)) {
+                alert("' - '를 제외한 숫자만 입력해주세요.");
+                telInputBox.value = "";
+            }
+            else {
+                console.log(idInputValue, pwInputValue, nameInputValue, telInputValue)
+                document.getElementById("valueContainer").submit();
+            }
         }
     </script>
 </body>

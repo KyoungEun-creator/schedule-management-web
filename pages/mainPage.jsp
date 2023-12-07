@@ -52,10 +52,7 @@
     <header>
         <div id="headerLeft">
             <img id="navOpenBtn" class="hidden" src="../imgs/bars-solid.svg" onclick="toggleNavBarEvent()">
-            <a href="mainPage.jsp">
-                <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-            </a>
-
+            <img id="mainLogo" src="../imgs/stageus_logo_white.png">
         </div>
         <div id="headerRight">
             <!-- 로그인한 회원 본명 + '님' 출력 -->
@@ -250,10 +247,11 @@
         var accountDepartment = "<%=department%>";
         var accountRole = "<%=role%>";
 
-        // 로그인 돼있으면
+        // 로그인 되어있으면
         if (accountIdx) {  
-            document.getElementById("userID").innerHTML = accountName+' 님';
+            document.getElementById("userID").innerHTML = accountName + ' 님';
         } 
+        // 로그인 안 되어있으면 main페이지 자체를 못 보도록 함
         else {
             location.href="../index.jsp"
         }
@@ -269,7 +267,9 @@
 
         var teamMembersList = document.getElementById("teamMembersList");
         var teamMemberBtn = document.createElement("button");
+
         // 부서가 accountDepartment와 동일하고 직급이 '2'인 사람들의 정보 가져오기
+        // #teamMembersList 안에 <button class="memberName">강동원</button> createElement 해주기
 
     </script>
 </body>
