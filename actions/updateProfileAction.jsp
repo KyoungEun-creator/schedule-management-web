@@ -24,7 +24,7 @@
     Class.forName("com.mysql.jdbc.Driver");
     Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/schedule_program","JKE","1234");
 
-    // 아이디는 중복이면 안 되기 때문에, 중복을 체크하는 부분
+    // 아이디는 본인 제외한 나머지 아이디와 중복이면 안 되기 때문에, 중복을 체크하는 부분
     String searchSQL = "SELECT * FROM account WHERE id=?";
     PreparedStatement searchQuery = connect.prepareStatement(searchSQL);
     searchQuery.setString(1, idChangedValue);

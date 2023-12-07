@@ -66,7 +66,6 @@
         else {
             alert("존재하지 않는 계정입니다.")
             location.href = "../index.jsp"
-
         }
     </script>
 </body>

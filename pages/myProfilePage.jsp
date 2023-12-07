@@ -102,7 +102,7 @@
     <!-- 탈퇴(계정삭제) 확인 modal -->
     <div class="deleteAccountModal hidden">
         <div id="deleteAccountLabel">탈퇴 하시겠습니까?</div>
-        <form id="decideBtnContainer">
+        <form id="decideBtnContainer" action="../actions/deleteAccountAction.jsp">
             <button id="yesDeleteAccountBtn" class="decideBtn" type="submit">탈퇴</button>
             <button id="noDeleteAccountBtn" class="decideBtn" onclick="exitDeleteAccountModalEvent()">취소</button></a>
         </form>

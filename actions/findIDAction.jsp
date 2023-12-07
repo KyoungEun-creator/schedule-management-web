@@ -28,9 +28,9 @@
 
     ResultSet result = query.executeQuery();
 
-    String foundId = "";
+    String foundID = "";
     if (result.next()) {
-        foundId = result.getString(1);
+        foundID = result.getString(1);
     } 
 %>
 
@@ -43,10 +43,10 @@
 </head>
 <body>
     <script>
-        var foundId = "<%=foundId%>"
+        var foundID = "<%=foundID%>"
 
-        if (foundId !== "") {
-            alert("찾은 아이디 : " + foundId);
+        if (foundID !== "") {
+            alert("찾은 아이디 : " + foundID);
             location.href = "..index.jsp";
         } else {
             alert("해당 정보가 없습니다.");

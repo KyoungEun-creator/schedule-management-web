@@ -26,10 +26,10 @@
     
     ResultSet result = query.executeQuery();
 
-    String foundPw = "";
+    String foundPW = "";
 
     if (result.next()) {
-        foundPw = result.getString(1);
+        foundPW = result.getString(1);
     }
 %>
 
@@ -44,14 +44,14 @@
 </head>
 <body>
     <script>
-        var foundPw = "<%=foundPw%>"
+        var foundPW = "<%=foundPw%>"
 
-        if (foundPw !== "") {
-            alert("찾은 비밀번호 : " + foundPw);
+        if (foundPW !== "") {
+            alert("찾은 비밀번호 : " + foundPW);
             location.href = "../pages/loginPage.jsp";
         } else {
             alert("해당 정보가 없습니다.");
-            location.href = "../pages/searchPwPage.jsp";
+            location.href = "../pages/findPWPage.jsp";
         }
     </script>
 </body>

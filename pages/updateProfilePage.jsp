@@ -42,7 +42,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer">
+    <form id="valueContainer" action="../actions/updateProfileAction.jsp">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
             <input id="idInputBox" class="inputBox" value="<%=id%>" disabled> 

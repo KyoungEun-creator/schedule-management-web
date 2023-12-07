@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
 <%
-    // 로그인 정보 세션에 넣어놓음
+    // 로그인할 때 세션에 넣어뒀던 값들 가져오기
     String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
