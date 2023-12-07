@@ -14,46 +14,44 @@
 <%
     request.setCharacterEncoding("utf-8");
 
-    String idChangedValue = request.getParameter("id_changed_value");
     String pwChangedValue = request.getParameter("pw_changed_value");
-    String nameChangedValue = request.getParameter("name_changed_value");
-    String emailChangedValue = request.getParameter("email_changed_value");
-    String birthdayChangedValue = request.getParameter("birthday_changed_value");
-    String phoneNumberChangedValue = request.getParameter("phoneNumber_changed_value");
+    String departmentChangedValue = request.getParameter("department_changed_value");
+    String roleChangedValue = request.getParameter("role_changed_value");
+    String telChangedValue = request.getParameter("tel_changed_value");
 
     Class.forName("com.mysql.jdbc.Driver");
     Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/schedule_program","JKE","1234");
 
     // 아이디는 본인 제외한 나머지 아이디와 중복이면 안 되기 때문에, 중복을 체크하는 부분
-    String searchSQL = "SELECT * FROM account WHERE id=?";
+    String searchSQL = "SELECT * FROM account WHERE phone_number = ? AND idx != ?";
     PreparedStatement searchQuery = connect.prepareStatement(searchSQL);
-    searchQuery.setString(1, idChangedValue);
+    searchQuery.setString(1, telChangedValue);
+    searchQuery.setString(2, idx);
+
     ResultSet searchResult = searchQuery.executeQuery();
 
-    Boolean isDuplicate = false;    // 중복 체크
-    if (searchResult.next()) {      // 이미 해당 아이디가 존재함 ( 에러 출력 )
-        isDuplicate = true;
+    Boolean isDuplicateTel = false;         // 중복 체크
+    if (searchResult.next()) {              // 이미 해당 전화번호가 존재함 
+        isDuplicateTel = true;
     } 
-    else {                        // 해당 아이디가 기존에 존재하지 않는다면 ( 수정 진행 )
-        String updateSQL = "UPDATE account SET id = ?, password = ?, name = ?, email = ?, birthday = ?, phone_number = ? WHERE idx = ?";
+    else {                                  // 해당 전화번호가 기존에 존재하지 않는다면
+        String updateSQL = "UPDATE account SET password = ?, department = ?, role = ?, phone_number = ? WHERE idx = ?";
 
         PreparedStatement updateQuery = connect.prepareStatement(updateSQL);
 
-        updateQuery.setString(1, idChangedValue);
-        updateQuery.setString(2, pwChangedValue);
-        updateQuery.setString(3, nameChangedValue);
-        updateQuery.setString(4, emailChangedValue);
-        updateQuery.setString(5, birthdayChangedValue);
-        updateQuery.setString(6, phoneNumberChangedValue);
-        updateQuery.setString(7, idx);
+        updateQuery.setString(1, pwChangedValue);
+        updateQuery.setString(2, departmentChangedValue);
+        updateQuery.setString(3, roleChangedValue);
+        updateQuery.setString(4, telChangedValue);
+        updateQuery.setString(5, idx);
 
         updateQuery.executeUpdate();
 
-        // 세션 비워서 로그아웃 해
+        // 세션 비워서 로그아웃
         session.invalidate();
 
-        // 수정완료 됐으니까 로그인페이지로 이동해
-        response.sendRedirect("../pages/loginPage.jsp"); 
+        // 수정완료 됐으니까 로그인페이지로 이동
+        response.sendRedirect("../index.jsp"); 
     }
 %>
 
@@ -69,12 +67,12 @@
 <body>
 
     <script>
-        var isDuplicate = <%=isDuplicate%>;
-        console.log(isDuplicate);
+        var isDuplicateTel = <%=isDuplicateTel%>;
+        console.log(isDuplicateTel);
 
-        if (isDuplicate) {
-            alert("수정하려는 아이디가 이미 존재합니다.");
-            location.href = "../pages/editAccountPage.jsp";
+        if (isDuplicateTel) {
+            alert("이미 다른 사용자에 의해 사용 중인 전화번호입니다.");
+            location.href = "../pages/updateProfilePage.jsp";
         }
 
     </script>

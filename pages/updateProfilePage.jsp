@@ -67,14 +67,14 @@
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">부서</div>
-                    <select class="selectBox" name="department">
+                    <select class="selectBox" name="department_changed_value">
                         <option value="1" <%= department.equals("1") ? "selected" : "" %>>서비스 팀</option>
                         <option value="2" <%= department.equals("2") ? "selected" : "" %>>디자인 팀</option>
                     </select>
                 </div>
                 <div class="rowInput">
                     <div class="inputLabel">직책</div>
-                    <select class="selectBox" name="role">
+                    <select class="selectBox" name="role_changed_value">
                         <option value="1" <%= role.equals("1") ? "selected" : "" %>>팀장</option>
                         <option value="2" <%= role.equals("2") ? "selected" : "" %>>팀원</option>
                     </select>
@@ -82,7 +82,7 @@
             </div>
 
             <div class="inputLabel">전화번호</div>
-            <input id="telInputBox" class="inputBox" name="tel_value" value="<%=tel%>" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
+            <input id="telInputBox" class="inputBox" name="tel_changed_value" value="<%=tel%>" placeholder="' - '는 생략해주세요" type="tel" maxlength="11">
 
             <!-- 수정하기 버튼 -->
             <input id="enterBtn" value="수정하기" type="button" onclick="updateProfileEvent()">
