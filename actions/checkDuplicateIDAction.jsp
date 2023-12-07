@@ -26,16 +26,15 @@
     Matcher idMatcher = idPattern.matcher(idValue);
 
     // 아이디 정규식 체크
-    boolean isFailedRegexID = false;
-    if (!idMatcher.matches()) {
-        isFailedRegexID = true;
-    } 
+    boolean isFailedRegexID = false; // false: 통과 true: 실패
 
     // 아이디 중복 체크
-    boolean isDuplicateID = false;
+    boolean isDuplicateID = false;  // false: 통과 true: 실패
 
-    // 정규식 통과했을 경우
-    if (isFailedRegexID) {
+    if (!idMatcher.matches()) {     // 매치하지 않는다면 
+        isFailedRegexID = true;     // 정규식 체크 실패
+    } 
+    else {
         String checkIdDuplicateSQL = "SELECT * FROM account WHERE id = ?";
         PreparedStatement checkIdDuplicateQuery = connect.prepareStatement(checkIdDuplicateSQL);
         checkIdDuplicateQuery.setString(1, idValue);
@@ -47,7 +46,6 @@
     }
 %>
  
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,26 +53,29 @@
     <title>아이디 중복 체크</title>
 </head>
 <body>
-<script>
-    var isFailedRegexID = <%=isFailedRegexID%>;
-    var isDuplicateID = <%=isDuplicateID%>;
+    <script>
+        var isFailedRegexID = <%=isFailedRegexID%>;
+        var isDuplicateID = <%=isDuplicateID%>;
 
-    if (isFailedRegexID) {
-        alert("옳지 못한 형식의 아이디입니다.");
-    } else if (isDuplicateID) {
-        alert("중복된 아이디입니다.");
-    } else {
-        alert("옳은 형식의 아이디입니다. 사용 가능합니다.");
-    }
+        console.log(isFailedRegexID);
+        console.log(isDuplicateID);
 
-    // 부모창에 아이디 정규식 테스트 결과를 보내는 용도
-    window.opener.idRegexCheck = isFailedRegexID;
-    // 부모창에 아이디 중복 테스트 결과를 보내는 용도
-    window.opener.idDuplicateCheck = isDuplicateID;
+        if (isFailedRegexID) {                  // true
+            alert("옳지 못한 형식의 아이디입니다.");
+        } else if (isDuplicateID) {             // true
+            alert("중복된 아이디입니다.");
+        } else {
+            alert("옳은 형식의 아이디입니다. 사용 가능합니다.");
+        }
 
-    console.log(window.opener.idRegexCheck);
-    console.log(window.opener.idDuplicateCheck);
+        // 부모창에 아이디 정규식 테스트 결과를 보내는 용도
+        window.opener.idRegexCheck = isFailedRegexID;
+        // 부모창에 아이디 중복 테스트 결과를 보내는 용도
+        window.opener.idDuplicateCheck = isDuplicateID;
 
-    window.close();
-</script>
+        console.log(window.opener.idRegexCheck);
+        console.log(window.opener.idDuplicateCheck);
+
+        window.close();
+    </script>
 </body>

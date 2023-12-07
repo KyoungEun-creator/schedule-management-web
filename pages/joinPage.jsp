@@ -141,10 +141,10 @@
     <script>
         // 아이디 중복 체크
 
-        // 부모창에서 자식창의 '아이디 정규식 부합 여부' 결과를 받을 변수
+        // 부모창에서 자식창의 '아이디 정규식 부합 여부' 결과를 받을 변수 (true: 사용불가 / false: 사용가능)
         var idRegexCheck;
 
-        // 부모 창에서 자식창의 '아이디 중복 여부' 결과를 받을 변수
+        // 부모 창에서 자식창의 '아이디 중복 여부' 결과를 받을 변수 (true: 사용가능 / false: 사용가능)
         var idDuplicateCheck; 
 
         // 자식 창을 열고 값(정규식, 중복 확인 결과) 받아오기
@@ -154,22 +154,23 @@
 
             // 자식 창에서 값을 받아올 때 실행되는 함수
             childWindow.onunload = function () {
-                var idInputBox = document.getElementById("idInputBox")
+                var idInputBox = document.getElementById("idInputBox");
                 var possibleIDMessage = document.getElementById("possibleIDMessage");
                 var impossibleIDMessage = document.getElementById("impossibleIDMessage");
 
-                isFailedRegex = childWindow.idRegexCheck;
-                isDuplicateCheck = childWindow.idDuplicateCheck;
+                idRegexCheck = childWindow.isFailedRegexID;
+                idDuplicateCheck = childWindow.isDuplicateID;
+                
                 console.log(idRegexCheck);
                 console.log(idDuplicateCheck);
                 
                 if (idRegexCheck || idDuplicateCheck) {
-                    // 정규식 실패이거나 중복된 아이디인 경우 (사용불가)
+                    // 정규식 실패, 중복된 아이디인 경우 (사용불가)
                     possibleIDMessage.classList.add("hidden");
                     impossibleIDMessage.classList.remove("hidden");
                     idInputBox.readOnly = false;  
                 } else {
-                    // 중복되지 않은 아이디 (사용가능)
+                    // 정규식 통과, 중복되지 않은 아이디 (사용가능)
                     possibleIDMessage.classList.remove("hidden");
                     impossibleIDMessage.classList.add("hidden");
                     idInputBox.readOnly = true;
@@ -178,3 +179,6 @@
         }
     </script>
 </body>
+
+
+
