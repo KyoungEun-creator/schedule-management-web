@@ -23,19 +23,18 @@
 
     String deleteSql = "DELETE FROM account WHERE idx = ?";
     PreparedStatement deleteQuery = connect.prepareStatement(deleteSql);
-    deleteQuery.setString(1, idx);
+    deleteQuery.setInt(1, Integer.parseInt(idx));
 
-    int deletedRows = deleteQuery.executeUpdate(); // 삭제된 행 수 반환
+    deleteQuery.executeUpdate(); // 삭제된 행 수 반환
 
-    Boolean isDeleteSuccess = false;
-
-    if (deletedRows > 0) {
-        isDeleteSuccess = true;
-    }
-    else {
-        isDeleteSuccess = false;
-    }
+    session.invalidate(); // 세션 정보 삭제로 로그아웃 먼저 진행시켜
+    // 아니? 반대로 해야 함
 %>
+
+<!-- 현재 발생하고 있는 에러 -->
+<!-- fk로 account를 참조하고 있는 schedule 테이블 때문 -->
+<!-- 1. cascade ( 부모테이블이 삭제될 때 연관된 자식 테이블도 삭제하는 기법 ) -->
+<!-- 2. 자식테이블의 관련된 row를 먼저 삭제한 뒤 부모테이블의 이 row 삭제 -->
 
 <head>
     <meta charset="UTF-8">
@@ -45,16 +44,18 @@
 </head>
 <body>
     <script>
-        var isDeleteSuccess = <%=isDeleteSuccess%>;
-        console.log(isDeleteSuccess);
+        console.log("<%=idx%>")
+        console.log("<%=deletedRows%>")
+        console.log("<%=deleteQuery%>");
 
-        if (isDeleteSuccess) {
+        // if (isDeleteSuccess) {
             alert("탈퇴에 성공했습니다.");
-        }
-        else {
-            alert("탈퇴에 실패했습니다.");
-            // location.href = "../pages/myProfilePage.jsp"; 
-        }
+            location.href = "../index.jsp"
+        // }
+        // else {
+        //     alert("탈퇴에 실패했습니다.");
+        //     location.href = "../pages/myProfilePage.jsp"; 
+        // }
     </script>
 
 </body>
