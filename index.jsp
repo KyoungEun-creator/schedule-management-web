@@ -24,7 +24,7 @@
 
             
             <!-- 로그인 버튼 -->
-            <input id="enterBtn" value="로그인" type="button" onclick="validateForm()">
+            <input id="enterBtn" value="로그인" type="button" onclick="loginEvent()">
 
             <div id="extraFunctions">
                 <a href="./pages/joinPage.jsp">계정이 없으세요? 회원가입</a>
@@ -47,18 +47,24 @@
 
     <script src="./js/regexTest.js"></script>
     <script>
-        function validateForm() {
-            var idInput = document.getElementById("idInputBox");
+        function loginEvent() {
+            var idInputBox = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
-            var pwInput = document.getElementById("pwInputBox");
+            var pwInputBox = document.getElementById("pwInputBox");
             var pwInputValue = document.getElementById("pwInputBox").value;
 
-            if (idInputValue==="" || pwInputValue==="") {
+            if (idInputValue === "" || pwInputValue === "") {
                 alert("값을 모두 입력해주세요");
             }
+            else if (!isIdCorrect(idInputValue)) {
+                alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
+                idInputBox.value = "";
+            }
+            else if (!isPwCorrect(pwInputValue)) {
+                alert("영어, 숫자, 특수기호로 이루어진 3 이상 20 이하 길이의 비밀번호를 입력해주세요.");
+                pwInputBox.value = "";
+            }
             else {
-                testIDRegex(idInput, idInputValue);
-                testPWRegex(pwInput, pwInputValue);
                 document.getElementById("valueContainer").submit();
             }
         }

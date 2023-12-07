@@ -28,17 +28,23 @@
     <script src="../js/regexTest.js"></script>
     <script>
         function validateForm () {
-            var idInput = document.getElementById("idInputBox");
+            var idInputBox = document.getElementById("idInputBox");
             var idInputValue = document.getElementById("idInputBox").value;
-            var telInput = document.getElementById("telInputBox");
+            var telInputBox = document.getElementById("telInputBox");
             var telInputValue = document.getElementById("telInputBox").value;
 
             if (idInputValue === "" || telInputValue === "") {
                 alert("값을 모두 입력해주세요")
             }
+            else if (!isIdCorrect(idInputValue)) {
+                alert("영어, 숫자로 이루어진 3 이상 15 이하 길이의 아이디를 입력해주세요.");
+                idInputBox.value = "";
+            }
+            else if (!isTelCorrect(telInputValue)) {
+                alert("' - '를 제외한 숫자만 입력해주세요.");
+                telInputBox.value = "";
+            }
             else {
-                testIDRegex(idInput, idInputValue);
-                testTelRegex(telInput, telInputValue);
                 document.getElementById("valueContainer").submit();
             }
         }

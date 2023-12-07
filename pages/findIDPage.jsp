@@ -21,26 +21,33 @@
             <input id="telInputBox" class="inputBox" name="tel_value" type="tel" placeholder="' - '는 생략해주세요" maxlength="11">
             
             <!-- 아이디 찾기 버튼 -->
-            <input id="enterBtn" value="아이디 찾기" type="button" onclick="validateForm()"> 
+            <input id="enterBtn" value="아이디 찾기" type="button" onclick="findIdEvent()"> 
             <!-- 버튼으로 바꾸고  -->
         </div>
     </form>
 
     <script src="../js/regexTest.js"></script>
     <script>
-        function validateForm () {
-            var nameInput = document.getElementById("nameInputBox");
+        function findIdEvent () {
+            var nameInputBox = document.getElementById("nameInputBox");
             var nameInputValue = document.getElementById("nameInputBox").value;
-            var telInput = document.getElementById("telInputBox");
+            var telInputBox = document.getElementById("telInputBox");
             var telInputValue = document.getElementById("telInputBox").value;
-            
+
             if (nameInputValue === "" || telInputValue === "") {
                 alert("값을 모두 입력해주세요")
             }
+            else if (!isNameCorrect(nameInputValue)) {
+                alert("한국어 본명을 입력해주세요.");
+                nameInputBox.value = "";
+            }
+            else if (!isTelCorrect(telInputValue)) {
+                alert("' - '를 제외한 숫자만 입력해주세요.");
+                telInputBox.value = "";
+            }
             else {
-                testNameRegex(nameInput, nameInputValue);
-                testTelRegex(telInput, telInputValue);
                 document.getElementById("valueContainer").submit();
             }
+        }    
     </script>
 </body>

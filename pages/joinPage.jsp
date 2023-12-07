@@ -124,11 +124,11 @@
                 pwInputBox.value = "";
                 pwSecondInputBox.value = "";
             }
-            else if (!isSecondPwCorrect(nameInputValue)) {
+            else if (!isNameCorrect(nameInputValue)) {
                 alert("한국어 본명을 입력해주세요.");
                 nameInputBox.value = "";
             }
-            else if (!isNameCorrect(telInputValue)) {
+            else if (!isTelCorrect(telInputValue)) {
                 alert("' - '를 제외한 숫자만 입력해주세요.");
                 telInputBox.value = "";
             }
