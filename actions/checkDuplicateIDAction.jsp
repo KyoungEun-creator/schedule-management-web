@@ -38,6 +38,7 @@
         String checkIdDuplicateSQL = "SELECT * FROM account WHERE id = ?";
         PreparedStatement checkIdDuplicateQuery = connect.prepareStatement(checkIdDuplicateSQL);
         checkIdDuplicateQuery.setString(1, idValue);
+        
         ResultSet searchResult = checkIdDuplicateQuery.executeQuery();
 
         if (searchResult.next()) {

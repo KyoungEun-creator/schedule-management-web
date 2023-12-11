@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer">
+    <form id="valueContainer" action="../actions/findIDAction.jsp">
         <div class="inputContainer">
             <div class="inputLabel">이름</div>
             <input id="nameInputBox" class="inputBox" name="name_value" type="text" maxlength="10">
@@ -22,7 +22,6 @@
             
             <!-- 아이디 찾기 버튼 -->
             <input id="enterBtn" value="아이디 찾기" type="button" onclick="findIdEvent()"> 
-            <!-- 버튼으로 바꾸고  -->
         </div>
     </form>
 

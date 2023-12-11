@@ -62,6 +62,7 @@
     String checkTelDuplicateSQL = "SELECT * FROM account WHERE phone_number = ?";
     PreparedStatement checkTelDuplicateQuery = connect.prepareStatement(checkTelDuplicateSQL);
     checkTelDuplicateQuery.setString(1, telValue);
+    
     ResultSet searchTelResult = checkTelDuplicateQuery.executeQuery();
 
     if (!idMatcher.matches() || !pwMatcher.matches() || !nameMatcher.matches() || !telMatcher.matches()) {

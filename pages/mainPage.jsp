@@ -5,8 +5,8 @@
     String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
-    String department = (String)session.getAttribute("department");
-    String role = (String)session.getAttribute("role");
+    String department = (String)session.getAttribute("department");     // 1or2
+    String role = (String)session.getAttribute("role");                 // 1or2
 
     // 로그인 시점의 년, 월 정보를 변수로 만들어놓음
     String yearValue = request.getParameter("year");
@@ -31,6 +31,44 @@
     // 로그인 안 되어 있으면 열리면 안 됨
     if (idx == null) { 
         response.sendRedirect("../index.jsp");
+    }
+
+    // account 테이블에 부서 idx로 되어있는 거 department 테이블의 name으로 가져오고자 함
+    String departmentSelectSql = "SELECT name FROM department WHERE idx = ?";
+    PreparedStatement departmentSelectQuery = connect.prepareStatement(departmentSelectSql);
+    departmentSelectQuery.setString(1, department);
+
+    ResultSet departmentNameSelectResult = departmentSelectQuery.executeQuery();
+
+    String departmentName = "";
+
+    if (departmentNameSelectResult.next()) {
+        departmentName = departmentNameSelectResult.getString(1);       // 서비스팀or디자인팀
+    }
+
+    // account 테이블에 직책 idx로 되어있는 거 role 테이블의 name으로 가져오고자 함
+    String roleSelectSql = "SELECT name FROM role WHERE idx = ?";
+    PreparedStatement roleNameSelectQuery = connect.prepareStatement(roleSelectSql);
+    roleNameSelectQuery.setString(1, role);
+
+    ResultSet roleNameSelectResult = roleNameSelectQuery.executeQuery();
+
+    if (roleNameSelectResult.next()) {
+        role = roleNameSelectResult.getString(1);                        // 팀장or팀원
+    }
+
+    // 팀장이 속한 부서와 같은 부서의 직책이 "팀원"인 사람들의 account 행을 가져오고자 함
+    String memberSelectSql = "SELECT * FROM account WHERE department = ? AND role = ?";
+    PreparedStatement memberSelectQuery = connect.prepareStatement(memberSelectSql);
+    memberSelectQuery.setString(1, department);
+    memberSelectQuery.setString(2, "팀원");
+
+    ResultSet memberSelectResult = memberSelectQuery.executeQuery();
+
+    if (memberSelectResult.next()) {
+        String memberIdx = memberSelectResult.getString(1);
+        String memberId = memberSelectResult.getString(2);
+        String memberName = memberSelectResult.getString(4);
     }
 
     // schedule 테이블에서 idx, year, month가 동일한 행의 date만 가져온다
@@ -82,9 +120,9 @@
 
     <!-- 팀장 전용 팀원 선택 navigation bar -->
     <div id="navBar" class="hidden">
-        <div id="teamName">서비스 팀</div>
+        <div id="teamName"></div>
         <div class="positionTitle">팀장</div>
-        <button id="teamLeader" class="memberName">홍길동</button>
+        <button id="teamLeader" class="memberName"></button>
         <div class="positionTitle">팀원</div>
         <div id="teamMembersList">
             <button class="memberName">강동원</button>
@@ -241,11 +279,11 @@
     </script>
 
     <script>
-        var accountIdx = "<%=idx%>";
+        var accountIdx = <%=idx%>;
         var accountId = "<%=id%>";
         var accountName = "<%=name%>";
-        var accountDepartment = "<%=department%>";
-        var accountRole = "<%=role%>";
+        var accountDepartment = "<%=departmentName%>"; // 서비스팀or디자인팀
+        var accountRole = "<%=role%>"; //팀장or팀원
 
         // 로그인 되어있으면
         if (accountIdx) {  
@@ -256,8 +294,8 @@
             location.href="../index.jsp"
         }
 
-        // 직급에 따른 nav bar 반영 여부
-        if (accountRole === '1') {
+        // 직급에 따른 nav bar 반영 여부 (팀장이면 nav bar 있음)
+        if (accountRole === '팀장') {
             document.getElementById("navOpenBtn").classList.remove("hidden");
         }
 
@@ -267,6 +305,7 @@
 
         var teamMembersList = document.getElementById("teamMembersList");
         var teamMemberBtn = document.createElement("button");
+
 
         // 부서가 accountDepartment와 동일하고 직급이 '2'인 사람들의 정보 가져오기
         // #teamMembersList 안에 <button class="memberName">강동원</button> createElement 해주기

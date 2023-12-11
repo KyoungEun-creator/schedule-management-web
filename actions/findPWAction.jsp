@@ -44,11 +44,11 @@
 </head>
 <body>
     <script>
-        var foundPW = "<%=foundPw%>"
+        var foundPW = "<%=foundPW%>"
 
         if (foundPW !== "") {
             alert("찾은 비밀번호 : " + foundPW);
-            location.href = "../pages/loginPage.jsp";
+            location.href = "../index.jsp";
         } else {
             alert("해당 정보가 없습니다.");
             location.href = "../pages/findPWPage.jsp";

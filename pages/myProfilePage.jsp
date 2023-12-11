@@ -48,7 +48,7 @@
 
     ResultSet roleNameSelectResult = roleNameSelectQuery.executeQuery();
 
-    if(roleNameSelectResult.next()) {
+    if (roleNameSelectResult.next()) {
         role = roleNameSelectResult.getString(1);
     }
 %>

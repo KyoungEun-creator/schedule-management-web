@@ -12,7 +12,7 @@
 </head>
 <body>
     <img id="mainLogo" src="../imgs/stageus_logo_white.png">
-    <form id="valueContainer">
+    <form id="valueContainer" action="../actions/findPWAction.jsp">
         <div class="inputContainer">
             <div class="inputLabel">아이디</div>
             <input id="idInputBox" class="inputBox" name="id_value" type="text" placeholder="최대 15자 내로 입력하세요" maxlength="15">

@@ -21,7 +21,6 @@
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     String sql = "SELECT id FROM account WHERE name = ? AND phone_number = ?";
-    
     PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, nameValue);
     query.setString(2, telValue);
@@ -29,6 +28,7 @@
     ResultSet result = query.executeQuery();
 
     String foundID = "";
+    
     if (result.next()) {
         foundID = result.getString(1);
     } 
@@ -43,11 +43,12 @@
 </head>
 <body>
     <script>
-        var foundID = "<%=foundID%>"
+        var foundID = "<%=foundID%>";
+        console.log(foundID);
 
         if (foundID !== "") {
             alert("찾은 아이디 : " + foundID);
-            location.href = "..index.jsp";
+            location.href = "../index.jsp";
         } else {
             alert("해당 정보가 없습니다.");
             location.href = "../pages/findIDPage.jsp"
