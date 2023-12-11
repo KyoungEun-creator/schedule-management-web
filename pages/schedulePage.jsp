@@ -71,9 +71,9 @@
             </button>
             일정관리
         </div>
-        <form id="newScheduleContainer">
-            <input id="scheduleTimeSelect" name="time_value" type="time" value="09:00">
-            <input id="scheduleInputBox" name="content_value" type="text" placeholder="할 일을 입력하세요.">
+        <form id="newScheduleContainer" action="../actions/createScheduleAction.jsp">
+            <input id="scheduleTimeSelect" name="schedule_time_value" type="time" value="09:00">
+            <input id="scheduleInputBox" name="schedule_content_value" type="text" placeholder="할 일을 입력하세요.">
             <button id="addScheduleBtn" type="button" onclick="addScheduleEvent()">+</button>
         </form>
 
@@ -97,13 +97,13 @@
         console.log(scheduleTimeList);      // ['07:00:00', '11:00:00', '13:30:00', '15:00:00']
         console.log(scheduleContentList);   // ['샵 방문', '결혼식 참석', '이동', '밴드부 크리스마스 파티']
 
-        // function addScheduleEvent() {
-        //     createSchedule()
-        //     // 예외처리
+        function addScheduleEvent() {
+            //createSchedule()
+            // 예외처리
 
-        //     // form태그 동작
-        //     // document.getElementById("newScheduleContainer").submit()
-        // }
+            // form태그 동작
+            document.getElementById("newScheduleContainer").submit()
+        }
         
         function createSchedule() {
             for (var i = 0; i < scheduleIdxList.length; i++) {
