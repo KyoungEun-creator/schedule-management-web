@@ -57,6 +57,25 @@
         role = roleNameSelectResult.getString(1);                        // 팀장or팀원
     }
 
+    // schedule 테이블에서 idx, year, month가 동일한 행의 date만 가져오고자 함
+    // 달력 안의 날짜(dateNum.innerHTML)가 schedule의 date와 같다면 스케줄 개수를 넣는 span을 createElement 하고(scheduleNum) dateBox에 appendChild 해주고자 함
+
+    String scheduleDateSelectSql = "SELECT date FROM schedule WHERE user = ? AND year = ? AND month = ?";
+    PreparedStatement scheduleDateSelectQuery = connect.prepareStatement(scheduleDateSelectSql);
+    scheduleDateSelectQuery.setString(1, idx);
+    scheduleDateSelectQuery.setString(2, yearValue);
+    scheduleDateSelectQuery.setString(3, monthValue);
+
+    ResultSet scheduleDateSelectResult = scheduleDateSelectQuery.executeQuery();
+
+    ArrayList<String> scheduleDateList = new ArrayList<String>();
+
+    while (scheduleDateSelectResult.next()) {
+        String scheduleDate = scheduleDateSelectResult.getString(1);
+
+        scheduleDateList.add("\"" + scheduleDate + "\"");
+    }
+
     // 팀장이 속한 부서와 같은 부서의 직책이 "팀원"인 사람들의 account 행을 가져오고자 함
     String memberSelectSql = "SELECT * FROM account WHERE department = ? AND role = ?";
     PreparedStatement memberSelectQuery = connect.prepareStatement(memberSelectSql);
@@ -69,7 +88,6 @@
     ArrayList<String> memberIdList = new ArrayList<String>();
     ArrayList<String> memberNameList = new ArrayList<String>();
 
-    // 팀원이 있다면
     while (memberSelectResult.next()) {
         String memberIdx = memberSelectResult.getString(1);
         String memberId = memberSelectResult.getString(2);
@@ -79,10 +97,6 @@
         memberIdList.add("\"" + memberId + "\""); 
         memberNameList.add("\"" + memberName + "\"");
     }
-
-    // schedule 테이블에서 idx, year, month가 동일한 행의 date만 가져온다
-
-
 %> 
 
 <head>
@@ -136,8 +150,11 @@
         <div id="teamMembersList"></div>
     </div>
 
-    <!-- navOpenBtn 클릭 이벤트 -->
+
     <script>
+
+        // --------------- navOpenBtn 클릭 이벤트 ---------------
+
         var navBar = document.getElementById("navBar");
 
         function toggleNavBarEvent() {
@@ -147,10 +164,10 @@
                 navBar.classList.add("hidden");
             }
         }
-    </script>
 
-    <!-- 달력 관련 만들기 -->
-    <script>
+
+        // --------------- 달력 관련된 것들 만들기 --------------- 
+
         var idx = "<%=idx%>";
         var currentYear = "<%=yearValue%>"
         var currentMonth = "<%=monthValue%>"
@@ -250,11 +267,31 @@
                     dateNum.innerHTML = startDate + index;
                     dateBox.appendChild(dateNum);
 
+                    // console.log(typeof(dateNum.innerHTML)); // string 
+
                     // 스케줄 개수
+                    var scheduleDateList = <%=scheduleDateList%>;
+                    console.log(scheduleDateList);                                  // ['23', '23', '30']
+                    console.log("같은 년월의 스케줄 개수 " + scheduleDateList.length)     // 같은 년월의 스케줄 개수 3
+
+                    var scheduleCount = 0;
+                    for (var i = 0; i < scheduleDateList.length; i++) {
+                        if (scheduleDateList[i] === dateNum.innerHTML) {
+                            //console.log("달력의 일자와 스케줄의 일자가 같음");
+                            scheduleCount++;
+                            console.log("같은 년월일의 스케줄 개수" + scheduleCount);
+                        }
+                    }
+
                     var scheduleNum = document.createElement("span");   
                     scheduleNum.className = "dateNum";
-                    dateBox.appendChild(scheduleNum);
+                    scheduleNum.innerHTML = scheduleCount;
 
+                    if (scheduleCount === 0) {
+                        scheduleNum.innerHTML = "";
+                    }
+                    
+                    dateBox.appendChild(scheduleNum);
                     weekBox.appendChild(dateBox);
 
                     // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
@@ -273,9 +310,10 @@
 
         monthBtn();
         createCalendar();
-    </script>
 
-    <script>
+
+        // --------------- 팀장이 팀원 mainPage 선택 시 ---------------
+
         var accountIdx = <%=idx%>;
         var accountId = "<%=id%>";
         var accountName = "<%=name%>";
@@ -283,20 +321,24 @@
         var accountDepartment = "<%=departmentName%>"; 
         var accountRole = "<%=role%>"; 
 
+        var scheduleDateList = <%=scheduleDateList%>;
+
         var memberIdxList = <%=memberIdxList%>; 
         var memberIdList = <%=memberIdList%>;   
         var memberNameList = <%=memberNameList%>; 
 
-        console.log(accountIdx);
-        console.log(accountId);
-        console.log(accountName);
-        console.log(accountDepartmentIdx);
-        console.log(accountDepartment); // 서비스팀or디자인팀
-        console.log(accountRole);       // 팀장or팀원
+        console.log(accountIdx);            // 1
+        console.log(accountId);             // jke
+        console.log(accountName);           // 조경은
+        console.log(accountDepartmentIdx);  // 1
+        console.log(accountDepartment);     // 서비스팀
+        console.log(accountRole);           // 팀장
 
-        console.log(memberIdxList);     // ['23', '24']
-        console.log(memberIdList);      // ['jye' , 'jci']
-        console.log(memberNameList);    // ['조영은', '조창일']
+        console.log(scheduleDateList);      // ['23', '23', '30']
+
+        console.log(memberIdxList);         // ['23', '24']
+        console.log(memberIdList);          // ['jye' , 'jci']
+        console.log(memberNameList);        // ['조영은', '조창일']
 
         // 로그인 되어있으면
         if (accountIdx) {  
@@ -322,11 +364,11 @@
             var teamMembersList = document.getElementById("teamMembersList");
             var teamMemberBtn = document.createElement("button");
             
-            teamMemberBtn.setAttribute("class", "memberName");
+            teamMemberBtn.className = "memberName";
             teamMemberBtn.innerHTML = memberNameList[i];
             teamMembersList.appendChild(teamMemberBtn);
             
-            console.log(memberIdxList[i])
+            console.log(memberIdxList[i]);
 
             teamMemberBtn.addEventListener("click", function() {
                 location.href = "../pages/mainPage.jsp?idx=" + memberIdxList[i] + "&year=" + currentYear + "&month=" + currentMonth;
