@@ -277,14 +277,13 @@
                     var scheduleCount = 0;
                     for (var i = 0; i < scheduleDateList.length; i++) {
                         if (scheduleDateList[i] === dateNum.innerHTML) {
-                            //console.log("달력의 일자와 스케줄의 일자가 같음");
                             scheduleCount++;
                             console.log("같은 년월일의 스케줄 개수" + scheduleCount);
                         }
                     }
 
                     var scheduleNum = document.createElement("span");   
-                    scheduleNum.className = "dateNum";
+                    scheduleNum.className = "scheduleNum";
                     scheduleNum.innerHTML = scheduleCount;
 
                     if (scheduleCount === 0) {
