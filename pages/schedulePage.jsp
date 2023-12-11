@@ -28,13 +28,29 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    // schedule 테이블에서 idx, year, month, date가 동일한 행의 time, content를 가져온다
-    String sql = "SELECT time, content FROM schedule WHERE user = ? AND year = ? AND month = ? AND date = ?";
-    PreparedStatement query = connect.prepareStatement(sql);
-    query.setString(1, idValue);
-    query.setString(2, pwValue);
+    // schedule 테이블에서 idx, year, month, date가 동일한 행을 시간 순 정렬에 따라 가져오고자 함
+    String scheduleContentSelectsql = "SELECT * FROM schedule WHERE user = ? AND year = ? AND month = ? AND date = ? ORDER BY time ASC;";
+    PreparedStatement scheduleContentSelectQuery = connect.prepareStatement(scheduleContentSelectsql);
+    scheduleContentSelectQuery.setString(1, idx);
+    scheduleContentSelectQuery.setString(2, yearValue);
+    scheduleContentSelectQuery.setString(3, monthValue);
+    scheduleContentSelectQuery.setString(4 , dateValue);
 
+    ResultSet scheduleContentSelectResult = scheduleContentSelectQuery.executeQuery();
 
+    ArrayList<String> scheduleIdxList = new ArrayList<String>();
+    ArrayList<String> scheduleTimeList = new ArrayList<String>();
+    ArrayList<String> scheduleContentList = new ArrayList<String>();
+
+    while (scheduleContentSelectResult.next()) {
+        String scheduleIdx = scheduleContentSelectResult.getString(1);
+        String scheduleTime = scheduleContentSelectResult.getString(6);
+        String scheduleContent = scheduleContentSelectResult.getString(7);
+
+        scheduleIdxList.add("\"" + scheduleIdx + "\"");
+        scheduleTimeList.add("\"" + scheduleTime + "\"");
+        scheduleContentList.add("\"" + scheduleContent + "\"");
+    }
 %> 
 <head>
     <meta charset="UTF-8">
@@ -55,7 +71,7 @@
             </button>
             일정관리
         </div>
-        <form id="newScheduleContainer" >
+        <form id="newScheduleContainer">
             <input id="scheduleTimeSelect" name="time_value" type="time" value="09:00">
             <input id="scheduleInputBox" name="content_value" type="text" placeholder="할 일을 입력하세요.">
             <button id="addScheduleBtn" type="button" onclick="addScheduleEvent()">+</button>
@@ -73,57 +89,63 @@
         var scheduleInputBox = document.getElementById("scheduleInputBox");
         var scheduleListContainer = document.getElementById("scheduleListContainer");
 
-        function addScheduleEvent() {
-            createSchedule()
-            // 예외처리
+        var scheduleIdxList = <%=scheduleIdxList%>;
+        var scheduleTimeList = <%=scheduleTimeList%>;
+        var scheduleContentList = <%=scheduleContentList%>;
 
-            // form태그 동작
-            // document.getElementById("newScheduleContainer").submit()
-        }
+        console.log(scheduleIdxList);       // ['13', '9', '12', '10']
+        console.log(scheduleTimeList);      // ['07:00:00', '11:00:00', '13:30:00', '15:00:00']
+        console.log(scheduleContentList);   // ['샵 방문', '결혼식 참석', '이동', '밴드부 크리스마스 파티']
+
+        // function addScheduleEvent() {
+        //     createSchedule()
+        //     // 예외처리
+
+        //     // form태그 동작
+        //     // document.getElementById("newScheduleContainer").submit()
+        // }
         
+        function createSchedule() {
+            for (var i = 0; i < scheduleIdxList.length; i++) {
+                var scheduleRow = document.createElement("div");
+                scheduleRow.className = "scheduleRow";
+                scheduleColumn.appendChild(scheduleRow);
+
+                var scheduleName = document.createElement("div");
+                scheduleName.className = "scheduleName";
+                scheduleName.innerHTML = scheduleTimeList[i] + '  ' + scheduleContentList[i];
+                scheduleRow.appendChild(scheduleName);
+
+                var scheduleExtraFunctions = document.createElement("div");
+                scheduleExtraFunctions.className = "scheduleExtraFunctions";
+                scheduleRow.appendChild(scheduleExtraFunctions);
+
+                var scheduleEditBtn = document.createElement("button");
+                scheduleEditBtn.className = "scheduleExtraBtn";
+                scheduleExtraFunctions.appendChild(scheduleEditBtn);
+
+                var scheduleEditBtnImg = document.createElement("img");
+                scheduleEditBtnImg.className = "scheduleExtraBtnImg";
+                scheduleEditBtnImg.src = "../imgs/editing.png";
+                scheduleEditBtn.appendChild(scheduleEditBtnImg);
+
+                var scheduleDeleteBtn = document.createElement("button");
+                scheduleDeleteBtn.className = "scheduleExtraBtn";
+                scheduleExtraFunctions.appendChild(scheduleDeleteBtn);
+
+                var scheduleDeleteBtnImg = document.createElement("img");
+                scheduleDeleteBtnImg.className = "scheduleExtraBtnImg";
+                scheduleDeleteBtnImg.src = "../imgs/delete.png";
+                scheduleDeleteBtn.appendChild(scheduleDeleteBtnImg);
+
+                scheduleInputBox.value = "";
+            }
+            
+        }
+        createSchedule();
+
         function closeScheduleModalEvent() {
             window.close();
-        }
-
-        function createSchedule() {
-            var scheduleRow = document.createElement("div");
-            scheduleRow.className = "scheduleRow";
-            scheduleColumn.appendChild(scheduleRow);
-
-            var scheduleName = document.createElement("div");
-            scheduleName.className = "scheduleName";
-            scheduleName.innerHTML = scheduleTimeSelect.value + '  ' + scheduleInputBox.value;
-            scheduleRow.appendChild(scheduleName);
-
-            var scheduleExtraFunctions = document.createElement("div");
-            scheduleExtraFunctions.className = "scheduleExtraFunctions";
-            scheduleRow.appendChild(scheduleExtraFunctions);
-
-            var scheduleEditBtn = document.createElement("button");
-            scheduleEditBtn.className = "scheduleExtraBtn";
-            scheduleExtraFunctions.appendChild(scheduleEditBtn);
-
-            var scheduleEditBtnImg = document.createElement("img");
-            scheduleEditBtnImg.className = "scheduleExtraBtnImg";
-            scheduleEditBtnImg.src = "../imgs/editing.png";
-            scheduleEditBtn.appendChild(scheduleEditBtnImg);
-
-            var scheduleDeleteBtn = document.createElement("button");
-            scheduleDeleteBtn.className = "scheduleExtraBtn";
-            scheduleExtraFunctions.appendChild(scheduleDeleteBtn);
-
-            var scheduleDeleteBtnImg = document.createElement("img");
-            scheduleDeleteBtnImg.className = "scheduleExtraBtnImg";
-            scheduleDeleteBtnImg.src = "../imgs/delete.png";
-            scheduleDeleteBtn.appendChild(scheduleDeleteBtnImg);
-
-            scheduleInputBox.value = "";
-
-            // 삭제버튼
-            scheduleDeleteBtn.addEventListener("click", function(){
-                var scheduleRow = this.parentElement.parentElement;
-                scheduleRow.remove;
-            })
         }
     
     </script>

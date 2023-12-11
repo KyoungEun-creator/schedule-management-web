@@ -76,7 +76,7 @@
         scheduleDateList.add("\"" + scheduleDate + "\"");
     }
 
-    // 팀장이 속한 부서와 같은 부서의 직책이 "팀원"인 사람들의 account 행을 가져오고자 함
+    // 팀장이 속한 부서와 같은 부서의 직책이 "2"(팀원)인 사람들의 account 행을 가져오고자 함
     String memberSelectSql = "SELECT * FROM account WHERE department = ? AND role = ?";
     PreparedStatement memberSelectQuery = connect.prepareStatement(memberSelectSql);
     memberSelectQuery.setString(1, department);
@@ -294,10 +294,10 @@
                     weekBox.appendChild(dateBox);
 
                     // 한 칸의 일자 클릭 시 해당 일자의 스케줄페이지 생성
-                    dateBox.addEventListener("click", function () {
-                        var currentDate = this.textContent;
+                    dateBox.addEventListener("click", function (event) {
+                        var clickedDate = event.target.querySelector(".dateNum").innerHTML;
                         // console.log(currentDate);
-                        var schedulePageURL = "../pages/schedulePage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth + "&date=" + currentDate;
+                        var schedulePageURL = "../pages/schedulePage.jsp?idx=" + idx + "&year=" + currentYear + "&month=" + currentMonth + "&date=" + clickedDate;
                         window.open(schedulePageURL, "_blank", "width=900,height=600, scrollbars=yes");
                     })
                 } else {
