@@ -5,8 +5,8 @@
     String idx = (String)session.getAttribute("idx");
     String id = (String)session.getAttribute("id");
     String name = (String)session.getAttribute("name");
-    String department = (String)session.getAttribute("department");     // 1or2
-    String role = (String)session.getAttribute("role");                 // 1or2
+    String department = (String)session.getAttribute("department");     
+    String role = (String)session.getAttribute("role");                 
 
     // 로그인 시점의 년, 월 정보를 변수로 만들어놓음
     String yearValue = request.getParameter("year");
@@ -61,14 +61,23 @@
     String memberSelectSql = "SELECT * FROM account WHERE department = ? AND role = ?";
     PreparedStatement memberSelectQuery = connect.prepareStatement(memberSelectSql);
     memberSelectQuery.setString(1, department);
-    memberSelectQuery.setString(2, "팀원");
+    memberSelectQuery.setString(2, "2");
 
     ResultSet memberSelectResult = memberSelectQuery.executeQuery();
 
-    if (memberSelectResult.next()) {
+    ArrayList<String> memberIdxList = new ArrayList<String>();
+    ArrayList<String> memberIdList = new ArrayList<String>();
+    ArrayList<String> memberNameList = new ArrayList<String>();
+
+    // 팀원이 있다면
+    while (memberSelectResult.next()) {
         String memberIdx = memberSelectResult.getString(1);
         String memberId = memberSelectResult.getString(2);
         String memberName = memberSelectResult.getString(4);
+
+        memberIdxList.add("\"" + memberIdx + "\""); 
+        memberIdList.add("\"" + memberId + "\""); 
+        memberNameList.add("\"" + memberName + "\"");
     }
 
     // schedule 테이블에서 idx, year, month가 동일한 행의 date만 가져온다
@@ -124,20 +133,7 @@
         <div class="positionTitle">팀장</div>
         <button id="teamLeader" class="memberName"></button>
         <div class="positionTitle">팀원</div>
-        <div id="teamMembersList">
-            <button class="memberName">강동원</button>
-            <button class="memberName">공지철</button>
-            <button class="memberName">김우빈</button>
-            <button class="memberName">박서준</button>
-            <button class="memberName">서강준</button>
-            <button class="memberName">손석구</button>
-            <button class="memberName">이동욱</button>
-            <button class="memberName">조인성</button>
-            <button class="memberName">차은우</button>
-            <button class="memberName">최우식</button>
-            <button class="memberName">최재림</button>
-            <button class="memberName">현빈</button>
-        </div>
+        <div id="teamMembersList"></div>
     </div>
 
     <!-- navOpenBtn 클릭 이벤트 -->
@@ -153,6 +149,7 @@
         }
     </script>
 
+    <!-- 달력 관련 만들기 -->
     <script>
         var idx = "<%=idx%>";
         var currentYear = "<%=yearValue%>"
@@ -282,8 +279,24 @@
         var accountIdx = <%=idx%>;
         var accountId = "<%=id%>";
         var accountName = "<%=name%>";
-        var accountDepartment = "<%=departmentName%>"; // 서비스팀or디자인팀
-        var accountRole = "<%=role%>"; //팀장or팀원
+        var accountDepartmentIdx = "<%=department%>";
+        var accountDepartment = "<%=departmentName%>"; 
+        var accountRole = "<%=role%>"; 
+
+        var memberIdxList = <%=memberIdxList%>; 
+        var memberIdList = <%=memberIdList%>;   
+        var memberNameList = <%=memberNameList%>; 
+
+        console.log(accountIdx);
+        console.log(accountId);
+        console.log(accountName);
+        console.log(accountDepartmentIdx);
+        console.log(accountDepartment); // 서비스팀or디자인팀
+        console.log(accountRole);       // 팀장or팀원
+
+        console.log(memberIdxList);     // ['23', '24']
+        console.log(memberIdList);      // ['jye' , 'jci']
+        console.log(memberNameList);    // ['조영은', '조창일']
 
         // 로그인 되어있으면
         if (accountIdx) {  
@@ -303,12 +316,22 @@
         document.getElementById("teamName").innerHTML = accountDepartment;
         document.getElementById("teamLeader").innerHTML = accountName;
 
-        var teamMembersList = document.getElementById("teamMembersList");
-        var teamMemberBtn = document.createElement("button");
 
+        // #teamMembersList 안에 팀원명(클릭 시 팀원 스케줄 페이지) createElement 해주기
+        for (var i=0; i<memberIdxList.length; i++) {
+            var teamMembersList = document.getElementById("teamMembersList");
+            var teamMemberBtn = document.createElement("button");
+            
+            teamMemberBtn.setAttribute("class", "memberName");
+            teamMemberBtn.innerHTML = memberNameList[i];
+            teamMembersList.appendChild(teamMemberBtn);
+            
+            console.log(memberIdxList[i])
 
-        // 부서가 accountDepartment와 동일하고 직급이 '2'인 사람들의 정보 가져오기
-        // #teamMembersList 안에 <button class="memberName">강동원</button> createElement 해주기
-
+            teamMemberBtn.addEventListener("click", function() {
+                location.href = "../pages/mainPage.jsp?idx=" + memberIdxList[i] + "&year=" + currentYear + "&month=" + currentMonth;
+            })
+            
+        }
     </script>
 </body>
