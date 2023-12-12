@@ -31,6 +31,7 @@
 
         idx = result.getString(1);
 
+        // 세션에 넣어놓음
         session.setAttribute("idx", idx);
         session.setAttribute("id", result.getString(2));
         session.setAttribute("password", result.getString(3));

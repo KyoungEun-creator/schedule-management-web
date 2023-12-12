@@ -29,12 +29,12 @@
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     // schedule 테이블에서 idx, year, month, date가 동일한 행을 시간 순 정렬에 따라 가져오고자 함
-    String scheduleContentSelectsql = "SELECT * FROM schedule WHERE user = ? AND year = ? AND month = ? AND date = ? ORDER BY time ASC;";
+    String scheduleContentSelectsql = "SELECT * FROM schedule WHERE user = ? AND year = ? AND month = ? AND date = ? ORDER BY time ASC";
     PreparedStatement scheduleContentSelectQuery = connect.prepareStatement(scheduleContentSelectsql);
     scheduleContentSelectQuery.setString(1, idx);
     scheduleContentSelectQuery.setString(2, yearValue);
     scheduleContentSelectQuery.setString(3, monthValue);
-    scheduleContentSelectQuery.setString(4 , dateValue);
+    scheduleContentSelectQuery.setString(4, dateValue);
 
     ResultSet scheduleContentSelectResult = scheduleContentSelectQuery.executeQuery();
 
@@ -72,6 +72,9 @@
             일정관리
         </div>
         <form id="newScheduleContainer" action="../actions/createScheduleAction.jsp">
+            <input type="hidden" name="year" value="<%=yearValue%>">
+            <input type="hidden" name="month" value="<%=monthValue%>">
+            <input type="hidden" name="date" value="<%=dateValue%>">
             <input id="scheduleTimeSelect" name="schedule_time_value" type="time" value="09:00">
             <input id="scheduleInputBox" name="schedule_content_value" type="text" placeholder="할 일을 입력하세요.">
             <button id="addScheduleBtn" type="button" onclick="addScheduleEvent()">+</button>
@@ -84,6 +87,14 @@
         </main>
     </div>
     <script>
+        var currentYear = <%=yearValue%>;
+        var currentMonth = <%=monthValue%>;
+        var currentDate = <%=dateValue%>;
+        
+        console.log("년도"+currentYear);
+        console.log("달"+currentMonth);
+        console.log("일"+currentDate);
+
         var scheduleColumn = document.getElementById("scheduleColumn");
         var scheduleTimeSelect = document.getElementById("scheduleTimeSelect");
         var scheduleInputBox = document.getElementById("scheduleInputBox");
@@ -98,11 +109,17 @@
         console.log(scheduleContentList);   // ['샵 방문', '결혼식 참석', '이동', '밴드부 크리스마스 파티']
 
         function addScheduleEvent() {
-            //createSchedule()
-            // 예외처리
-
-            // form태그 동작
             document.getElementById("newScheduleContainer").submit()
+            //createSchedule()
+            // window.onunload = function() {
+            //     window.location.reload(); // 페이지 새로고침
+            // };
+            // window.onload = function() {
+            //     var url = "../pages/schedulePage.jsp?year="<%= yearValue %>"&month="<%= monthValue %>"&date="<%= dateValue %>;
+            //     window.location.href = url;
+            // };
+
+           
         }
         
         function createSchedule() {

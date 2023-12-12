@@ -65,6 +65,7 @@
     
     ResultSet searchTelResult = checkTelDuplicateQuery.executeQuery();
 
+    // 정규식 실패 (사용불가)
     if (!idMatcher.matches() || !pwMatcher.matches() || !nameMatcher.matches() || !telMatcher.matches()) {
         isFailedRegex = true;
     } 

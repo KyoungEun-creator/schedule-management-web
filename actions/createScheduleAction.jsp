@@ -25,6 +25,9 @@
     String scheduleTimeValue = request.getParameter("schedule_time_value");
     String scheduleContentValue = request.getParameter("schedule_content_value");
 
+    System.out.println("Year Value: " + yearValue);
+
+
     String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";
@@ -42,6 +45,7 @@
     newScheduleInsertQuery.setString(6, scheduleContentValue);
 
     newScheduleInsertQuery.executeUpdate();
+    //response.sendRedirect("../pages/schedulePage.jsp");
 %>
 
 <head>
@@ -52,6 +56,8 @@
 </head>
 <body>
     <script>
-        alert("스케줄 추가에 오류가 발생했습니다.")
+        window.onload = function() {
+            location.href = "../pages/schedulePage.jsp?year=" + <%= yearValue %> + "&month=" + <%= monthValue %> + "&date=" + <%= dateValue %>;
+        };
     </script>
 </body>
