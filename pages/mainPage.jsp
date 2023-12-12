@@ -285,6 +285,9 @@
                     var scheduleNum = document.createElement("span");   
                     scheduleNum.className = "scheduleNum";
                     scheduleNum.innerHTML = scheduleCount;
+                    if (scheduleCount > 5) {
+                        scheduleNum.innerHTML = "5+";
+                    }
 
                     if (scheduleCount === 0) {
                         scheduleNum.innerHTML = "";
