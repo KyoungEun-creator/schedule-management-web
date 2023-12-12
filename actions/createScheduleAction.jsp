@@ -45,7 +45,6 @@
     newScheduleInsertQuery.setString(6, scheduleContentValue);
 
     newScheduleInsertQuery.executeUpdate();
-    //response.sendRedirect("../pages/schedulePage.jsp");
 %>
 
 <head>

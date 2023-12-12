@@ -110,16 +110,6 @@
 
         function addScheduleEvent() {
             document.getElementById("newScheduleContainer").submit()
-            //createSchedule()
-            // window.onunload = function() {
-            //     window.location.reload(); // 페이지 새로고침
-            // };
-            // window.onload = function() {
-            //     var url = "../pages/schedulePage.jsp?year="<%= yearValue %>"&month="<%= monthValue %>"&date="<%= dateValue %>;
-            //     window.location.href = url;
-            // };
-
-           
         }
         
         function createSchedule() {
@@ -164,6 +154,11 @@
         function closeScheduleModalEvent() {
             window.close();
         }
+
+        // 본 페이지 닫힐 때 부모페이지(mainPage) 새로고침 되도록 함
+        window.onunload = function() {
+            opener.location.reload(); 
+        };
     
     </script>
 </body>
