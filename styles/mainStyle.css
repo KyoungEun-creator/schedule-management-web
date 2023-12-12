@@ -284,8 +284,26 @@ main {
   background-color: var(--hover-color);
 }
 .scheduleName {
+  width: fit-content;
+}
+.scheduleTime {
+  width: 150px;
   font-size: 25px;
   padding-left: 20px;
+  border: none;
+  background-color: transparent;
+}
+.scheduleTime:focus {
+  outline: none;
+}
+.scheduleContent {
+  width: fit-content;
+  font-size: 25px;
+  border: none;
+  background-color: transparent;
+}
+.scheduleContent:focus {
+  outline: none;
 }
 .scheduleExtraFunctions {
   width: 100px;

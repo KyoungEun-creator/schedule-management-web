@@ -90,10 +90,6 @@
         var currentYear = <%=yearValue%>;
         var currentMonth = <%=monthValue%>;
         var currentDate = <%=dateValue%>;
-        
-        console.log("년도"+currentYear);
-        console.log("달"+currentMonth);
-        console.log("일"+currentDate);
 
         var scheduleColumn = document.getElementById("scheduleColumn");
         var scheduleTimeSelect = document.getElementById("scheduleTimeSelect");
@@ -117,11 +113,24 @@
                 var scheduleRow = document.createElement("div");
                 scheduleRow.className = "scheduleRow";
                 scheduleColumn.appendChild(scheduleRow);
-
+                
                 var scheduleName = document.createElement("div");
                 scheduleName.className = "scheduleName";
-                scheduleName.innerHTML = scheduleTimeList[i] + '  ' + scheduleContentList[i];
                 scheduleRow.appendChild(scheduleName);
+
+                var scheduleTime = document.createElement("input");
+                scheduleTime.className = "scheduleTime";
+                scheduleTime.value = scheduleTimeList[i];
+                scheduleTime.setAttribute("name", "schedule_time_changed_value");
+                scheduleTime.setAttribute("readonly", true); 
+                scheduleName.appendChild(scheduleTime);
+
+                var scheduleContent = document.createElement("input");
+                scheduleContent.className = "scheduleContent";
+                scheduleContent.value = scheduleContentList[i];
+                scheduleContent.setAttribute("name", "schedule_content_changed_value");
+                scheduleContent.setAttribute("readonly", true); 
+                scheduleName.appendChild(scheduleContent);
 
                 var scheduleExtraFunctions = document.createElement("div");
                 scheduleExtraFunctions.className = "scheduleExtraFunctions";
@@ -136,6 +145,16 @@
                 scheduleEditBtnImg.src = "../imgs/editing.png";
                 scheduleEditBtn.appendChild(scheduleEditBtnImg);
 
+                // 수정 버튼 클릭 이벤트
+                // scheduleEditBtn.addEventListener("click", function() {
+                //     console.log("수정버튼클릭")
+                        // input 수정가능하게 만들기
+                //     scheduleTime.readOnly = false;
+                //     scheduleContent.readOnly = false;
+                        // scheduleTime input에 type="time" 추가해주기: scheduleTime.setAttribute("type", "time"); 
+                        // scheduleTime input에 value=(기존 값) 넣어주기: scheduleTime.setAttribute("value", scheduleTimeList[i];); 
+                // })
+
                 var scheduleDeleteBtn = document.createElement("button");
                 scheduleDeleteBtn.className = "scheduleExtraBtn";
                 scheduleExtraFunctions.appendChild(scheduleDeleteBtn);
@@ -147,7 +166,6 @@
 
                 scheduleInputBox.value = "";
             }
-            
         }
         createSchedule();
 

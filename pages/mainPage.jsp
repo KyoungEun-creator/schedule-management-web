@@ -107,7 +107,7 @@
     <link rel="stylesheet" href="../styles/commonStyle.css">
     <link rel="stylesheet" href="../styles/templateStyle.css">
     <link rel="icon" href="../imgs/stageus.png">
-    <title>일정 상세보기</title>
+    <title>월별 스케줄</title>
 </head>
 <body>
     <header>

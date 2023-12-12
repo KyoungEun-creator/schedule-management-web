@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
-<%
-    // 로그인할 때 세션에 넣어뒀던 값들 가져오기
-    String idx = (String)session.getAttribute("idx");
-%>
-
 <!-- jsp에서 라이브러리 import하는 방법 -->
 <%@ page import="java.sql.DriverManager" %>     <!-- 데이터베이스 탐색 라이브러리 -->
 <%@ page import="java.sql.Connection" %>        <!-- 데이터베이스 연결 라이브러리 -->
@@ -13,35 +8,37 @@
 
 <%
     request.setCharacterEncoding("utf-8");
+    
+	String scheduleTimeChangedValue = request.getParameter("schedule_time_changed_value");
+    String scheduleContentChangedValue = request.getParameter("schedule_content_changed_value");
 
-    Class.forName("com.mysql.jdbc.Driver");
     String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    String deleteSql = "DELETE FROM account WHERE idx = ?";
-    PreparedStatement deleteQuery = connect.prepareStatement(deleteSql);
-    deleteQuery.setInt(1, Integer.parseInt(idx));
+    String updateScheduleSql = "UPDATE schedule SET time = ?, content = ? WHERE idx = ?";
 
-    deleteQuery.executeUpdate(); // 삭제된 행 수 반환
+    PreparedStatement updateScheduleQuery = connect.prepareStatement(updateScheduleSql);
 
-    session.invalidate();       // 세션 정보 삭제로 로그아웃
-%>
+    updateScheduleQuery.setString(1, scheduleTimeChangedValue);
+    updateScheduleQuery.setString(2, scheduleContentChangedValue);
+    updateQuery.setString(5, idx);
+
+    updateQuery.executeUpdate();
+]%>
+
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>탈퇴하기</title>
+    <title>스케줄 수정(액션)</title>
+    <link rel="stylesheet" href="../style/account.css">
+    <link rel="icon" href="../imgs/stageus.png">
 </head>
 <body>
     <script>
-        console.log("<%=idx%>")
-        console.log("<%=deleteQuery%>");
 
-        alert("탈퇴에 성공했습니다.");
-        location.href = "../index.jsp"
     </script>
-
 </body>

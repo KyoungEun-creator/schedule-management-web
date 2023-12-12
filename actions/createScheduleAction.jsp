@@ -27,7 +27,6 @@
 
     System.out.println("Year Value: " + yearValue);
 
-
     String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";

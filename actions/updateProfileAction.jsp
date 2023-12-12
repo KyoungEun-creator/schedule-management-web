@@ -19,8 +19,10 @@
     String roleChangedValue = request.getParameter("role_changed_value");
     String telChangedValue = request.getParameter("tel_changed_value");
 
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/schedule_program","JKE","1234");
+    String dbURL = "jdbc:mysql://localhost/schedule_program";
+    String dbID = "JKE";
+    String dbPW = "1234";
+    Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
     // 아이디는 본인 제외한 나머지 아이디와 중복이면 안 되기 때문에, 중복을 체크하는 부분
     String searchSQL = "SELECT * FROM account WHERE phone_number = ? AND idx != ?";
@@ -60,7 +62,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로필 수정하기(액션)</title>
+    <title>프로필 수정(액션)</title>
     <link rel="stylesheet" href="../style/account.css">
     <link rel="icon" href="../imgs/stageus.png">
 </head>

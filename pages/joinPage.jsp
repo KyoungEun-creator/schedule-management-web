@@ -106,12 +106,12 @@
                     // 정규식 실패, 중복된 아이디인 경우 (사용불가)
                     possibleIDMessage.classList.add("hidden");
                     impossibleIDMessage.classList.remove("hidden");
-                    idInputBox.readOnly = false;  
+                    idInputBox.setAttribute("readonly", false); 
                 } else {
                     // 정규식 통과, 중복되지 않은 아이디 (사용가능)
                     possibleIDMessage.classList.remove("hidden");
                     impossibleIDMessage.classList.add("hidden");
-                    idInputBox.readOnly = true;
+                    idInputBox.setAttribute("readonly", true); 
                 }
                 isClicked = true;
             };
