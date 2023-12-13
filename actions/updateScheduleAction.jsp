@@ -34,6 +34,8 @@
     updateScheduleQuery.setString(3, scheduleIdx);
 
     updateScheduleQuery.executeUpdate();
+
+    response.sendRedirect("../pages/schedulePage.jsp?year=" + yearValue + "&month=" + monthValue + "&date=" + dateValue);
 %>
 
 

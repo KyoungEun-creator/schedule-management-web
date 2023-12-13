@@ -87,9 +87,9 @@
         </main>
     </div>
     <script>
-        var currentYear = <%=yearValue%>;
-        var currentMonth = <%=monthValue%>;
-        var currentDate = <%=dateValue%>;
+        var currentYear = "<%=yearValue%>";
+        var currentMonth = "<%=monthValue%>";
+        var currentDate = "<%=dateValue%>";
 
         console.log(currentYear);
         console.log(currentMonth);
@@ -147,6 +147,22 @@
                 scheduleContent.setAttribute("readonly", true); 
                 scheduleName.appendChild(scheduleContent);
 
+                // // yearValue
+                // var scheduleYearValue = document.createElement("input");
+                // scheduleYearValue.type = "hidden";
+                // scheduleYearValue.value = currentYear;
+                // scheduleYearValue.setAttribute("name", "year");
+                
+                // var scheduleMonthValue = document.createElement("input");
+                // scheduleMonthValue.type = "hidden";
+                // scheduleMonthValue.value = currentMonth;
+                // scheduleMonthValue.setAttribute("name", "month");
+
+                // var scheduleDateValue = document.createElement("input");
+                // scheduleDateValue.type = "hidden";
+                // scheduleDateValue.value = currentDate;
+                // scheduleDateValue.setAttribute("name", "date");
+
                 var scheduleExtraFunctions = document.createElement("div");
                 scheduleExtraFunctions.className = "scheduleExtraFunctions";
                 scheduleRow.appendChild(scheduleExtraFunctions);
@@ -197,6 +213,25 @@
                     var clickedScheduleTime = clickedScheduleIdx.nextSibling;
                     var clickedScheduleContent = clickedName.lastChild;
 
+                    // year, month, date 값 전달해줌
+                    var clickedScheduleYearValue = document.createElement("input");
+                    clickedScheduleYearValue.type = "hidden";
+                    clickedScheduleYearValue.value = currentYear;
+                    clickedScheduleYearValue.setAttribute("name", "year");
+                    clickedName.appendChild(clickedScheduleYearValue);
+
+                    var clickedScheduleMonthValue = document.createElement("input");
+                    clickedScheduleMonthValue.type = "hidden";
+                    clickedScheduleMonthValue.value = currentMonth;
+                    clickedScheduleMonthValue.setAttribute("name", "month");
+                    clickedName.appendChild(clickedScheduleMonthValue);
+
+                    var clickedScheduleDateValue = document.createElement("input");
+                    clickedScheduleDateValue.type = "hidden";
+                    clickedScheduleDateValue.value = currentDate;
+                    clickedScheduleDateValue.setAttribute("name", "date");
+                    clickedName.appendChild(clickedScheduleDateValue);
+
                     // 수정 버튼이 속한 scheduleRow의 배경색 변경
                     clickedRow.style.backgroundColor = "var(--clicked-color)";
 
@@ -231,16 +266,23 @@
                     var clickedRowForm = this.parentNode.parentNode.parentNode;
                     
                     // UPDATE form 전송하여 백엔드 통신
-                    clickedScheduleRowForm.submit();
+                    clickedRowForm.submit();
 
-                    createScheduleEvent();
+                    updateScheduleList();
                 });
+
+                // 
+                function updateScheduleList() {
+                    // 새로운 일정 목록을 가져오는 AJAX 요청
+                    // 가져온 데이터를 사용하여 화면을 업데이트하는 로직을 추가
+                }
 
                 // 삭제 버튼 클릭 이벤트
                 scheduleDeleteBtn.addEventListener("click", function() {
-                    var clickedScheduleRowForm = this.parentNode.parentNode.parentNode;
+                    var clickedRowForm = this.parentNode.parentNode.parentNode;
                     // DELETE form 전송하여 백엔드 통신
-                    clickedScheduleRowForm.submit();
+                    // clickedRowForm.style.border = "1px solid red";
+                    clickedRowForm.submit();
                 });
 
                 // scheduleInputBox 안에 내용 비워줌
