@@ -38,7 +38,6 @@
 </head>
 <body>
     <script>
-    
         var yearValue = "<%=yearValue%>";
         var monthValue = "<%=monthValue%>";
         var dateValue = "<%=dateValue%>";

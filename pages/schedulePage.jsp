@@ -147,21 +147,23 @@
                 scheduleContent.setAttribute("readonly", true); 
                 scheduleName.appendChild(scheduleContent);
 
-                // // yearValue
-                // var scheduleYearValue = document.createElement("input");
-                // scheduleYearValue.type = "hidden";
-                // scheduleYearValue.value = currentYear;
-                // scheduleYearValue.setAttribute("name", "year");
+                var scheduleYearValue = document.createElement("input");
+                scheduleYearValue.type = "hidden";
+                scheduleYearValue.value = currentYear;
+                scheduleYearValue.setAttribute("name", "year");
+                scheduleName.appendChild(scheduleYearValue);
                 
-                // var scheduleMonthValue = document.createElement("input");
-                // scheduleMonthValue.type = "hidden";
-                // scheduleMonthValue.value = currentMonth;
-                // scheduleMonthValue.setAttribute("name", "month");
+                var scheduleMonthValue = document.createElement("input");
+                scheduleMonthValue.type = "hidden";
+                scheduleMonthValue.value = currentMonth;
+                scheduleMonthValue.setAttribute("name", "month");
+                scheduleName.appendChild(scheduleMonthValue);
 
-                // var scheduleDateValue = document.createElement("input");
-                // scheduleDateValue.type = "hidden";
-                // scheduleDateValue.value = currentDate;
-                // scheduleDateValue.setAttribute("name", "date");
+                var scheduleDateValue = document.createElement("input");
+                scheduleDateValue.type = "hidden";
+                scheduleDateValue.value = currentDate;
+                scheduleDateValue.setAttribute("name", "date");
+                scheduleName.appendChild(scheduleDateValue);
 
                 var scheduleExtraFunctions = document.createElement("div");
                 scheduleExtraFunctions.className = "scheduleExtraFunctions";
@@ -211,26 +213,7 @@
                     var clickedName = clickedRow.firstChild;
                     var clickedScheduleIdx = clickedName.firstChild;
                     var clickedScheduleTime = clickedScheduleIdx.nextSibling;
-                    var clickedScheduleContent = clickedName.lastChild;
-
-                    // year, month, date 값 전달해줌
-                    var clickedScheduleYearValue = document.createElement("input");
-                    clickedScheduleYearValue.type = "hidden";
-                    clickedScheduleYearValue.value = currentYear;
-                    clickedScheduleYearValue.setAttribute("name", "year");
-                    clickedName.appendChild(clickedScheduleYearValue);
-
-                    var clickedScheduleMonthValue = document.createElement("input");
-                    clickedScheduleMonthValue.type = "hidden";
-                    clickedScheduleMonthValue.value = currentMonth;
-                    clickedScheduleMonthValue.setAttribute("name", "month");
-                    clickedName.appendChild(clickedScheduleMonthValue);
-
-                    var clickedScheduleDateValue = document.createElement("input");
-                    clickedScheduleDateValue.type = "hidden";
-                    clickedScheduleDateValue.value = currentDate;
-                    clickedScheduleDateValue.setAttribute("name", "date");
-                    clickedName.appendChild(clickedScheduleDateValue);
+                    var clickedScheduleContent = clickedScheduleTime.nextSibling;
 
                     // 수정 버튼이 속한 scheduleRow의 배경색 변경
                     clickedRow.style.backgroundColor = "var(--clicked-color)";
