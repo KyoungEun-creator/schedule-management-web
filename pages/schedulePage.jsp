@@ -91,6 +91,10 @@
         var currentMonth = <%=monthValue%>;
         var currentDate = <%=dateValue%>;
 
+        console.log(currentYear);
+        console.log(currentMonth);
+        console.log(currentDate);
+
         var scheduleColumn = document.getElementById("scheduleColumn");
         var scheduleTimeSelect = document.getElementById("scheduleTimeSelect");
         var scheduleInputBox = document.getElementById("scheduleInputBox");
@@ -134,14 +138,12 @@
                 var scheduleTime = document.createElement("input");
                 scheduleTime.className = "scheduleTime";
                 scheduleTime.value = scheduleTimeList[i];
-                scheduleTime.setAttribute("name", "schedule_time_changed_value");
                 scheduleTime.setAttribute("readonly", true); 
                 scheduleName.appendChild(scheduleTime);
 
                 var scheduleContent = document.createElement("input");
                 scheduleContent.className = "scheduleContent";
                 scheduleContent.value = scheduleContentList[i];
-                scheduleContent.setAttribute("name", "schedule_content_changed_value");
                 scheduleContent.setAttribute("readonly", true); 
                 scheduleName.appendChild(scheduleContent);
 
@@ -150,95 +152,88 @@
                 scheduleRow.appendChild(scheduleExtraFunctions);
 
                 // 수정 버튼
-                var scheduleEditBtn = document.createElement("button");
+                var scheduleEditBtn = document.createElement("input");
                 scheduleEditBtn.className = "scheduleExtraBtn";
+                scheduleEditBtn.type = "button";
+                scheduleEditBtn.style.backgroundImage = "url('../imgs/editing.png')";
+                scheduleEditBtn.style.border = "none";
+                scheduleEditBtn.style.backgroundColor = "transparent";
+                scheduleEditBtn.style.backgroundSize = "cover"; 
                 scheduleExtraFunctions.appendChild(scheduleEditBtn);
 
-                var scheduleEditBtnImg = document.createElement("img");
-                scheduleEditBtnImg.className = "scheduleExtraBtnImg";
-                scheduleEditBtnImg.src = "../imgs/editing.png";
-                scheduleEditBtn.appendChild(scheduleEditBtnImg);
-
                 // 수정 완료 버튼
-                var scheduleEditFinBtn = document.createElement("button");
+                var scheduleEditFinBtn = document.createElement("input");
                 scheduleEditFinBtn.className = "scheduleExtraBtn";
+                scheduleEditFinBtn.type = "button";
+                scheduleEditFinBtn.style.backgroundImage = "url('../imgs/checked.png')";
+                scheduleEditFinBtn.style.border = "none";
+                scheduleEditFinBtn.style.backgroundColor = "transparent";
+                scheduleEditFinBtn.style.backgroundSize = "cover"; 
                 scheduleEditFinBtn.classList.add("hidden");
                 scheduleExtraFunctions.appendChild(scheduleEditFinBtn);
 
-                var scheduleEditFinBtnImg = document.createElement("img");
-                scheduleEditFinBtnImg.className = "scheduleExtraBtnImg";
-                scheduleEditFinBtnImg.src = "../imgs/checked.png";
-                scheduleEditFinBtn.appendChild(scheduleEditFinBtnImg);
-
                 // 삭제 버튼
-                var scheduleDeleteBtn = document.createElement("button");
+                var scheduleDeleteBtn = document.createElement("input");
                 scheduleDeleteBtn.className = "scheduleExtraBtn";
+                scheduleDeleteBtn.type = "button";
+                scheduleDeleteBtn.style.backgroundImage = "url('../imgs/delete.png')";
+                scheduleDeleteBtn.style.border = "none";
+                scheduleDeleteBtn.style.backgroundColor = "transparent";
+                scheduleDeleteBtn.style.backgroundSize = "cover"; 
                 scheduleExtraFunctions.appendChild(scheduleDeleteBtn);
-
-                var scheduleDeleteBtnImg = document.createElement("img");
-                scheduleDeleteBtnImg.className = "scheduleExtraBtnImg";
-                scheduleDeleteBtnImg.src = "../imgs/delete.png";
-                scheduleDeleteBtn.appendChild(scheduleDeleteBtnImg);
 
                 // 수정 버튼 클릭 이벤트
                 scheduleEditBtn.addEventListener("click", function() {
-                    var clickedScheduleRowForm = this.parentNode.parentNode.parentNode;
-                    var clickedScheduleRow = this.parentNode.parentNode;                       // 수정 버튼이 속한 scheduleRow
-                    var buttonsInScheduleRow = clickedScheduleRow.querySelectorAll("button");  // 해당 scheduleRow 안의 button 요소들
+                    console.log("수정버튼 클릭함");
+                    var clickedExtraFunctions = this.parentNode;
+                    //scheduleExtraFunctions.style.justifyContent = "center";
+                    var clickedEditBtn = clickedExtraFunctions.firstChild;
+                    var clickedEditFinBtn = clickedEditBtn.nextSibling;
+                    var clickedDeleteBtn = clickedExtraFunctions.lastChild;
+                    var clickedRow = this.parentNode.parentNode;
+                    var clickedRowForm = this.parentNode.parentNode.parentNode;
+                    var clickedName = clickedRow.firstChild;
+                    var clickedScheduleIdx = clickedName.firstChild;
+                    var clickedScheduleTime = clickedScheduleIdx.nextSibling;
+                    var clickedScheduleContent = clickedName.lastChild;
 
                     // 수정 버튼이 속한 scheduleRow의 배경색 변경
-                    clickedScheduleRow.style.backgroundColor = "var(--clicked-color)";
+                    clickedRow.style.backgroundColor = "var(--clicked-color)";
 
                     // 수정 버튼이 속한 scheduleRow가 속한 scheduleRowForm의 action 바뀜
-                    clickedScheduleRowForm.action = "../actions/updateScheduleAction.jsp";
+                    clickedRowForm.action = "../actions/updateScheduleAction.jsp";
 
-                    // 첫 번째 input 요소를 새로운 input 요소로 교체
-                    var firstInput = inputsInScheduleRow[0];
+                    // clickedScheduleTime를 새로운 input 요소로 교체
                     var newTimeInput = document.createElement("input");
                     newTimeInput.type = "time";
-                    newTimeInput.value = firstInput.value;
-                    newTimeInput.className = firstInput.className;
+                    newTimeInput.setAttribute("name", "schedule_time_changed_value");
+                    newTimeInput.value = clickedScheduleTime.value;
+                    newTimeInput.className = clickedScheduleTime.className;
                     newTimeInput.style.fontSize = "20px";
                     newTimeInput.readOnly = false;
+                    clickedName.replaceChild(newTimeInput, clickedScheduleTime);
 
-                    firstInput.parentNode.replaceChild(newTimeInput, firstInput);
+                    // clickedScheduleContent를 수정 가능하게 변경
+                    clickedScheduleContent.readOnly = false;
+                    clickedScheduleContent.setAttribute("name", "schedule_content_changed_value");
+                    clickedScheduleContent.style.border = "1px solid black"
+                    clickedScheduleContent.style.padding = "10px 10px 10px 10px";
 
-                    // 두 번째 input 요소를 수정 가능하게 변경
-                    var secondInput = inputsInScheduleRow[1];
-                    secondInput.readOnly = false;
-                    secondInput.style.border = "1px solid black"
-                    secondInput.style.padding = "10px 10px 10px 10px";
-
-                    // 수정 버튼이 속한 scheduleRow 안의 button 요소들 변화
-                    buttonsInScheduleRow.forEach(function(button) {
-                        // 기존 수정, 삭제 버튼 숨김 & 수정 완료 버튼 숨김 철회
-                        button.classList.toggle("hidden");
-                    });
+                    // clickedExtraFunctions 안의 input 요소들 변화
+                    clickedEditBtn.classList.add("hidden");
+                    clickedEditFinBtn.classList.remove("hidden");
+                    clickedDeleteBtn.classList.add("hidden");
                 });
 
                 // 수정 완료 버튼 클릭 이벤트
                 scheduleEditFinBtn.addEventListener("click", function() {
-                    var clickedScheduleRow = this.parentNode.parentNode;                       // 수정 완료 버튼이 속한 scheduleRow
-                    var inputsInScheduleRow = clickedScheduleRow.querySelectorAll("input");    // 해당 scheduleRow 안의 input 요소들
-                    var buttonsInScheduleRow = clickedScheduleRow.querySelectorAll("button");  // 해당 scheduleRow 안의 button 요소들
-
-                    // 수정 완료 버튼이 속한 scheduleRow의 배경색 변경
-                    clickedScheduleRow.style.backgroundColor = "var(--row-color)";
-
-                    // 수정 완료 버튼이 속한 scheduleRow 안의 input 요소들이 모두 수정 불가능하게 변경
-                    inputsInScheduleRow.forEach(function(input) {
-                        input.readOnly = false;
-                        input.style.border = "none";
-                    });
-
-                    // 수정 버튼이 속한 scheduleRow 안의 button 요소들 변화
-                    buttonsInScheduleRow.forEach(function(button) {
-                        // 기존 수정, 삭제 버튼 숨김 철회 & 수정 완료 버튼 숨김
-                        button.classList.toggle("hidden");
-                    }); 
+                    console.log("수정완료버튼 클릭함");
+                    var clickedRowForm = this.parentNode.parentNode.parentNode;
                     
                     // UPDATE form 전송하여 백엔드 통신
                     clickedScheduleRowForm.submit();
+
+                    createScheduleEvent();
                 });
 
                 // 삭제 버튼 클릭 이벤트
