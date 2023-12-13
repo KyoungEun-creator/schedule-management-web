@@ -1,6 +1,8 @@
 :root {
   --main-color: #3e84e1;
-  --hover-color: #82b1f0;
+  --clicked-color: #c2dcff;
+  --hover-color: #abcdfa;
+  --row-color: #dfeaf8;
 }
 body {
   background-color: #f0f2f5;
@@ -231,11 +233,11 @@ main {
   margin: 0;
 }
 #scheduleTimeSelect {
-  width: 138px;
+  width: 180px;
   height: 30px;
   margin: 10px 0 10px 20px;
   border: none;
-  font-size: 15px;
+  font-size: 20px;
 }
 #scheduleInputBox {
   border: none;
@@ -271,7 +273,7 @@ main {
   height: fit-content;
 }
 .scheduleRow {
-  background-color: #dfeaf8;
+  background-color: var(--row-color);
   width: 100%;
   height: 102px;
   display: flex;
@@ -285,12 +287,15 @@ main {
 }
 .scheduleName {
   width: fit-content;
+  display: flex;
+  align-items: center;
 }
 .scheduleTime {
-  width: 150px;
-  font-size: 25px;
-  padding-left: 20px;
+  width: 180px;
+  height: 30px;
+  margin: 10px 0 10px 20px;
   border: none;
+  font-size: 25px;
   background-color: transparent;
 }
 .scheduleTime:focus {
@@ -299,6 +304,7 @@ main {
 .scheduleContent {
   width: fit-content;
   font-size: 25px;
+  margin-left: 20px;
   border: none;
   background-color: transparent;
 }
