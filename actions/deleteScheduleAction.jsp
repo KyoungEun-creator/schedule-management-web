@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
 
 <%
-    // 클릭한 삭제 버튼이 속한 schedule의 idx
-    String idx = request.getParameter("idx");
-%>
+    String yearValue = request.getParameter("year");
+    String monthValue = request.getParameter("month");
+    String dateValue = request.getParameter("date");
 
-<%
-    session.invalidate(); // 세션 정보 삭제로 로그아웃 먼저 진행시켜
+    // 클릭한 삭제 버튼이 속한 schedule의 idx
+    String scheduleIdx = request.getParameter("scheduleIdx");
 %>
 
 <!-- jsp에서 라이브러리 import하는 방법 -->
@@ -25,11 +25,9 @@
 
     String deleteScheduleSql = "DELETE FROM schedule WHERE idx = ?";
     PreparedStatement deleteScheduleQuery = connect.prepareStatement(deleteScheduleSql);
-    deleteScheduleQuery.setString(1, idx);
+    deleteScheduleQuery.setString(1, scheduleIdx);
 
     deleteScheduleQuery.executeUpdate();
-
-    response.sendRedirect("../pages/schedulePage.jsp");
 %>
 
 <head>
@@ -40,6 +38,17 @@
 </head>
 <body>
     <script>
+    
+        var yearValue = "<%=yearValue%>";
+        var monthValue = "<%=monthValue%>";
+        var dateValue = "<%=dateValue%>";
 
+        console.log(yearValue);
+        console.log(monthValue);
+        console.log(dateValue);
+
+        window.onload = function() {
+            location.href = "../pages/schedulePage.jsp?year=" + <%= yearValue %> + "&month=" + <%= monthValue %> + "&date=" + <%= dateValue %>;
+        };
     </script>
 </body>

@@ -84,16 +84,16 @@
 
     ResultSet memberSelectResult = memberSelectQuery.executeQuery();
 
-    ArrayList<String> memberIdxList = new ArrayList<String>();
+    ArrayList<Integer> memberIdxList = new ArrayList<Integer>();
     ArrayList<String> memberIdList = new ArrayList<String>();
     ArrayList<String> memberNameList = new ArrayList<String>();
 
     while (memberSelectResult.next()) {
-        String memberIdx = memberSelectResult.getString(1);
+        Integer memberIdx = memberSelectResult.getInt(1);
         String memberId = memberSelectResult.getString(2);
         String memberName = memberSelectResult.getString(4);
 
-        memberIdxList.add("\"" + memberIdx + "\""); 
+        memberIdxList.add(memberIdx); 
         memberIdList.add("\"" + memberId + "\""); 
         memberNameList.add("\"" + memberName + "\"");
     }
@@ -136,9 +136,7 @@
             </div>
             <div id="monthContainer"></div>
         </div>
-        <div id="mainCalendar">
-
-        </div>
+        <div id="mainCalendar"></div>
     </main>
 
     <!-- 팀장 전용 팀원 선택 navigation bar -->
@@ -149,7 +147,6 @@
         <div class="positionTitle">팀원</div>
         <div id="teamMembersList"></div>
     </div>
-
 
     <script>
 
@@ -285,10 +282,12 @@
                     var scheduleNum = document.createElement("span");   
                     scheduleNum.className = "scheduleNum";
                     scheduleNum.innerHTML = scheduleCount;
+
+                    // 스케줄 개수 5개 초과 시 '5+'로 표기
                     if (scheduleCount > 5) {
                         scheduleNum.innerHTML = "5+";
                     }
-
+                    // 스케줄 개수 0개 시 표기 안 함
                     if (scheduleCount === 0) {
                         scheduleNum.innerHTML = "";
                     }

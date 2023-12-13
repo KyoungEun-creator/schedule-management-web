@@ -24,6 +24,7 @@
 
     ResultSet result = query.executeQuery();    
 
+    // 나중에 세션 안에 유무를 확인하여 처리하기 위함
     String idx = null;
     Boolean isLoginSuccess = false;
 

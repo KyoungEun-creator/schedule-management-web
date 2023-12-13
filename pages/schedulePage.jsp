@@ -38,16 +38,16 @@
 
     ResultSet scheduleContentSelectResult = scheduleContentSelectQuery.executeQuery();
 
-    ArrayList<String> scheduleIdxList = new ArrayList<String>();
+    ArrayList<Integer> scheduleIdxList = new ArrayList<Integer>();
     ArrayList<String> scheduleTimeList = new ArrayList<String>();
     ArrayList<String> scheduleContentList = new ArrayList<String>();
 
     while (scheduleContentSelectResult.next()) {
-        String scheduleIdx = scheduleContentSelectResult.getString(1);
+        Integer scheduleIdx = scheduleContentSelectResult.getInt(1);
         String scheduleTime = scheduleContentSelectResult.getString(6);
         String scheduleContent = scheduleContentSelectResult.getString(7);
 
-        scheduleIdxList.add("\"" + scheduleIdx + "\"");
+        scheduleIdxList.add(scheduleIdx);
         scheduleTimeList.add("\"" + scheduleTime + "\"");
         scheduleContentList.add("\"" + scheduleContent + "\"");
     }
@@ -124,6 +124,12 @@
                 var scheduleName = document.createElement("div");
                 scheduleName.className = "scheduleName";
                 scheduleRow.appendChild(scheduleName);
+
+                var scheduleIdx = document.createElement("input");
+                scheduleIdx.type = "hidden";
+                scheduleIdx.value = scheduleIdxList[i];
+                scheduleIdx.setAttribute("name", "scheduleIdx");
+                scheduleName.appendChild(scheduleIdx);
 
                 var scheduleTime = document.createElement("input");
                 scheduleTime.className = "scheduleTime";

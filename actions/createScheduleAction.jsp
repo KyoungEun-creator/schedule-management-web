@@ -25,8 +25,6 @@
     String scheduleTimeValue = request.getParameter("schedule_time_value");
     String scheduleContentValue = request.getParameter("schedule_content_value");
 
-    System.out.println("Year Value: " + yearValue);
-
     String dbURL = "jdbc:mysql://localhost/schedule_program";
     String dbID = "JKE";
     String dbPW = "1234";
