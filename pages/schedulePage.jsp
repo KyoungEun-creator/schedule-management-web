@@ -210,7 +210,6 @@
                 scheduleEditBtn.addEventListener("click", function() {
                     console.log("수정버튼 클릭함");
                     var clickedExtraFunctions = this.parentNode;
-                    //scheduleExtraFunctions.style.justifyContent = "center";
                     var clickedEditBtn = clickedExtraFunctions.firstChild;
                     var clickedEditFinBtn = clickedEditBtn.nextSibling;
                     var clickedDeleteBtn = clickedExtraFunctions.lastChild;
@@ -255,8 +254,6 @@
                     var clickedRowForm = this.parentNode.parentNode.parentNode;
                     var clickedScheduleContent = clickedRow.firstChild.firstChild.nextSibling.nextSibling;
 
-                    //console.log(clickedScheduleContent.value);
-                    
                     if (clickedScheduleContent.value === "") {
                         alert("일정을 입력해주세요.")
                     }
@@ -270,7 +267,6 @@
                 scheduleDeleteBtn.addEventListener("click", function() {
                     var clickedRowForm = this.parentNode.parentNode.parentNode;
                     // DELETE form 전송하여 백엔드 통신
-                    // clickedRowForm.style.border = "1px solid red";
                     clickedRowForm.submit();
                 });
 

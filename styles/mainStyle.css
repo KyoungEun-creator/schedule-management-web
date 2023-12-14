@@ -178,7 +178,6 @@ main {
   font-size: 20px;
   background-color: transparent;
   border: none;
-  padding: 0;
   width: 170px;
   display: flex;
   justify-content: flex-start;
@@ -187,6 +186,10 @@ main {
 }
 .memberName:hover {
   background-color: var(--hover-color);
+  padding-left: 10px;
+}
+.memberName:focus {
+  outline: none;
 }
 #teamMembersList {
   display: flex;

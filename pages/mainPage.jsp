@@ -76,7 +76,15 @@
         scheduleDateList.add("\"" + scheduleDate + "\"");
     }
 
-    // 팀장이 속한 부서와 같은 부서의 직책이 "2"(팀원)인 사람들의 account 행을 가져오고자 함
+
+    // 만약 로그인한 사람이 팀장일 때에만
+    // 팀장이 속한 부서와 같은 부서의 직책이 "2"(팀원)인 사람들의 account 행을 가져오고자 함 -> nav에 채워넣기 위함
+    // 팀장이 속한 부서와 같은 부서의 직책이 "2"(팀원)인 사람들의 schedule 테이블에서 date만 가져오고자 함
+    // 또 다시 달력 안의 날짜(dateNum.innerHTML)가 schedule의 date와 같다면 스케줄 개수를 넣는 span을 createElement 하고(scheduleNum) dateBox에 appendChild 해주고자 함
+
+
+    //if (role == "팀장") {}
+
     String memberSelectSql = "SELECT * FROM account WHERE department = ? AND role = ?";
     PreparedStatement memberSelectQuery = connect.prepareStatement(memberSelectSql);
     memberSelectQuery.setString(1, department);
@@ -143,7 +151,7 @@
     <div id="navBar" class="hidden">
         <div id="teamName"></div>
         <div class="positionTitle">팀장</div>
-        <button id="teamLeader" class="memberName"></button>
+        <input id="teamLeader" class="memberName">
         <div class="positionTitle">팀원</div>
         <div id="teamMembersList"></div>
     </div>
@@ -209,7 +217,7 @@
             }
         }
 
-        // // 클릭한 월버튼 표시 (페이지 시작될 때 현재 달 표시되어 있음)
+        // 클릭한 월버튼 표시 (페이지 시작될 때 현재 달 표시되어 있음)
         // if (currentMonth === new Date().getMonth()+1) {
         //     months[i].classList.add("selectedMonth");
         // }
@@ -314,13 +322,15 @@
 
 
         // --------------- 팀장이 팀원 mainPage 선택 시 ---------------
+        // 팀장이 로그인 - (nav 존재) - 팀장 본인 페이지 보기 - 팀원 페이지 보기
+        // 팀원이 로그인 - 팀원 본인 페이지 보기
 
         var accountIdx = <%=idx%>;
         var accountId = "<%=id%>";
         var accountName = "<%=name%>";
         var accountDepartmentIdx = "<%=department%>";
         var accountDepartment = "<%=departmentName%>"; 
-        var accountRole = "<%=role%>"; 
+        var accountRole = "<%=role%>"; // 팀장 or 팀원
 
         var scheduleDateList = <%=scheduleDateList%>;
 
@@ -357,24 +367,30 @@
 
         // nav bar 내부 데이터 반영
         document.getElementById("teamName").innerHTML = accountDepartment;
-        document.getElementById("teamLeader").innerHTML = accountName;
-
+        var teamLeaderBtn = document.getElementById("teamLeader")
+        teamLeaderBtn.value = accountName;
+        teamLeaderBtn.readOnly = true;
+        teamLeaderBtn.addEventListener("click", function() {
+            location.href = "../pages/mainPage.jsp?idx=" + accountIdx + "&year=" + currentYear + "&month=" + currentMonth;
+        })
 
         // #teamMembersList 안에 팀원명(클릭 시 팀원 스케줄 페이지) createElement 해주기
         for (var i=0; i<memberIdxList.length; i++) {
             var teamMembersList = document.getElementById("teamMembersList");
-            var teamMemberBtn = document.createElement("button");
-            
+            var teamMemberBtn = document.createElement("input");
+            teamMemberBtn.readOnly = true;
             teamMemberBtn.className = "memberName";
-            teamMemberBtn.innerHTML = memberNameList[i];
+            teamMemberBtn.value = memberNameList[i];
+            teamMemberBtn.setAttribute("name", memberIdxList[i]);
             teamMembersList.appendChild(teamMemberBtn);
-            
-            console.log(memberIdxList[i]);
 
-            teamMemberBtn.addEventListener("click", function() {
-                location.href = "../pages/mainPage.jsp?idx=" + memberIdxList[i] + "&year=" + currentYear + "&month=" + currentMonth;
-            })
             
+            // 클릭한 teamMemberBtn 버튼에 대한 url 이동 (백엔드 통신이 필요한가....?)
+            teamMemberBtn.addEventListener("click", function() {
+                var clickedteamMemberIdx = this.name;
+                console.log("클릭한 멤버 idx: " + clickedteamMemberIdx)
+                location.href = "../pages/mainPage.jsp?idx=" + clickedteamMemberIdx + "&year=" + currentYear + "&month=" + currentMonth;
+            });
         }
     </script>
 </body>
