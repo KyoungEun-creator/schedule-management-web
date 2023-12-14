@@ -77,7 +77,7 @@
             <input type="hidden" name="date" value="<%=dateValue%>">
             <input id="scheduleTimeSelect" name="schedule_time_value" type="time" value="09:00">
             <input id="scheduleInputBox" name="schedule_content_value" type="text" placeholder="할 일을 입력하세요.">
-            <button id="addScheduleBtn" type="button" onclick="addScheduleEvent()">+</button>
+            <input id="addScheduleBtn" value="+" type="button" onclick="addScheduleEvent()">
         </form>
 
         <main id="scheduleListContainer">
@@ -110,13 +110,19 @@
 
         // 스케줄 추가하는 백엔드 통신 이벤트
         function addScheduleEvent() {
-            document.getElementById("newScheduleContainer").submit();
+
+            // 일정 입력값 없을 때
+            if (scheduleInputBox.value === "") {
+                alert("일정을 입력해주세요.");
+            }
+            else {
+                document.getElementById("newScheduleContainer").submit();
+            }    
         }
-        
+
         // 스케줄 추가를 명시적으로 보여주는 이벤트
         function createScheduleEvent() {
             for (var i = 0; i < scheduleIdxList.length; i++) {
-
                 var scheduleRowForm = document.createElement("form");
                 scheduleRowForm.setAttribute("action", "../actions/deleteScheduleAction.jsp");
                 scheduleColumn.appendChild(scheduleRowForm);
@@ -211,8 +217,7 @@
                     var clickedRow = this.parentNode.parentNode;
                     var clickedRowForm = this.parentNode.parentNode.parentNode;
                     var clickedName = clickedRow.firstChild;
-                    var clickedScheduleIdx = clickedName.firstChild;
-                    var clickedScheduleTime = clickedScheduleIdx.nextSibling;
+                    var clickedScheduleTime = clickedName.firstChild.nextSibling;
                     var clickedScheduleContent = clickedScheduleTime.nextSibling;
 
                     // 수정 버튼이 속한 scheduleRow의 배경색 변경
@@ -246,19 +251,20 @@
                 // 수정 완료 버튼 클릭 이벤트
                 scheduleEditFinBtn.addEventListener("click", function() {
                     console.log("수정완료버튼 클릭함");
+                    var clickedRow = this.parentNode.parentNode;
                     var clickedRowForm = this.parentNode.parentNode.parentNode;
+                    var clickedScheduleContent = clickedRow.firstChild.firstChild.nextSibling.nextSibling;
+
+                    //console.log(clickedScheduleContent.value);
                     
-                    // UPDATE form 전송하여 백엔드 통신
-                    clickedRowForm.submit();
-
-                    updateScheduleList();
+                    if (clickedScheduleContent.value === "") {
+                        alert("일정을 입력해주세요.")
+                    }
+                    else {
+                        // UPDATE form 전송하여 백엔드 통신
+                        clickedRowForm.submit();
+                    }
                 });
-
-                // 
-                function updateScheduleList() {
-                    // 새로운 일정 목록을 가져오는 AJAX 요청
-                    // 가져온 데이터를 사용하여 화면을 업데이트하는 로직을 추가
-                }
 
                 // 삭제 버튼 클릭 이벤트
                 scheduleDeleteBtn.addEventListener("click", function() {

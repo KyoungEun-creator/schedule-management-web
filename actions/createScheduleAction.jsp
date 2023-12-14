@@ -30,18 +30,21 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    // 사용자가 새로 입력한 스케줄을 schedule 테이블에 CREATE(INSERT) 해주고자 함
-    String newScheduleInsertSql = "INSERT INTO schedule (user, year, month, date, time, content) VALUES (?, ?, ?, ?, ?, ?)";
-    PreparedStatement newScheduleInsertQuery = connect.prepareStatement(newScheduleInsertSql);
+    // scheduleContentValue가 null이 아닐 때만 INSERT 해주고자 함
+    if (scheduleContentValue != null) {
+        // 사용자가 새로 입력한 스케줄을 schedule 테이블에 CREATE(INSERT) 해주고자 함
+        String newScheduleInsertSql = "INSERT INTO schedule (user, year, month, date, time, content) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement newScheduleInsertQuery = connect.prepareStatement(newScheduleInsertSql);
 
-    newScheduleInsertQuery.setString(1, idx);
-    newScheduleInsertQuery.setString(2, yearValue);
-    newScheduleInsertQuery.setString(3, monthValue);
-    newScheduleInsertQuery.setString(4, dateValue);
-    newScheduleInsertQuery.setString(5, scheduleTimeValue);
-    newScheduleInsertQuery.setString(6, scheduleContentValue);
+        newScheduleInsertQuery.setString(1, idx);
+        newScheduleInsertQuery.setString(2, yearValue);
+        newScheduleInsertQuery.setString(3, monthValue);
+        newScheduleInsertQuery.setString(4, dateValue);
+        newScheduleInsertQuery.setString(5, scheduleTimeValue);
+        newScheduleInsertQuery.setString(6, scheduleContentValue);
 
-    newScheduleInsertQuery.executeUpdate();
+        newScheduleInsertQuery.executeUpdate();
+    }
 %>
 
 <head>
@@ -52,6 +55,8 @@
 </head>
 <body>
     <script>
+        // var scheduleContentValue = "<%=scheduleContentValue%>";
+        // console.log(scheduleContentValue);
         window.onload = function() {
             location.href = "../pages/schedulePage.jsp?year=" + <%= yearValue %> + "&month=" + <%= monthValue %> + "&date=" + <%= dateValue %>;
         };

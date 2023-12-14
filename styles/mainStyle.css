@@ -257,6 +257,7 @@ main {
   font-weight: bold;
   color: white;
   background-color: #b7b7b7;
+  border: none;
 }
 #scheduleListContainer {
   width: 100%;

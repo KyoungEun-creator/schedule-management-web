@@ -26,16 +26,19 @@
     String dbPW = "1234";
     Connection connect = DriverManager.getConnection(dbURL, dbID, dbPW);
 
-    String updateScheduleSql = "UPDATE schedule SET time = ?, content = ? WHERE idx = ?";
+    // scheduleContentChangedValue가 null이 아닐 때만 UPDATE 해주고자 함
+    if (scheduleContentChangedValue != null) {
+        String updateScheduleSql = "UPDATE schedule SET time = ?, content = ? WHERE idx = ?";
 
-    PreparedStatement updateScheduleQuery = connect.prepareStatement(updateScheduleSql);
-    updateScheduleQuery.setString(1, scheduleTimeChangedValue);
-    updateScheduleQuery.setString(2, scheduleContentChangedValue);
-    updateScheduleQuery.setString(3, scheduleIdx);
+        PreparedStatement updateScheduleQuery = connect.prepareStatement(updateScheduleSql);
+        updateScheduleQuery.setString(1, scheduleTimeChangedValue);
+        updateScheduleQuery.setString(2, scheduleContentChangedValue);
+        updateScheduleQuery.setString(3, scheduleIdx);
 
-    updateScheduleQuery.executeUpdate();
+        updateScheduleQuery.executeUpdate();
 
-    response.sendRedirect("../pages/schedulePage.jsp?year=" + yearValue + "&month=" + monthValue + "&date=" + dateValue);
+        response.sendRedirect("../pages/schedulePage.jsp?year=" + yearValue + "&month=" + monthValue + "&date=" + dateValue);
+    }
 %>
 
 
